@@ -1,0 +1,7 @@
+manager_ops.py.backup_latest
+manager_ops.py.stable_*
+test_payload.json
+variant_payload_*.json
+find_*.py
+__pycache__/
+*.pyc
