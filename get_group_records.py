@@ -2,7 +2,7 @@
 import json
 import subprocess
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 LARK_CLI = "/Users/michaelchui/.npm-global/bin/lark-cli"
 BASE_TOKEN = "YPYkb6elYafQZUs0NaqchZD0nif"
@@ -20,13 +20,11 @@ def run_command(args: List[str]) -> str:
 def extract_json(text: str) -> Dict[str, Any]:
     text = text.strip()
 
-    # 先直接尝试
     try:
         return json.loads(text)
     except Exception:
         pass
 
-    # 如果输出里混了别的文字，尝试截取第一段 JSON
     start = text.find("{")
     end = text.rfind("}")
     if start != -1 and end != -1 and end > start:
@@ -57,7 +55,6 @@ def normalize_value(value: Any) -> Any:
         return normalized
 
     if isinstance(value, dict):
-        # 常见简单对象，直接取值
         if set(value.keys()) == {"text"}:
             return value["text"]
         if set(value.keys()) == {"name"}:
@@ -65,13 +62,12 @@ def normalize_value(value: Any) -> Any:
         if set(value.keys()) == {"value"}:
             return value["value"]
 
-        # 否则递归保留结构
         return {k: normalize_value(v) for k, v in value.items()}
 
     return value
 
 
-def get_record_list(limit: int = 500) -> Dict[str, Any]:
+def get_record_list(limit: int = 200, offset: int = 0) -> Dict[str, Any]:
     args = [
         LARK_CLI,
         "base",
@@ -80,6 +76,7 @@ def get_record_list(limit: int = 500) -> Dict[str, Any]:
         "--base-token", BASE_TOKEN,
         "--table-id", TABLE_ID,
         "--limit", str(limit),
+        "--offset", str(offset),
     ]
     return run_json_command(args)
 
@@ -100,7 +97,6 @@ def get_record(record_id: str) -> Dict[str, Any]:
 def extract_rows(payload: Dict[str, Any]) -> List[Any]:
     data = payload.get("data", payload)
 
-    # 适配常见结构
     if isinstance(data.get("data"), list):
         return data["data"]
     if isinstance(data.get("items"), list):
@@ -127,41 +123,76 @@ def extract_record_ids(payload: Dict[str, Any]) -> List[str]:
 def extract_fields(record_payload: Dict[str, Any]) -> Dict[str, Any]:
     data = record_payload.get("data", {})
 
-    # 结构 A: {"data": {"record": {...字段直接在这里...}}}
     record = data.get("record")
     if isinstance(record, dict):
-        # 如果 record 下面还有 fields，就取 fields
         if isinstance(record.get("fields"), dict):
             return record["fields"]
-        # 否则 record 本身就是字段对象
         return record
 
-    # 结构 B: {"data": {"fields": {...}}}
     if isinstance(data, dict) and isinstance(data.get("fields"), dict):
         return data["fields"]
 
-    # 结构 C: {"fields": {...}}
     if isinstance(record_payload.get("fields"), dict):
         return record_payload["fields"]
 
     raise KeyError(f"record-get 返回结构异常，无法提取 fields。原始 keys: {list(record_payload.keys())}")
 
 
+def fetch_all_rows(page_limit: int = 200, max_pages: int = 100) -> Tuple[List[Any], List[str]]:
+    all_rows: List[Any] = []
+    all_record_ids: List[str] = []
+
+    offset = 0
+    page_no = 1
+    seen_page_signatures = set()
+
+    while True:
+        if page_no > max_pages:
+            raise RuntimeError(f"分页超过安全上限 max_pages={max_pages}，疑似死循环，请检查")
+
+        payload = get_record_list(limit=page_limit, offset=offset)
+        rows = extract_rows(payload)
+        record_ids = extract_record_ids(payload)
+
+        if len(rows) != len(record_ids):
+            raise ValueError(f"第 {page_no} 页 rows 数量与 record_id_list 数量不一致")
+
+        page_size = len(rows)
+
+        if page_size > 0:
+            signature = (record_ids[0], record_ids[-1], page_size)
+            if signature in seen_page_signatures:
+                raise RuntimeError(f"检测到重复页，疑似 offset 分页异常：page_no={page_no}, signature={signature}")
+            seen_page_signatures.add(signature)
+
+        if page_size == 0:
+            break
+
+        all_rows.extend(rows)
+        all_record_ids.extend(record_ids)
+
+        offset += page_size
+        page_no += 1
+
+    return all_rows, all_record_ids
+
+
 def get_group_records(group_id: str) -> Dict[str, Any]:
-    record_list_payload = get_record_list(limit=500)
-    rows = extract_rows(record_list_payload)
-    record_ids = extract_record_ids(record_list_payload)
+    rows, record_ids = fetch_all_rows(page_limit=200, max_pages=100)
 
     if len(rows) != len(record_ids):
-        raise ValueError("record-list rows 数量与 record_id_list 数量不一致")
+        raise ValueError("全量 rows 数量与 record_id_list 数量不一致")
 
     candidate_record_ids: List[str] = []
 
-    # 第一步：粗筛候选
+    # 第一步：全量分页后做粗筛
     for idx, row in enumerate(rows):
         row_text = json.dumps(row, ensure_ascii=False)
         if group_id in row_text:
             candidate_record_ids.append(record_ids[idx])
+
+    # 去重但保留顺序
+    candidate_record_ids = list(dict.fromkeys(candidate_record_ids))
 
     # 第二步：逐条 record-get，做精确判断
     seed_record_ids: List[str] = []
