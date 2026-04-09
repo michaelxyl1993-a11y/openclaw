@@ -1,0 +1,14 @@
+{
+  "variants": [
+    {"index": "01", "angle": "切角01"},
+    {"index": "02", "angle": "切角02"},
+    {"index": "03", "angle": "切角03"},
+    {"index": "04", "angle": "切角04"},
+    {"index": "05", "angle": "切角05"},
+    {"index": "06", "angle": "切角06"},
+    {"index": "07", "angle": "切角07"},
+    {"index": "08", "angle": "切角08"},
+    {"index": "09", "angle": "切角09"},
+    {"index": "10", "angle": "切角10"}
+  ]
+}
