@@ -1,0 +1,3 @@
+{
+  "error": "RuntimeError('HTTP 400 https://open.feishu.cn/open-apis/im/v1/messages/om_x100b51ced65a24a4b3e1421f45f7094/reply: {\"code\":230002,\"msg\":\"Bot/User can NOT be out of the chat.\",\"error\":{\"log_id\":\"20260428032826D466A57166B542F84549\",\"troubleshooter\":\"排查建议查看(Troubleshooting suggestions): https://open.feishu.cn/search?from=openapi&log_id=20260428032826D466A57166B542F84549&code=230002&method_id=6936075528891236380\"}}')"
+}

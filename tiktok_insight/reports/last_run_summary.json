@@ -1,0 +1,72 @@
+{
+  "status": "success",
+  "input": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/input_test.json",
+  "material_type": "video",
+  "skip_fetch": false,
+  "no_report": false,
+  "outputs": {
+    "key": "d13b5672e5cf116f1abe0743e485ec2f",
+    "data_packet_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_data_packet.json",
+    "analysis_prompt_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_analysis_prompt.md",
+    "report_qwen_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_report_qwen.md",
+    "video_contact_sheet_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_contact_sheet.jpg",
+    "slideshow_contact_sheet_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_slideshow_contact_sheet.jpg"
+  },
+  "steps": [
+    {
+      "name": "抓取评论",
+      "script": "test_comments.py",
+      "status": "success"
+    },
+    {
+      "name": "抓取 metadata",
+      "script": "test_metadata.py",
+      "status": "success"
+    },
+    {
+      "name": "生成 data packet",
+      "script": "build_data_packet.py",
+      "status": "success"
+    },
+    {
+      "name": "下载字幕",
+      "script": "download_subtitles.py",
+      "status": "success"
+    },
+    {
+      "name": "合并字幕到 data packet",
+      "script": "attach_subtitles_to_packet.py",
+      "status": "success"
+    },
+    {
+      "name": "抓取视频下载信息",
+      "script": "test_downloader.py",
+      "status": "success"
+    },
+    {
+      "name": "下载视频文件",
+      "script": "download_media.py",
+      "status": "success"
+    },
+    {
+      "name": "抽取视频关键帧",
+      "script": "extract_frames.py",
+      "status": "success"
+    },
+    {
+      "name": "生成视频 contact sheet",
+      "script": "make_visual_packet.py",
+      "status": "success"
+    },
+    {
+      "name": "生成视频分析 prompt",
+      "script": "make_analysis_prompt.py",
+      "status": "success"
+    },
+    {
+      "name": "生成 QWEN 报告",
+      "script": "generate_report_qwen.py",
+      "status": "success"
+    }
+  ]
+}

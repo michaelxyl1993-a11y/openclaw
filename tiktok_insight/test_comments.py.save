@@ -1,0 +1,63 @@
+import os
+import json
+import hashlib
+from pathlib import Path
+from apify_client import ApifyClient
+
+BASE_DIR = Path(__file__).parent
+RAW_DIR = BASE_DIR / "raw"
+RAW_DIR.mkdir(exist_ok=True)
+
+APIFY_TOKEN = os.environ.get("APIFY_TOKEN")
+
+if not APIFY_TOKEN:
+    raise RuntimeError("Missing APIFY_TOKEN. Please run: export APIFY_TOKEN='your_token'")
+
+def cache_key(text: str) -> str:
+    return hashlib.md5(text.encode("utf-8")).hexdigest()
+
+def main():
+    input_path = BASE_DIR / "input_test.json"
+    payload = json.loads(input_path.read_text(encoding="utf-8"))
+
+    material_url = payload["material_url"]
+    comment_limit = int(payload.get("comment_limit", 100))
+
+    client = ApifyClient(APIFY_TOKEN)
+
+    # 第一版先用 Clockworks 的 TikTok Comments Scraper
+    # 这个 Actor 的 input schema 支持 postURLs 和 commentsPerPost
+    actor_id = "clockworks/tiktok-comments-scraper"
+
+    run_input = {
+        "postURLs": [material_url],
+        "commentsPerPost": comment_limit
+    }
+
+    print("Running Apify actor:", actor_id)
+    print("Target URL:", material_url)
+    print("Comment limit:", comment_limit)
+
+    run = client.actor(actor_id).call(run_input=run_input)
+
+    dataset_id = run["defaultDatasetId"]
+    items = client.dataset(dataset_id).list_items().items
+
+    key = cache_key(material_url)
+    output_path = RAW_DIR / f"{key}_comments.json"
+
+    output_path.write_text(
+        json.dumps(items, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
+    result = {
+        "status": "success",
+        "actor_id": actor_id,
+        "dataset_id": dataset_id,
+        "comments_count": len(items),
+        "output_path": str(output_path),
+        "sample": items[:2]
+    }
+
+ 

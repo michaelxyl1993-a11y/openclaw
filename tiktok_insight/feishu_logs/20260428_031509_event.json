@@ -1,0 +1,45 @@
+{
+  "schema": "2.0",
+  "header": {
+    "event_id": "6c9e74e010edb0fd22b96a0c338ef494",
+    "token": "r19sV8N0cAxLNlp3a3gP5doxrnZvR0WT",
+    "create_time": "1777317308871",
+    "event_type": "im.message.receive_v1",
+    "tenant_key": "1b1f90caaa5c174f",
+    "app_id": "cli_a96531c169789bb4"
+  },
+  "event": {
+    "message": {
+      "chat_id": "oc_21849b3b7f1ba1da4bf7f977dd035b72",
+      "chat_type": "group",
+      "content": "{\"text\":\"@_user_1 \\n\\n市场：DE\\n\\n商品：Women's Solid Color Wireless Backless Bra, Comfortable Breathable Multiway Bras for Daily Wear, Soft Lingerie for All Seasons\\n\\n商品核心卖点：无线设计，减少钢圈束缚感；露背款式，适合搭配露背、低背或特殊剪裁上衣；纯色基础款，适合日常穿搭；多穿法设计，适配不同服装场景；柔软舒适，适合日常穿着；轻薄透气，适合四季内搭；兼具功能性内衣和穿搭隐形需求。\\n\\n体裁：视频\\n\\n视频链接：[TikTok](https://www.tiktok.com/@fediukstore/video/7630142079217175840)\\n\\n分析目标：分析这条德国 TikTok 视频素材为什么能起量，重点拆解前3秒钩子、视频结构、商品露出、评论区反馈、用户购买/质疑点，并给出图文团队和视频团队可复刻的方向。\\n\\n补充信息：飞书Bot正式联调测试。\"}",
+      "create_time": "1777317308586",
+      "mentions": [
+        {
+          "id": {
+            "open_id": "ou_4a986d505bc28a69e191ce9147570ef6",
+            "union_id": "on_c45a947b7c2854c7d83e8333dd54725f",
+            "user_id": null
+          },
+          "key": "@_user_1",
+          "mentioned_type": "bot",
+          "name": "Content Analyzer",
+          "tenant_key": "1b1f90caaa5c174f"
+        }
+      ],
+      "message_id": "om_x100b51cf150bb0a4b25d1f853296251",
+      "message_type": "text",
+      "update_time": "1777317308586",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 26_4_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.268 Safari/537.36 Lark/7.66.5 LarkLocale/zh_CN ttnet SDK-Version/7.66.8"
+    },
+    "sender": {
+      "sender_id": {
+        "open_id": "ou_0e6da4b2a9a9de9e02188f31a74e94c9",
+        "union_id": "on_ab18e48cc83bc1c777b17602ac9be353",
+        "user_id": null
+      },
+      "sender_type": "user",
+      "tenant_key": "1b1f90caaa5c174f"
+    }
+  }
+}

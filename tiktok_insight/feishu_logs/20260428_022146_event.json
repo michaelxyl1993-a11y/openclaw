@@ -1,0 +1,32 @@
+{
+  "schema": "2.0",
+  "header": {
+    "event_id": "d3d84f5fab7af09ead3d915325c3c82a",
+    "token": "r19sV8N0cAxLNlp3a3gP5doxrnZvR0WT",
+    "create_time": "1777314089236",
+    "event_type": "im.message.receive_v1",
+    "tenant_key": "1b1f90caaa5c174f",
+    "app_id": "cli_a96531c169789bb4"
+  },
+  "event": {
+    "message": {
+      "chat_id": "oc_1e0c9dff6631facd5febe475e936d450",
+      "chat_type": "p2p",
+      "content": "{\"text\":\"hello\"}",
+      "create_time": "1777314088946",
+      "message_id": "om_x100b51cedc40c8a4b270caccf3ecc3d",
+      "message_type": "text",
+      "update_time": "1777314088946",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 26_4_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.268 Safari/537.36 Lark/7.66.5 LarkLocale/zh_CN ttnet SDK-Version/7.66.8"
+    },
+    "sender": {
+      "sender_id": {
+        "open_id": "ou_0e6da4b2a9a9de9e02188f31a74e94c9",
+        "union_id": "on_ab18e48cc83bc1c777b17602ac9be353",
+        "user_id": null
+      },
+      "sender_type": "user",
+      "tenant_key": "1b1f90caaa5c174f"
+    }
+  }
+}

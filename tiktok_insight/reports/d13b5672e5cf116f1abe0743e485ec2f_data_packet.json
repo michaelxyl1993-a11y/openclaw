@@ -1,0 +1,398 @@
+{
+  "input": {
+    "market": "DE",
+    "product": "Women's Solid Color Wireless Backless Bra, Comfortable Breathable Multiway Bras for Daily Wear, Soft Lingerie for All Seasons",
+    "product_core_selling_points": "无线设计，减少钢圈束缚感；露背款式，适合搭配露背、低背或特殊剪裁上衣；纯色基础款，适合日常穿搭；多穿法设计，适配不同服装场景；柔软舒适，适合日常穿着；轻薄透气，适合四季内搭；兼具功能性内衣和穿搭隐形需求。",
+    "format": "video",
+    "material_url": "https://www.tiktok.com/@fediukstore/video/7630142079217175840",
+    "analysis_goal": "分析这条德国 TikTok 视频素材为什么能起量，重点拆解前3秒钩子、视频结构、商品露出、评论区反馈、用户购买/质疑点，并给出图文团队和视频团队可复刻的方向。",
+    "comment_limit": 100,
+    "mode": "standard_v3",
+    "known_performance": {
+      "source": "team_or_competitor",
+      "notes": "飞书Bot正式联调测试。"
+    }
+  },
+  "data_availability": {
+    "comments_available": true,
+    "comments_count_scraped": 9,
+    "metadata_available": true,
+    "media_file_available": false,
+    "transcript_available": true,
+    "slideshow_images_available": false
+  },
+  "metadata": {
+    "post_id": "7630142079217175840",
+    "submitted_url": "https://www.tiktok.com/@fediukstore/video/7630142079217175840",
+    "canonical_url": "https://www.tiktok.com/@jenny.mary/video/7630142079217175840",
+    "caption": "Hab ich ein Bh an oder nicht ? 🤔\n\n#tiktokmademebuyit #tiktokfinds #dealsfürdich #fashioninspo #fashiontrick ",
+    "text_language": "de",
+    "created_at": "2026-04-18T16:48:17.000Z",
+    "is_slideshow": false,
+    "is_ad": false,
+    "is_pinned": false,
+    "is_sponsored": true,
+    "author": {
+      "id": "25996563",
+      "name": "jenny.mary",
+      "nickname": "Jenny G.",
+      "profile_url": "https://www.tiktok.com/@jenny.mary",
+      "verified": false,
+      "followers": 56800,
+      "following": 241,
+      "heart_count": 1700000,
+      "video_count": 4085
+    },
+    "stats": {
+      "play_count": 218700,
+      "like_count": 851,
+      "comment_count": 12,
+      "share_count": 52,
+      "collect_count": 427,
+      "repost_count": 0
+    },
+    "hashtags": [
+      {
+        "name": "tiktokmademebuyit",
+        "title": "Discover Deal Drops campaign! 🛍️",
+        "cover": ""
+      },
+      {
+        "name": "tiktokfinds",
+        "title": "",
+        "cover": ""
+      },
+      {
+        "name": "dealsfürdich",
+        "title": "Hier sind sie - die Deals für dich. Nicht verpassen &amp; jetzt shoppen!",
+        "cover": "https://p16-common-sign.tiktokcdn-us.com/musically-maliva-obj/45a144bd451a3a588f2bbbab1146516e.jpeg~tplv-tiktokx-origin.image?dr=9627&x-expires=1777341600&x-signature=RB2aeB9awiYniNGhGtmXqLq9FWk%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast5"
+      },
+      {
+        "name": "fashioninspo",
+        "title": "Calling all fashionistas! 🔊We want to see you serve up some of your best, most trendy looks using #FashionInspo 👠❤️",
+        "cover": "https://p16-common-sign.tiktokcdn-us.com/musically-maliva-obj/8c19783879af56c4f83046bce3fda0e4~tplv-tiktokx-origin.image?dr=9627&x-expires=1777341600&x-signature=Ju3UC%2BljF6K7BJdlIRSfKm9C7gU%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast5"
+      },
+      {
+        "name": "fashiontrick",
+        "title": "",
+        "cover": ""
+      }
+    ],
+    "music": {
+      "id": "7630142102168406816",
+      "name": "Originalton",
+      "author": "Jenny G.",
+      "original": true,
+      "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-avt-0068c001-no/83e85860b93e557e1b94391830b739e5~tplv-tiktokx-cropcenter:720:720.jpeg?dr=9640&refresh_token=f5a75707&x-expires=1777492800&x-signature=9yQ0kBwVOoBSbYE93Fd%2FhWke70c%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast5",
+      "play_url": "https://v16m.tiktokcdn-us.com/fb4336c4e822694bff780e204613e78a/69f01665/video/tos/useast2a/tos-useast2a-v-2370-euttp/ogDittodEC1KzR8AWjNBfBcErpBiAAdoAHC0E9/?a=1233&bti=ODszNWYuMDE6&&bt=125&ft=GSDrKInz7Th_Yt5PXq8Zmo&mime_type=audio_mpeg&rc=M3BwaW85cm51OjMzZjU8NUBpM3BwaW85cm51OjMzZjU8NUBiZGEuMmRzX2VhLS1kMTNzYSNiZGEuMmRzX2VhLS1kMTNzcw%3D%3D&vvpl=1&l=20260427200645097D895EEF8BE2188AAC&btag=e00048000"
+    },
+    "video": {
+      "duration": 48,
+      "width": 576,
+      "height": 1024,
+      "format": "mp4",
+      "definition": "540p",
+      "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/o4CNb7IozOAiOidtjWIU48fn1oBsBAqIcEd0lj~tplv-tiktokx-origin.image?dr=9636&x-expires=1777492800&x-signature=FgIuLEiKc9ohjhwAGjVa8WVnrj4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "original_cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/o4CNb7IozOAiOidtjWIU48fn1oBsBAqIcEd0lj~tplv-tiktokx-origin.image?dr=9636&x-expires=1777492800&x-signature=FgIuLEiKc9ohjhwAGjVa8WVnrj4%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "download_addr": null,
+      "play_addr": null,
+      "subtitle_links": [
+        {
+          "language": "deu-DE",
+          "downloadLink": "https://v16m-webapp.tiktokcdn-us.com/09ac6eb05201b184132dea829d989e2d/69f26505/video/tos/useast2a/tos-useast2a-v-0037-euttp/37338babab5b4dd3b716ac4f11b62a53/?a=1988&bti=ODszNWYuMDE6&&bt=16933&ft=aEKq_qT0mIoPD12BF-Es3wU_r7AbMeF~O5&mime_type=video_mp4&rc=M25vc3I5cnd1OjMzZjczNUBpM25vc3I5cnd1OjMzZjczNUA0bG1mMmRzNWVhLS1kMTNzYSM0bG1mMmRzNWVhLS1kMTNzcw%3D%3D&l=20260427200645097D895EEF8BE2188AAC&btag=e00048000",
+          "source": "ASR",
+          "sourceUnabbreviated": "automatic speech recognition",
+          "version": "1:whisper_lid",
+          "tiktokLink": "https://v16m-webapp.tiktokcdn-us.com/09ac6eb05201b184132dea829d989e2d/69f26505/video/tos/useast2a/tos-useast2a-v-0037-euttp/37338babab5b4dd3b716ac4f11b62a53/?a=1988&bti=ODszNWYuMDE6&&bt=16933&ft=aEKq_qT0mIoPD12BF-Es3wU_r7AbMeF~O5&mime_type=video_mp4&rc=M25vc3I5cnd1OjMzZjczNUBpM25vc3I5cnd1OjMzZjczNUA0bG1mMmRzNWVhLS1kMTNzYSM0bG1mMmRzNWVhLS1kMTNzcw%3D%3D&l=20260427200645097D895EEF8BE2188AAC&btag=e00048000"
+        },
+        {
+          "language": "eng-US",
+          "downloadLink": "https://v16m-webapp.tiktokcdn-us.com/48b741cb553a290b1ec7c1223614d7e8/69f26505/video/tos/useast2a/tos-useast2a-v-0037-euttp/22adf7953d794b1eaa7db7d5122bd11b/?a=1988&bti=ODszNWYuMDE6&&bt=16933&ft=aEKq_qT0mIoPD12BF-Es3wU_r7AbMeF~O5&mime_type=video_mp4&rc=M25vc3I5cnd1OjMzZjczNUBpM25vc3I5cnd1OjMzZjczNUA0bG1mMmRzNWVhLS1kMTNzYSM0bG1mMmRzNWVhLS1kMTNzcw%3D%3D&l=20260427200645097D895EEF8BE2188AAC&btag=e00048000",
+          "source": "MT",
+          "sourceUnabbreviated": "machine translation",
+          "version": "4",
+          "tiktokLink": "https://v16m-webapp.tiktokcdn-us.com/48b741cb553a290b1ec7c1223614d7e8/69f26505/video/tos/useast2a/tos-useast2a-v-0037-euttp/22adf7953d794b1eaa7db7d5122bd11b/?a=1988&bti=ODszNWYuMDE6&&bt=16933&ft=aEKq_qT0mIoPD12BF-Es3wU_r7AbMeF~O5&mime_type=video_mp4&rc=M25vc3I5cnd1OjMzZjczNUBpM25vc3I5cnd1OjMzZjczNUA0bG1mMmRzNWVhLS1kMTNzYSM0bG1mMmRzNWVhLS1kMTNzcw%3D%3D&l=20260427200645097D895EEF8BE2188AAC&btag=e00048000"
+        }
+      ]
+    },
+    "raw_available_fields": [
+      "authorMeta",
+      "collectCount",
+      "commentCount",
+      "commentsDatasetUrl",
+      "createTime",
+      "createTimeISO",
+      "detailedMentions",
+      "diggCount",
+      "effectStickers",
+      "hashtags",
+      "id",
+      "isAd",
+      "isPinned",
+      "isSlideshow",
+      "isSponsored",
+      "locationCreated",
+      "mediaUrls",
+      "mentions",
+      "musicMeta",
+      "playCount",
+      "repostCount",
+      "shareCount",
+      "submittedVideoUrl",
+      "text",
+      "textLanguage",
+      "videoMeta",
+      "webVideoUrl"
+    ]
+  },
+  "comments": {
+    "count": 9,
+    "top_comments_by_likes": [
+      {
+        "text": "Gibt’s bei Temu für 3€",
+        "like_count": 5,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T11:20:43.000Z",
+        "user_unique_id": "franziiilein1"
+      },
+      {
+        "text": "man Braucht nur ein Verlängerungs Hacken für Rücken frei. Man braucht sich nicht Extra ein Neuen BH kaufen. Die verlängrung findet man bei Amazon Temu Zalando usw",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T18:32:45.000Z",
+        "user_unique_id": "gabi.fischer87"
+      },
+      {
+        "text": "Ich habe BH immer in 75B welche grosse , ich nehmen soll??",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-19T21:33:35.000Z",
+        "user_unique_id": "anniehal1"
+      },
+      {
+        "text": "Das ist bestimmt auch viel gesünder!Wegen den Lymphen",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T11:02:25.000Z",
+        "user_unique_id": "contraoculum"
+      },
+      {
+        "text": "Ich habe 3fach 😂🙈🙈",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T01:20:26.000Z",
+        "user_unique_id": "esubdenk19"
+      },
+      {
+        "text": "finde den dennoch sehr auffällig",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-25T22:22:54.000Z",
+        "user_unique_id": "yvew333"
+      },
+      {
+        "text": "bạn quá xinh đẹp và duyên dáng",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-26T02:10:17.000Z",
+        "user_unique_id": "chim.annaa"
+      },
+      {
+        "text": "Solle sowas für große Körbchen und kleines Band geben 🥲",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-20T11:55:50.000Z",
+        "user_unique_id": "gina_celine.l"
+      },
+      {
+        "text": "man sieht den BH voll",
+        "like_count": 0,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T15:02:38.000Z",
+        "user_unique_id": "melanie.b36"
+      }
+    ],
+    "all_comments": [
+      {
+        "text": "man Braucht nur ein Verlängerungs Hacken für Rücken frei. Man braucht sich nicht Extra ein Neuen BH kaufen. Die verlängrung findet man bei Amazon Temu Zalando usw",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T18:32:45.000Z",
+        "user_unique_id": "gabi.fischer87"
+      },
+      {
+        "text": "Ich habe BH immer in 75B welche grosse , ich nehmen soll??",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-19T21:33:35.000Z",
+        "user_unique_id": "anniehal1"
+      },
+      {
+        "text": "Gibt’s bei Temu für 3€",
+        "like_count": 5,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T11:20:43.000Z",
+        "user_unique_id": "franziiilein1"
+      },
+      {
+        "text": "Ich habe 3fach 😂🙈🙈",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T01:20:26.000Z",
+        "user_unique_id": "esubdenk19"
+      },
+      {
+        "text": "finde den dennoch sehr auffällig",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-25T22:22:54.000Z",
+        "user_unique_id": "yvew333"
+      },
+      {
+        "text": "bạn quá xinh đẹp và duyên dáng",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-26T02:10:17.000Z",
+        "user_unique_id": "chim.annaa"
+      },
+      {
+        "text": "Solle sowas für große Körbchen und kleines Band geben 🥲",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-20T11:55:50.000Z",
+        "user_unique_id": "gina_celine.l"
+      },
+      {
+        "text": "man sieht den BH voll",
+        "like_count": 0,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T15:02:38.000Z",
+        "user_unique_id": "melanie.b36"
+      },
+      {
+        "text": "Das ist bestimmt auch viel gesünder!Wegen den Lymphen",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T11:02:25.000Z",
+        "user_unique_id": "contraoculum"
+      }
+    ]
+  },
+  "transcripts": {
+    "count": 2,
+    "available_languages": [
+      "eng-US",
+      "deu-DE"
+    ],
+    "best_transcript_language": "deu-DE",
+    "best_transcript_text": "hab ich 1 BH an oder hab ich kein BH an was denkt ihr ich hab einen BH an so krass einfach das sind BHs die halt extra für rückenfreie Oberteile gemacht sind ich bin einfach baff weil ich hab solche Oberteile und Kleider zum Beispiel nicht so gerne angezogen weil ich dann einfach nicht den halt hier hatte und ich das nicht immer confident genug war das anzuziehen ich wollte nicht immer nippets tragen aber hier habt ihr jetzt einen BH der einfach so tief gelegen ist dass man den nicht sieht bei rückenfreien Oberteilen und man hat hier wirklich nur dieses eine Band hier hat man auch nur diese schmalen Bänder die so ganz weit an der Seite sind also richtig richtig krass ich lieb's einfach also ich bin so happy dass ich die gefunden habe ich hab sie euch hier auch markiert die sind gar nicht teuer ich glaub die kosten Euro oder so pro Stück wenn nicht sogar billiger und ja dann können wir diesen Sommer und Frühling trotzdem rückenfreie Kleider und Oberteile rocken ich freu mich so also schnappt auf jeden Fall zu wenn ihr das auch möchtet",
+    "all_transcripts": [
+      {
+        "language": "eng-US",
+        "text_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_subtitle_1_eng-US.txt",
+        "text_length": 920,
+        "text": "do I have 1 bra on or do I not have a bra on what do you think I have a bra on so blatant simple these are bras which are made especially for backless tops I am simply flabbergasted because I have such tops and dresses for example not so gladly dressed because then I just did not have the stop here and I the was not always confident enough to wear this i did not always want to wear nippets but here you have a bra now which is just so low that you can not see the for backless tops and you really only have this one band here here you also have only these narrow bands who are so far on the side so really really crass I just love it so i am so happy that i found them I have also marked them here they are not expensive at all I think they cost euros or so per piece if not cheaper and yes then we can this summer and spring still rock backless dresses and tops I am so happy so snap in any case if you want that too"
+      },
+      {
+        "language": "deu-DE",
+        "text_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_subtitle_2_deu-DE.txt",
+        "text_length": 1049,
+        "text": "hab ich 1 BH an oder hab ich kein BH an was denkt ihr ich hab einen BH an so krass einfach das sind BHs die halt extra für rückenfreie Oberteile gemacht sind ich bin einfach baff weil ich hab solche Oberteile und Kleider zum Beispiel nicht so gerne angezogen weil ich dann einfach nicht den halt hier hatte und ich das nicht immer confident genug war das anzuziehen ich wollte nicht immer nippets tragen aber hier habt ihr jetzt einen BH der einfach so tief gelegen ist dass man den nicht sieht bei rückenfreien Oberteilen und man hat hier wirklich nur dieses eine Band hier hat man auch nur diese schmalen Bänder die so ganz weit an der Seite sind also richtig richtig krass ich lieb's einfach also ich bin so happy dass ich die gefunden habe ich hab sie euch hier auch markiert die sind gar nicht teuer ich glaub die kosten Euro oder so pro Stück wenn nicht sogar billiger und ja dann können wir diesen Sommer und Frühling trotzdem rückenfreie Kleider und Oberteile rocken ich freu mich so also schnappt auf jeden Fall zu wenn ihr das auch möchtet"
+      }
+    ]
+  },
+  "media_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f.mp4",
+  "frames_dir": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames",
+  "frame_paths": [
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_001.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_002.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_003.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_004.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_005.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_006.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_007.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_008.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_009.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_010.jpg"
+  ],
+  "video_frame_paths": [
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_001.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_002.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_003.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_004.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_005.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_006.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_007.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_008.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_009.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_010.jpg"
+  ],
+  "frames": [
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_001.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_002.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_003.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_004.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_005.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_006.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_007.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_008.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_009.jpg",
+    "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_010.jpg"
+  ],
+  "video": {
+    "media_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f.mp4",
+    "frames_dir": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames",
+    "frame_paths": [
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_001.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_002.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_003.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_004.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_005.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_006.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_007.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_008.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_009.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/d13b5672e5cf116f1abe0743e485ec2f_frames/frame_010.jpg"
+    ]
+  },
+  "visual_packet": {
+    "contact_sheet_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/d13b5672e5cf116f1abe0743e485ec2f_contact_sheet.jpg",
+    "frame_count": 10
+  }
+}

@@ -1,0 +1,345 @@
+import json
+import hashlib
+import subprocess
+from pathlib import Path
+from urllib.parse import urlparse
+
+import certifi
+import requests
+
+BASE_DIR = Path(__file__).parent
+RAW_DIR = BASE_DIR / "raw"
+MEDIA_DIR = BASE_DIR / "media"
+REPORT_DIR = BASE_DIR / "reports"
+
+MEDIA_DIR.mkdir(exist_ok=True)
+REPORT_DIR.mkdir(exist_ok=True)
+
+MIN_VALID_VIDEO_BYTES = 100_000
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+    "Accept": "video/mp4,video/*,*/*",
+    "Referer": "https://www.tiktok.com/",
+    "Connection": "keep-alive",
+}
+
+def cache_key(text: str) -> str:
+    return hashlib.md5(text.encode("utf-8")).hexdigest()
+
+def read_json(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+def write_json(path: Path, data):
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+def is_probably_video_cdn_url(url: str) -> bool:
+    if not url or not isinstance(url, str):
+        return False
+    if not url.startswith("http"):
+        return False
+
+    host = urlparse(url).netloc.lower()
+
+    # TikTok 页面链接不是视频文件
+    if "www.tiktok.com" in host:
+        return False
+
+    return True
+
+def get_candidate_video_urls(item: dict):
+    candidates = [
+        # 你这次输出里有这个字段，必须加入
+        ("downloadUrl", item.get("downloadUrl")),
+
+        # 常见视频下载字段
+        ("videoDownloadNoWatermarkUrl", item.get("videoDownloadNoWatermarkUrl")),
+        ("videoDownloadUrl", item.get("videoDownloadUrl")),
+        ("videoPlayUrl", item.get("videoPlayUrl")),
+    ]
+
+    return [
+        (field, url)
+        for field, url in candidates
+        if is_probably_video_cdn_url(url)
+    ]
+
+def is_valid_video_file(path: Path) -> bool:
+    if not path.exists():
+        return False
+
+    if path.stat().st_size < MIN_VALID_VIDEO_BYTES:
+        return False
+
+    head = path.read_bytes()[:128]
+    # 大部分 mp4 文件头附近会有 ftyp
+    if b"ftyp" in head or b"moov" in head or b"mdat" in head:
+        return True
+
+    # 有些 CDN 返回的文件头不标准，先允许大文件通过
+    return path.stat().st_size >= MIN_VALID_VIDEO_BYTES
+
+def download_with_requests(url: str, output_path: Path):
+    with requests.get(
+        url,
+        headers=HEADERS,
+        timeout=(15, 240),
+        stream=True,
+        allow_redirects=True,
+        verify=certifi.where(),
+    ) as resp:
+        content_type = resp.headers.get("Content-Type", "")
+        resp.raise_for_status()
+
+        with output_path.open("wb") as f:
+            for chunk in resp.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    f.write(chunk)
+
+    return {
+        "method": "requests",
+        "content_type": content_type,
+        "file_size_bytes": output_path.stat().st_size,
+    }
+
+def download_with_curl(url: str, output_path: Path):
+    cmd = [
+        "curl",
+        "-L",
+        "--fail",
+        "--retry", "3",
+        "--retry-delay", "2",
+        "--connect-timeout", "20",
+        "--max-time", "300",
+        "--http1.1",
+        "--tlsv1.2",
+        "--compressed",
+        "-A", HEADERS["User-Agent"],
+        "-H", "Referer: https://www.tiktok.com/",
+        "-H", "Accept: video/mp4,video/*,*/*",
+        "-o", str(output_path),
+        url,
+    ]
+
+    subprocess.run(cmd, check=True)
+
+    return {
+        "method": "curl",
+        "content_type": "unknown",
+        "file_size_bytes": output_path.stat().st_size,
+    }
+
+def download_with_ytdlp(material_url: str, key: str):
+    # 删除旧文件，避免误判
+    for old in MEDIA_DIR.glob(f"{key}.*"):
+        if old.suffix.lower() in [".mp4", ".webm", ".mkv", ".mov"]:
+            old.unlink()
+
+    output_template = str(MEDIA_DIR / f"{key}.%(ext)s")
+
+    cmd = [
+        "python3",
+        "-m",
+        "yt_dlp",
+        "--no-playlist",
+        "--merge-output-format", "mp4",
+        "-o", output_template,
+        material_url,
+    ]
+
+    completed = subprocess.run(
+        cmd,
+        text=True,
+        capture_output=True
+    )
+
+    if completed.returncode != 0:
+        raise RuntimeError(
+            "yt-dlp failed\n"
+            f"STDOUT:\n{completed.stdout}\n"
+            f"STDERR:\n{completed.stderr}"
+        )
+
+    candidates = []
+    for p in MEDIA_DIR.glob(f"{key}.*"):
+        if p.suffix.lower() in [".mp4", ".webm", ".mkv", ".mov"]:
+            candidates.append(p)
+
+    if not candidates:
+        raise RuntimeError("yt-dlp finished but no media file was found.")
+
+    # 选最大的那个文件
+    output_path = sorted(candidates, key=lambda x: x.stat().st_size, reverse=True)[0]
+
+    return {
+        "method": "yt-dlp",
+        "content_type": "unknown",
+        "media_path": str(output_path),
+        "file_size_bytes": output_path.stat().st_size,
+    }
+
+def try_direct_download(url: str, output_path: Path):
+    errors = []
+
+    if output_path.exists():
+        output_path.unlink()
+
+    try:
+        result = download_with_requests(url, output_path)
+        if is_valid_video_file(output_path):
+            return result
+        errors.append(f"requests produced invalid file: {output_path.stat().st_size} bytes")
+    except Exception as e:
+        errors.append(f"requests failed: {repr(e)}")
+
+    if output_path.exists():
+        output_path.unlink()
+
+    try:
+        result = download_with_curl(url, output_path)
+        if is_valid_video_file(output_path):
+            return result
+        errors.append(f"curl produced invalid file: {output_path.stat().st_size} bytes")
+    except Exception as e:
+        errors.append(f"curl failed: {repr(e)}")
+
+    raise RuntimeError("; ".join(errors))
+
+def main():
+    input_path = BASE_DIR / "input_test.json"
+    payload = read_json(input_path)
+
+    material_url = payload["material_url"].strip()
+    key = cache_key(material_url)
+
+    downloader_path = RAW_DIR / f"{key}_downloader_happy_b.json"
+    data_packet_path = REPORT_DIR / f"{key}_data_packet.json"
+
+    if not downloader_path.exists():
+        raise FileNotFoundError(f"Missing downloader result: {downloader_path}")
+
+    items = read_json(downloader_path)
+    if not items:
+        raise RuntimeError("Downloader result is empty.")
+
+    item = items[0]
+    attempts = []
+    final_result = None
+
+    # 方式 1：优先使用 Apify 返回的 CDN 下载字段
+    candidates = get_candidate_video_urls(item)
+
+    for source_field, video_file_url in candidates:
+        output_path = MEDIA_DIR / f"{key}.mp4"
+
+        try:
+            download_result = try_direct_download(video_file_url, output_path)
+            file_size = download_result["file_size_bytes"]
+
+            final_result = {
+                "status": "success",
+                "source_field": source_field,
+                "method": download_result.get("method"),
+                "content_type": download_result.get("content_type"),
+                "media_path": str(output_path),
+                "file_size_bytes": file_size,
+                "video_id": item.get("videoId"),
+                "video_duration": item.get("videoDuration"),
+                "video_width": item.get("videoWidth"),
+                "video_height": item.get("videoHeight"),
+                "cover_url": item.get("videoCoverUrl"),
+                "canonical_url": item.get("videoUrl"),
+            }
+            break
+
+        except Exception as e:
+            attempts.append({
+                "source_field": source_field,
+                "status": "failed",
+                "error": repr(e),
+            })
+
+    # 方式 2：如果 Apify CDN 链接都失败，fallback 到 yt-dlp
+    if not final_result:
+        try:
+            ytdlp_result = download_with_ytdlp(material_url, key)
+            media_path = Path(ytdlp_result["media_path"])
+
+            if not is_valid_video_file(media_path):
+                raise RuntimeError(f"yt-dlp file invalid: {media_path.stat().st_size} bytes")
+
+            final_result = {
+                "status": "success",
+                "source_field": "yt-dlp_original_url",
+                "method": ytdlp_result["method"],
+                "content_type": ytdlp_result["content_type"],
+                "media_path": str(media_path),
+                "file_size_bytes": ytdlp_result["file_size_bytes"],
+                "video_id": item.get("videoId"),
+                "video_duration": item.get("videoDuration"),
+                "video_width": item.get("videoWidth"),
+                "video_height": item.get("videoHeight"),
+                "cover_url": item.get("videoCoverUrl"),
+                "canonical_url": item.get("videoUrl"),
+            }
+
+        except Exception as e:
+            attempts.append({
+                "source_field": "yt-dlp_original_url",
+                "status": "failed",
+                "error": repr(e),
+            })
+
+    if not final_result:
+        debug_path = MEDIA_DIR / f"{key}_download_debug.json"
+        debug_path.write_text(
+            json.dumps({
+                "attempts": attempts,
+                "available_candidate_fields": [field for field, _ in candidates],
+                "raw_candidate_values": {
+                    "downloadUrl": item.get("downloadUrl"),
+                    "videoDownloadNoWatermarkUrl": item.get("videoDownloadNoWatermarkUrl"),
+                    "videoDownloadUrl": item.get("videoDownloadUrl"),
+                    "videoPlayUrl": item.get("videoPlayUrl"),
+                    "videoUrl": item.get("videoUrl"),
+                }
+            }, ensure_ascii=False, indent=2),
+            encoding="utf-8"
+        )
+
+        print(json.dumps({
+            "status": "failed",
+            "reason": "All candidate video URLs and yt-dlp fallback failed.",
+            "debug_path": str(debug_path),
+            "attempts": attempts,
+        }, ensure_ascii=False, indent=2))
+        return
+
+    # 写回 data_packet
+    if data_packet_path.exists():
+        data_packet = read_json(data_packet_path)
+
+        data_packet.setdefault("data_availability", {})
+        data_packet["data_availability"]["media_file_available"] = True
+
+        data_packet["media"] = {
+            "type": "video",
+            "local_path": final_result["media_path"],
+            "file_size_bytes": final_result["file_size_bytes"],
+            "content_type": final_result["content_type"],
+            "download_method": final_result["method"],
+            "source_field": final_result["source_field"],
+            "video_id": item.get("videoId"),
+            "duration": item.get("videoDuration"),
+            "width": item.get("videoWidth"),
+            "height": item.get("videoHeight"),
+            "cover_url": item.get("videoCoverUrl"),
+            "canonical_url": item.get("videoUrl"),
+        }
+
+        write_json(data_packet_path, data_packet)
+
+    print(json.dumps(final_result, ensure_ascii=False, indent=2))
+
+if __name__ == "__main__":
+    main()

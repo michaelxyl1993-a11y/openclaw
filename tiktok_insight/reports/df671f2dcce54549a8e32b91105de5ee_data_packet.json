@@ -1,0 +1,928 @@
+{
+  "input": {
+    "market": "DE",
+    "product": "Multi-Functional Cat Scratching Board Rocker Bed, Natural Jute Material for Scratching and Relaxing, Indoor/outdoor Pet Furniture 53x33x32 Cm",
+    "product_core_selling_points": "天然黄麻材质，适合猫咪磨爪；摇椅式弧形结构，可同时作为猫抓板和休息床；53x33x32cm 尺寸适合室内/户外小空间使用；兼具宠物家具和家居装饰属性；帮助转移猫咪抓沙发、抓地毯的行为；适合猫咪抓挠、躺卧、玩耍和放松；相比普通平面猫抓板更有造型感和场景感。",
+    "format": "photo",
+    "material_url": "https://www.tiktok.com/@leonie_0628/photo/7602969125140434198",
+    "analysis_goal": "分析这条德国 TikTok 图文百万播放爆款为什么能起量，重点拆解首图钩子、图文结构、商品表达、评论区反馈、用户购买/质疑点，并结合猫抓板摇椅床这个商品，给出我们图文团队可复刻的方向。",
+    "comment_limit": 100,
+    "mode": "standard_v3",
+    "known_performance": {
+      "source": "competitor",
+      "is_competitor_hit": true,
+      "views": "100万+",
+      "notes": "同行图文百万播放爆款，有评论，适合测试图文/slideshow完整分析链路"
+    }
+  },
+  "data_availability": {
+    "comments_available": true,
+    "comments_count_scraped": 49,
+    "metadata_available": true,
+    "media_file_available": false,
+    "transcript_available": false,
+    "slideshow_images_available": true,
+    "slideshow_visual_packet_available": true
+  },
+  "metadata": {
+    "post_id": "7602969125140434198",
+    "submitted_url": "https://www.tiktok.com/@leonie_0628/video/7602969125140434198",
+    "canonical_url": "https://www.tiktok.com/@leonie_0628/video/7602969125140434198",
+    "caption": "Wenn deine Katze dich zu sehr liebt,\nzeigt sie das nicht immer sanft 🐱💥\n\nKratzen. Festhalten. Zupacken.\nDas ist keine Aggression –\ndas ist überschüssige Energie.\n\nDeine Haut ist kein Kratzbaum.\nDein Sofa auch nicht 🛋️❌\n\nGib deiner Katze einen eigenen Platz:\n🛏️ schlafen\n🐾 kratzen\n😴 entspannen\n\nUnd plötzlich wird alles ruhiger.\n\nWeniger Kratzer für dich.\nMehr Sicherheit für sie.\n\nDer neue Lieblingsplatz deiner Katze.\n👉 🛒\n#cat #fyp #catlover #spotlightfinds #tiktokshopsale ",
+    "text_language": "de",
+    "created_at": "2026-02-04T11:23:22.000Z",
+    "is_slideshow": true,
+    "is_ad": false,
+    "is_pinned": false,
+    "is_sponsored": true,
+    "author": {
+      "id": "7579701287802307606",
+      "name": "leonie_0628",
+      "nickname": "leonie",
+      "profile_url": "https://www.tiktok.com/@leonie_0628",
+      "verified": false,
+      "followers": 560,
+      "following": 1,
+      "heart_count": 47200,
+      "video_count": 317
+    },
+    "stats": {
+      "play_count": 1700000,
+      "like_count": 18100,
+      "comment_count": 85,
+      "share_count": 3126,
+      "collect_count": 3266,
+      "repost_count": 0
+    },
+    "hashtags": [
+      {
+        "name": "cat",
+        "title": "",
+        "cover": ""
+      },
+      {
+        "name": "fyp",
+        "title": "",
+        "cover": ""
+      },
+      {
+        "name": "catlover",
+        "title": "",
+        "cover": ""
+      },
+      {
+        "name": "spotlightfinds",
+        "title": "",
+        "cover": ""
+      },
+      {
+        "name": "tiktokshopsale",
+        "title": "",
+        "cover": ""
+      }
+    ],
+    "music": {
+      "id": "7517290819994273809",
+      "name": "My Kitty",
+      "author": "Emergency Mouse",
+      "original": false,
+      "cover_url": "https://p16-common.tiktokcdn-us.com/tos-alisg-v-2774/o4AJAfPXBAB0iAGWmSiyWwEEKAoEoAiw12s4QB~tplv-tiktokx-cropcenter:200:200.jpeg?dr=9584&t=4d5b0474&ps=933b5bde&shp=08d74b56&shcp=81f88b70&idc=useast8",
+      "play_url": "https://sf16.tiktokcdn-us.com/obj/tos-alisg-ve-2774/owNsFdgPiEeFuLGoCQSAYyQSfht1TBBQiDmZUF"
+    },
+    "video": {
+      "duration": 0,
+      "width": 0,
+      "height": 0,
+      "format": null,
+      "definition": null,
+      "cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/c4d333ad454044a28d8f55c224b76eaa~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=YBJYj%2F7oI%2FZjzMNsEE4EOamufQg%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1",
+      "original_cover_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/c4d333ad454044a28d8f55c224b76eaa~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=YBJYj%2F7oI%2FZjzMNsEE4EOamufQg%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1",
+      "download_addr": null,
+      "play_addr": null,
+      "subtitle_links": null
+    },
+    "raw_available_fields": [
+      "authorMeta",
+      "collectCount",
+      "commentCount",
+      "commentsDatasetUrl",
+      "createTime",
+      "createTimeISO",
+      "detailedMentions",
+      "diggCount",
+      "effectStickers",
+      "hashtags",
+      "id",
+      "isAd",
+      "isPinned",
+      "isSlideshow",
+      "isSponsored",
+      "locationCreated",
+      "mediaUrls",
+      "mentions",
+      "musicMeta",
+      "playCount",
+      "repostCount",
+      "shareCount",
+      "slideshowImageLinks",
+      "submittedVideoUrl",
+      "text",
+      "textLanguage",
+      "videoMeta",
+      "webVideoUrl"
+    ]
+  },
+  "comments": {
+    "count": 49,
+    "top_comments_by_likes": [
+      {
+        "text": "Die setzen sich dann aufs Sofa und ich muss auf dem kleinen Ding chillen -_-",
+        "like_count": 516,
+        "reply_count": 3,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T12:21:23.000Z",
+        "user_unique_id": "lumpenmaedchen7"
+      },
+      {
+        "text": "Die blöden Dinger chillen wahrscheinlich eher in dem Karton in welchem der Stuhl ankommt als im Stuhl",
+        "like_count": 317,
+        "reply_count": 2,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T06:44:27.000Z",
+        "user_unique_id": "lou_z.y"
+      },
+      {
+        "text": "Bei uns interessiert sich keine unserer Katzen für das gute Stück 😹😹😹",
+        "like_count": 106,
+        "reply_count": 14,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T17:02:09.000Z",
+        "user_unique_id": "lubyfruby"
+      },
+      {
+        "text": "",
+        "like_count": 95,
+        "reply_count": 2,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T05:35:34.000Z",
+        "user_unique_id": "archit3kkt"
+      },
+      {
+        "text": "sie wird den Karton mehr mögen als das Ding sag ich",
+        "like_count": 20,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-28T11:21:32.000Z",
+        "user_unique_id": "yessie404"
+      },
+      {
+        "text": "sieht meinem Sam so ähnlich 🥺🥰",
+        "like_count": 17,
+        "reply_count": 2,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T10:48:36.000Z",
+        "user_unique_id": "princessowl8"
+      },
+      {
+        "text": "Und dann kommt der Karton und alles andere ist vergessen 😏",
+        "like_count": 11,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-07T22:20:50.000Z",
+        "user_unique_id": "ccharlotte_05"
+      },
+      {
+        "text": "Als ob Katzen etwas benutzen was man nur für die kauft. Unserer liegt eher im Karton in dem das Teil ankommt als auf dem Stuhl 😅",
+        "like_count": 11,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-03-03T10:08:02.000Z",
+        "user_unique_id": "gonprofihunter"
+      },
+      {
+        "text": "Ich hab den originalen Felix 😌😇",
+        "like_count": 9,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T21:05:55.000Z",
+        "user_unique_id": "lynn.tci"
+      },
+      {
+        "text": "Der sieht ORIGINAL aus wie mein verstorbener Kater😢",
+        "like_count": 5,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-07T13:32:22.000Z",
+        "user_unique_id": "finja_krp"
+      },
+      {
+        "text": "Holt euch das nicht 😂 maximale Dreck in der Wohnung und hat ihr eine katzfreudige Katze hebt das Ding nur wenige Tage 😂",
+        "like_count": 5,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T07:34:35.000Z",
+        "user_unique_id": "mr.whocares"
+      },
+      {
+        "text": "",
+        "like_count": 4,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T14:24:47.000Z",
+        "user_unique_id": "vanessarzg"
+      },
+      {
+        "text": "....Ist, die Katze im Preis mit inbegriffen?! #askingforafriend\nHätte dann nur gerne ein anderes Modell😁😉",
+        "like_count": 3,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T16:56:28.000Z",
+        "user_unique_id": "bi.church.girl"
+      },
+      {
+        "text": "passiert 🥰😁",
+        "like_count": 3,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T16:23:27.000Z",
+        "user_unique_id": "andreafischer849"
+      },
+      {
+        "text": "Das ist das Lied für Sheldon, wenn er krank ist 😵‍💫",
+        "like_count": 2,
+        "reply_count": 3,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-28T11:13:07.000Z",
+        "user_unique_id": "claudia.ambang"
+      },
+      {
+        "text": "haben meine Katzen auch aber die beachten denn kaum 😅😂",
+        "like_count": 2,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T14:23:08.000Z",
+        "user_unique_id": "shmellowundolgen1207"
+      },
+      {
+        "text": "Ehm... Ich glaub ich hab den Zwilling hier😅😂",
+        "like_count": 2,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T19:33:53.000Z",
+        "user_unique_id": "_lexi_1997_"
+      },
+      {
+        "text": "[Sticker] ",
+        "like_count": 2,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T19:13:39.000Z",
+        "user_unique_id": "miaoomiaoo.official"
+      },
+      {
+        "text": "hach jaaaaa vor allem alte katzen🤣",
+        "like_count": 2,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-27T20:30:34.000Z",
+        "user_unique_id": "stephanietiffyhei"
+      },
+      {
+        "text": "Ich, die sich gerade gefragt hat, wann der Kater sich einen tiktok Account erstellt hat 😂😂😂",
+        "like_count": 2,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T11:27:37.000Z",
+        "user_unique_id": "lelemeow1987"
+      },
+      {
+        "text": "sorry aber mein größter Traum ist es eine Katze zu haben die in meine Haut klettern will, ain't no way würde ich die auf ein Möbelstück abschieben 🙄🙄",
+        "like_count": 2,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T06:03:36.000Z",
+        "user_unique_id": "ever_19"
+      },
+      {
+        "text": "warum sehen so viele katzen exakt gleich aus. Meine katze sieht auch genau so aus mit dem weiß an den gleichen stellen.",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T16:23:06.000Z",
+        "user_unique_id": "finnndom"
+      },
+      {
+        "text": "❤️",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-03-02T18:28:20.000Z",
+        "user_unique_id": "hauswalde"
+      },
+      {
+        "text": "😁😁😁",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T08:28:05.000Z",
+        "user_unique_id": "devilish_shadow04"
+      },
+      {
+        "text": "@lisa_spike17",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-08T00:18:44.000Z",
+        "user_unique_id": "nils.prvt0"
+      },
+      {
+        "text": "@Betül",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T22:39:08.000Z",
+        "user_unique_id": "esglmmmm"
+      },
+      {
+        "text": "🥰🥰🥰",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T14:16:37.000Z",
+        "user_unique_id": "yaoyao3173"
+      },
+      {
+        "text": "❤️❤️❤️❤️❤️❤️❤️❤️",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T15:56:07.000Z",
+        "user_unique_id": "robertolongo7879"
+      },
+      {
+        "text": "😂😂😂",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T05:16:38.000Z",
+        "user_unique_id": "_tooniii"
+      },
+      {
+        "text": "❤❤❤",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T20:47:46.000Z",
+        "user_unique_id": "blazingdreams.mck"
+      }
+    ],
+    "all_comments": [
+      {
+        "text": "Die setzen sich dann aufs Sofa und ich muss auf dem kleinen Ding chillen -_-",
+        "like_count": 516,
+        "reply_count": 3,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T12:21:23.000Z",
+        "user_unique_id": "lumpenmaedchen7"
+      },
+      {
+        "text": "Und dann kommt der Karton und alles andere ist vergessen 😏",
+        "like_count": 11,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-07T22:20:50.000Z",
+        "user_unique_id": "ccharlotte_05"
+      },
+      {
+        "text": "Das ist das Lied für Sheldon, wenn er krank ist 😵‍💫",
+        "like_count": 2,
+        "reply_count": 3,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-28T11:13:07.000Z",
+        "user_unique_id": "claudia.ambang"
+      },
+      {
+        "text": "....Ist, die Katze im Preis mit inbegriffen?! #askingforafriend\nHätte dann nur gerne ein anderes Modell😁😉",
+        "like_count": 3,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T16:56:28.000Z",
+        "user_unique_id": "bi.church.girl"
+      },
+      {
+        "text": "sie wird den Karton mehr mögen als das Ding sag ich",
+        "like_count": 20,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-28T11:21:32.000Z",
+        "user_unique_id": "yessie404"
+      },
+      {
+        "text": "sieht meinem Sam so ähnlich 🥺🥰",
+        "like_count": 17,
+        "reply_count": 2,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T10:48:36.000Z",
+        "user_unique_id": "princessowl8"
+      },
+      {
+        "text": "Ihr Lieblingsplatz wird für immer mein Arm bleiben, bis zu dem Tag an dem mir das Gewicht ihres Köpfchen fehlen wird. ❤",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-07T03:38:20.000Z",
+        "user_unique_id": "mylife.is.art"
+      },
+      {
+        "text": "warum sehen so viele katzen exakt gleich aus. Meine katze sieht auch genau so aus mit dem weiß an den gleichen stellen.",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T16:23:06.000Z",
+        "user_unique_id": "finnndom"
+      },
+      {
+        "text": "Der sieht ORIGINAL aus wie mein verstorbener Kater😢",
+        "like_count": 5,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-07T13:32:22.000Z",
+        "user_unique_id": "finja_krp"
+      },
+      {
+        "text": "haben meine Katzen auch aber die beachten denn kaum 😅😂",
+        "like_count": 2,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T14:23:08.000Z",
+        "user_unique_id": "shmellowundolgen1207"
+      },
+      {
+        "text": "schon",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-03-07T15:32:49.000Z",
+        "user_unique_id": "reni33413"
+      },
+      {
+        "text": "",
+        "like_count": 4,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T14:24:47.000Z",
+        "user_unique_id": "vanessarzg"
+      },
+      {
+        "text": "Na ja, wegen dem Biss ins Bein lag ich sieben Tage am Tropf im Krankenhaus und wurde zweimal operiert….",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-10T15:19:58.000Z",
+        "user_unique_id": "weloveyou2142"
+      },
+      {
+        "text": "Ehm... Ich glaub ich hab den Zwilling hier😅😂",
+        "like_count": 2,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T19:33:53.000Z",
+        "user_unique_id": "_lexi_1997_"
+      },
+      {
+        "text": "[Sticker] ",
+        "like_count": 2,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T19:13:39.000Z",
+        "user_unique_id": "miaoomiaoo.official"
+      },
+      {
+        "text": "Zu klein für mein riesen Kind.",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-21T09:33:22.000Z",
+        "user_unique_id": "userxxxxx123451"
+      },
+      {
+        "text": "❤️",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-03-02T18:28:20.000Z",
+        "user_unique_id": "hauswalde"
+      },
+      {
+        "text": "😁😁😁",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T08:28:05.000Z",
+        "user_unique_id": "devilish_shadow04"
+      },
+      {
+        "text": "@lisa_spike17",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-08T00:18:44.000Z",
+        "user_unique_id": "nils.prvt0"
+      },
+      {
+        "text": "@Betül",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T22:39:08.000Z",
+        "user_unique_id": "esglmmmm"
+      },
+      {
+        "text": "🥰🥰🥰",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T14:16:37.000Z",
+        "user_unique_id": "yaoyao3173"
+      },
+      {
+        "text": "❤️❤️❤️❤️❤️❤️❤️❤️",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T15:56:07.000Z",
+        "user_unique_id": "robertolongo7879"
+      },
+      {
+        "text": "😂😂😂",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T05:16:38.000Z",
+        "user_unique_id": "_tooniii"
+      },
+      {
+        "text": "@Uetzwurst",
+        "like_count": 0,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T06:16:42.000Z",
+        "user_unique_id": "charlyschulz4"
+      },
+      {
+        "text": "❤❤❤",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T13:30:37.000Z",
+        "user_unique_id": "woodyy4101"
+      },
+      {
+        "text": "@dana & yoda 🦇",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-27T16:57:56.000Z",
+        "user_unique_id": "mad.gremlin"
+      },
+      {
+        "text": "😂😂😂",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-09T20:26:25.000Z",
+        "user_unique_id": "meinspam"
+      },
+      {
+        "text": "Holt euch das nicht 😂 maximale Dreck in der Wohnung und hat ihr eine katzfreudige Katze hebt das Ding nur wenige Tage 😂",
+        "like_count": 5,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T07:34:35.000Z",
+        "user_unique_id": "mr.whocares"
+      },
+      {
+        "text": "meine würde da nur drauf pinkeln",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T13:34:50.000Z",
+        "user_unique_id": "draught51"
+      },
+      {
+        "text": "Die blöden Dinger chillen wahrscheinlich eher in dem Karton in welchem der Stuhl ankommt als im Stuhl",
+        "like_count": 317,
+        "reply_count": 2,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T06:44:27.000Z",
+        "user_unique_id": "lou_z.y"
+      },
+      {
+        "text": "Bei uns interessiert sich keine unserer Katzen für das gute Stück 😹😹😹",
+        "like_count": 106,
+        "reply_count": 14,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T17:02:09.000Z",
+        "user_unique_id": "lubyfruby"
+      },
+      {
+        "text": "Als ob Katzen etwas benutzen was man nur für die kauft. Unserer liegt eher im Karton in dem das Teil ankommt als auf dem Stuhl 😅",
+        "like_count": 11,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-03-03T10:08:02.000Z",
+        "user_unique_id": "gonprofihunter"
+      },
+      {
+        "text": "",
+        "like_count": 95,
+        "reply_count": 2,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T05:35:34.000Z",
+        "user_unique_id": "archit3kkt"
+      },
+      {
+        "text": "Ich hab den originalen Felix 😌😇",
+        "like_count": 9,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-06T21:05:55.000Z",
+        "user_unique_id": "lynn.tci"
+      },
+      {
+        "text": "hach jaaaaa vor allem alte katzen🤣",
+        "like_count": 2,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-27T20:30:34.000Z",
+        "user_unique_id": "stephanietiffyhei"
+      },
+      {
+        "text": "passiert 🥰😁",
+        "like_count": 3,
+        "reply_count": 1,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T16:23:27.000Z",
+        "user_unique_id": "andreafischer849"
+      },
+      {
+        "text": "Ich, die sich gerade gefragt hat, wann der Kater sich einen tiktok Account erstellt hat 😂😂😂",
+        "like_count": 2,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T11:27:37.000Z",
+        "user_unique_id": "lelemeow1987"
+      },
+      {
+        "text": "I Hope he has a catfriend",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-20T19:56:57.000Z",
+        "user_unique_id": "brutalapfelmus"
+      },
+      {
+        "text": "pawliospets.com 🤍🐾🌿",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-19T19:20:06.000Z",
+        "user_unique_id": "pawlios_pets"
+      },
+      {
+        "text": "Wie süß 😍😍😍😍",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-04-12T15:18:27.000Z",
+        "user_unique_id": "nicolealfa.autorin"
+      },
+      {
+        "text": "Unsere 3 Tiger liegen Leiber im Bett oder auf der Sofa Kante..wie die orgelpfeifen…😂 Kartons sind auch seeeehr willkommen…😂",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-17T22:33:40.000Z",
+        "user_unique_id": "tf.bexxer83"
+      },
+      {
+        "text": "[Sticker] ",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-09T17:46:06.000Z",
+        "user_unique_id": "vanni_ist_im_casino"
+      },
+      {
+        "text": "Meine Katze hat es mir geschickt, schicke ihr zu eins in den Himmel🕊️❤️",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T16:21:35.000Z",
+        "user_unique_id": "trynottodie_2"
+      },
+      {
+        "text": "Er sieht aus fast wie meiner 🙈",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T09:03:16.000Z",
+        "user_unique_id": "mrszxro"
+      },
+      {
+        "text": "❤❤❤",
+        "like_count": 1,
+        "reply_count": 1,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-04T20:47:46.000Z",
+        "user_unique_id": "blazingdreams.mck"
+      },
+      {
+        "text": "@Dennis Niedenzu",
+        "like_count": 1,
+        "reply_count": 0,
+        "liked_by_author": true,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T03:35:13.000Z",
+        "user_unique_id": "angeliquemackowiak"
+      },
+      {
+        "text": "@Manu🌸",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T12:34:20.000Z",
+        "user_unique_id": "ana110674"
+      },
+      {
+        "text": "glaubt mir Karton ist geiler",
+        "like_count": 0,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-17T12:41:40.000Z",
+        "user_unique_id": "sarah._.verena"
+      },
+      {
+        "text": "sorry aber mein größter Traum ist es eine Katze zu haben die in meine Haut klettern will, ain't no way würde ich die auf ein Möbelstück abschieben 🙄🙄",
+        "like_count": 2,
+        "reply_count": 0,
+        "liked_by_author": false,
+        "pinned_by_author": false,
+        "created_at": "2026-02-05T06:03:36.000Z",
+        "user_unique_id": "ever_19"
+      }
+    ]
+  },
+  "slideshow_images": {
+    "images_dir": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow",
+    "image_count": 6,
+    "source_field": "slideshowImageLinks",
+    "image_paths": [
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_01.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_02.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_03.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_04.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_05.jpg",
+      "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_06.jpg"
+    ],
+    "images": [
+      {
+        "index": 1,
+        "local_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_01.jpg",
+        "source_field": "slideshowImageLinks",
+        "method": "existing_file",
+        "content_type": "existing",
+        "file_size_bytes": 307476,
+        "source_url": null
+      },
+      {
+        "index": 2,
+        "local_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_02.jpg",
+        "source_field": "slideshowImageLinks",
+        "method": "curl",
+        "content_type": "unknown",
+        "file_size_bytes": 448290,
+        "source_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/4c702c02225243d7b7753d3a4d15d195~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=mRFKV6CDwLjAnvHTl8iCqvJHXa8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1"
+      },
+      {
+        "index": 3,
+        "local_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_03.jpg",
+        "source_field": "slideshowImageLinks",
+        "method": "requests",
+        "content_type": "image/jpeg",
+        "file_size_bytes": 390023,
+        "source_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/f3cec2ee332e4bec92802809975be470~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=gdy9BQW08cNeu78V5L71StkFc8c%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1"
+      },
+      {
+        "index": 4,
+        "local_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_04.jpg",
+        "source_field": "slideshowImageLinks",
+        "method": "requests",
+        "content_type": "image/jpeg",
+        "file_size_bytes": 359680,
+        "source_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/b5293c91c4f44c3d8f2dcfc746e34cbe~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=rWD1kxv%2BOjkZ1B%2BThoqMOopBt5g%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1"
+      },
+      {
+        "index": 5,
+        "local_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_05.jpg",
+        "source_field": "slideshowImageLinks",
+        "method": "requests",
+        "content_type": "image/jpeg",
+        "file_size_bytes": 363519,
+        "source_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/018667ec9c5a4fc89437c3c12cab68ee~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=jAO44HDn0EyDyl%2FlSs4dufXERCk%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1"
+      },
+      {
+        "index": 6,
+        "local_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/media/df671f2dcce54549a8e32b91105de5ee_slideshow/slide_06.jpg",
+        "source_field": "slideshowImageLinks",
+        "method": "requests",
+        "content_type": "image/jpeg",
+        "file_size_bytes": 277125,
+        "source_url": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/54eeeca9a14646faab794cef3e89c5fc~tplv-photomode-image.jpeg?dr=9616&x-expires=1777474800&x-signature=wli87tFkIEiZhurFbXxY08hjkBA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1"
+      }
+    ]
+  },
+  "visual_packet": {
+    "type": "slideshow",
+    "contact_sheet_path": "/Users/michaelchui/Desktop/openclaw_tools/tiktok_insight/reports/df671f2dcce54549a8e32b91105de5ee_slideshow_contact_sheet.jpg",
+    "image_count": 6,
+    "source": "slideshow_images"
+  }
+}
