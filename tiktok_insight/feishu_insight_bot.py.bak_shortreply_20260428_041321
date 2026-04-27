@@ -129,63 +129,6 @@ def split_text(text: str, max_chars: int = 3500) -> list[str]:
     return chunks
 
 
-
-def make_feishu_short_reply(full_text: str) -> str:
-    """
-    飞书默认回复短版：
-    - 保留完整报告在本地 md
-    - 飞书只发运营决策版，避免刷屏
-    """
-    if not full_text:
-        return ""
-
-    text = full_text.strip()
-
-    # 尽量从完整报告里抽取关键章节
-    wanted_heads = [
-        "## 1. 结论先行",
-        "## 2. 素材本身拆解",
-        "## 4. 商品匹配度分析",
-        "## 5. 转化阻力",
-        "## 7. 下一条图文建议",
-        "## 8. 下一条视频建议",
-        "## 10. 最终动作建议",
-    ]
-
-    lines = text.splitlines()
-    picked = []
-    current_head = None
-    keep = False
-    kept_lines_for_head = 0
-
-    for line in lines:
-        if line.startswith("## "):
-            current_head = line.strip()
-            keep = current_head in wanted_heads
-            kept_lines_for_head = 0
-            if keep:
-                picked.append(line)
-            continue
-
-        if keep:
-            # 每个章节最多保留 5 行，避免太长
-            if kept_lines_for_head < 5:
-                picked.append(line)
-                kept_lines_for_head += 1
-
-    short = "\n".join(picked).strip()
-
-    # 如果抽取失败，就直接取前面一段
-    if len(short) < 200:
-        short = text[:1800]
-
-    # 清理过长内容
-    max_len = 2200
-    if len(short) > max_len:
-        short = short[:max_len].rstrip() + "\n\n……\n\n完整报告已生成，请查看本地 reports/*.md"
-
-    return "✅ TikTok Insight 分析完成\n\n" + short + "\n\n📄 完整深度报告已保存到本地 reports 目录。"
-
 def reply_message(message_id: str, text: str):
     token = get_tenant_access_token()
     url = f"{FEISHU_OPEN_BASE}/open-apis/im/v1/messages/{message_id}/reply"
@@ -315,7 +258,6 @@ def run_analysis_and_reply(message_id: str, text: str):
                 reply_text = job.get("reply_text", "").strip()
                 if not reply_text:
                     reply_text = f"✅ 分析完成，但没有取到 reply_text。\nReport: {job.get('report_path')}"
-                reply_text = make_feishu_short_reply(reply_text)
                 reply_message(message_id, reply_text)
                 return
 
