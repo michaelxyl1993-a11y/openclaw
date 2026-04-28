@@ -470,10 +470,31 @@ def is_duplicate_content(payload: dict, message_id: str, text: str, ttl_seconds:
 
 LAST_CONTEXT_PATH = BASE_DIR / "feishu_last_report_context.json"
 
-def save_last_report_context(chat_id: str, message_id: str, report_path: str, reply_text: str):
-    """保存同一个群最近一次成功分析报告，用于后续追问。"""
+def make_report_id() -> str:
+    """生成短 Report ID，例如 R0428-1923-5F3A。"""
+    suffix = hashlib.md5(f"{time.time()}-{os.getpid()}".encode("utf-8")).hexdigest()[:4].upper()
+    return datetime.now().strftime("R%m%d-%H%M-") + suffix
+
+
+def extract_report_id(text: str) -> str:
+    """从追问文本里识别 Report ID。"""
+    if not text:
+        return ""
+    m = re.search(r"\bR\d{4}-\d{4}-[A-Z0-9]{4}\b", text)
+    if m:
+        return m.group(0)
+    return ""
+
+
+def save_last_report_context(chat_id: str, message_id: str, report_path: str, reply_text: str, report_id: str = ""):
+    """
+    保存同一个群最近一次成功分析报告，并保存最近 20 条历史报告。
+    """
     if not chat_id or not report_path:
         return
+
+    if not report_id:
+        report_id = make_report_id()
 
     data = {}
     if LAST_CONTEXT_PATH.exists():
@@ -482,12 +503,35 @@ def save_last_report_context(chat_id: str, message_id: str, report_path: str, re
         except Exception:
             data = {}
 
-    data[chat_id] = {
+    chat_ctx = data.get(chat_id) or {}
+    history = chat_ctx.get("history") or []
+
+    item = {
+        "report_id": report_id,
         "message_id": message_id,
         "report_path": report_path,
         "reply_preview": (reply_text or "")[:3000],
         "time": now_ts(),
     }
+
+    # 去重：同 report_id 或同 report_path 的旧记录先移除
+    history = [
+        x for x in history
+        if x.get("report_id") != report_id and x.get("report_path") != report_path
+    ]
+
+    history.insert(0, item)
+    history = history[:20]
+
+    chat_ctx["latest_report_id"] = report_id
+    chat_ctx["message_id"] = message_id
+    chat_ctx["report_id"] = report_id
+    chat_ctx["report_path"] = report_path
+    chat_ctx["reply_preview"] = (reply_text or "")[:3000]
+    chat_ctx["time"] = now_ts()
+    chat_ctx["history"] = history
+
+    data[chat_id] = chat_ctx
 
     LAST_CONTEXT_PATH.write_text(
         json.dumps(data, ensure_ascii=False, indent=2),
@@ -495,7 +539,12 @@ def save_last_report_context(chat_id: str, message_id: str, report_path: str, re
     )
 
 
-def load_last_report_context(chat_id: str) -> dict:
+def load_last_report_context(chat_id: str, report_id: str = "") -> dict:
+    """
+    读取报告上下文。
+    - 如果提供 report_id，优先在该群历史报告里找指定报告
+    - 如果不提供，则读取最近一次成功报告
+    """
     if not chat_id or not LAST_CONTEXT_PATH.exists():
         return {}
 
@@ -504,13 +553,48 @@ def load_last_report_context(chat_id: str) -> dict:
     except Exception:
         return {}
 
-    ctx = data.get(chat_id) or {}
-    report_path = ctx.get("report_path")
+    chat_ctx = data.get(chat_id) or {}
+    if not chat_ctx:
+        return {}
+
+    if report_id:
+        for item in chat_ctx.get("history", []):
+            if item.get("report_id") == report_id:
+                report_path = item.get("report_path")
+                if report_path and Path(report_path).exists():
+                    return item
+                return {}
+        return {}
+
+    report_path = chat_ctx.get("report_path")
     if not report_path or not Path(report_path).exists():
         return {}
 
-    return ctx
+    return chat_ctx
 
+
+def list_recent_report_ids(chat_id: str) -> str:
+    """返回本群最近报告 ID 列表，用于找不到指定 ID 时提示。"""
+    if not chat_id or not LAST_CONTEXT_PATH.exists():
+        return ""
+
+    try:
+        data = json.loads(LAST_CONTEXT_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+
+    chat_ctx = data.get(chat_id) or {}
+    history = chat_ctx.get("history") or []
+    if not history:
+        return ""
+
+    lines = []
+    for item in history[:8]:
+        rid = item.get("report_id", "")
+        t = item.get("time", "")
+        if rid:
+            lines.append(f"- {rid}（{t}）")
+    return "\n".join(lines)
 
 def is_followup_message(text: str) -> bool:
     """
@@ -536,13 +620,25 @@ def is_followup_message(text: str) -> bool:
 
 
 def answer_followup_with_gpt(chat_id: str, question: str) -> str:
-    ctx = load_last_report_context(chat_id)
+    requested_report_id = extract_report_id(question)
+    ctx = load_last_report_context(chat_id, requested_report_id)
+
+    if requested_report_id and not ctx:
+        recent = list_recent_report_ids(chat_id)
+        extra = f"\n\n本群最近可用报告 ID：\n{recent}" if recent else ""
+        return (
+            f"我没有找到报告 ID：{requested_report_id}，暂时无法基于这份报告追问。"
+            f"{extra}\n\n"
+            "请检查 Report ID 是否复制完整，格式类似：R0428-1923-5F3A。"
+        )
+
     if not ctx:
         return (
             "我还没有找到本群最近一次成功分析报告，暂时无法追问。\n\n"
             "请先按完整模板提交一条 TikTok 素材，等 Bot 输出 V1 报告后，再在同一个群里追问。"
         )
 
+    report_id = ctx.get("report_id") or requested_report_id or "最近一次报告"
     report_path = Path(ctx["report_path"])
     report_text = report_path.read_text(encoding="utf-8")
 
@@ -583,7 +679,8 @@ def answer_followup_with_gpt(chat_id: str, question: str) -> str:
             {
                 "role": "user",
                 "content": (
-                    "以下是上一份完整报告：\n\n"
+                    f"当前使用的报告 ID：{report_id}\n\n"
+                    "以下是用于追问的完整报告：\n\n"
                     f"{report_text[:20000]}\n\n"
                     "用户追问：\n"
                     f"{question}\n\n"
@@ -599,7 +696,11 @@ def answer_followup_with_gpt(chat_id: str, question: str) -> str:
 
 def run_followup_and_reply(message_id: str, chat_id: str, text: str):
     try:
-        reply_message(message_id, "收到，这是基于上一份报告的追问，我来补充回答。")
+        requested_report_id = extract_report_id(text)
+        if requested_report_id:
+            reply_message(message_id, f"收到，这是基于报告 {requested_report_id} 的追问，我来补充回答。")
+        else:
+            reply_message(message_id, "收到，这是基于最近一次成功报告的追问，我来补充回答。")
         answer = answer_followup_with_gpt(chat_id, text)
         reply_message(message_id, answer)
     except Exception as e:
@@ -682,20 +783,31 @@ def run_analysis_and_reply(message_id: str, text: str, chat_id: str = ""):
                 if not reply_text:
                     reply_text = f"✅ 分析完成，但没有取到 reply_text。\nReport: {job.get('report_path')}"
                 reply_text = make_feishu_short_reply(reply_text)
+
+                # V1.1: 为每份报告生成 Report ID，方便后续指定历史报告追问
+                report_id = make_report_id()
+                reply_text = reply_text.replace(
+                    "✅ TikTok Insight V1 复刻执行报告",
+                    f"✅ TikTok Insight V1.1 复刻执行报告\n\n本次报告 ID：{report_id}",
+                    1
+                )
+
                 reply_message(message_id, reply_text)
 
-                # 保存最近一次成功报告，供同群追问使用
+                # 保存最近一次成功报告和历史报告，供同群追问使用
                 try:
                     save_last_report_context(
                         chat_id=chat_id,
                         message_id=message_id,
                         report_path=job.get("report_path", ""),
                         reply_text=reply_text,
+                        report_id=report_id,
                     )
                 except Exception as ctx_e:
                     write_json_log("save_context_error", {
                         "message_id": message_id,
                         "chat_id": chat_id,
+                        "report_id": report_id,
                         "error": repr(ctx_e),
                     })
 
