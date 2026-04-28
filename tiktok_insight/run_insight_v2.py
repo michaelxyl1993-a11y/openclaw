@@ -236,10 +236,8 @@ def main():
         raise RuntimeError("Missing APIFY_TOKEN. Please export APIFY_TOKEN before full fetch.")
 
     if not args.no_report:
-        if not os.environ.get("QWEN_API_KEY"):
-            raise RuntimeError("Missing QWEN_API_KEY. Please export QWEN_API_KEY before generating report.")
-        if not os.environ.get("QWEN_BASE_URL"):
-            raise RuntimeError("Missing QWEN_BASE_URL. Please export QWEN_BASE_URL before generating report.")
+        if not os.environ.get("OPENAI_API_KEY"):
+            raise RuntimeError("Missing OPENAI_API_KEY. Please export OPENAI_API_KEY before generating report.")
 
     results = []
 

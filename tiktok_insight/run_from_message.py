@@ -111,7 +111,36 @@ def parse_message(text: str) -> dict:
     return result
 
 
+
+def extract_first_tiktok_url(text: str) -> str:
+    """
+    从整条消息里兜底提取 TikTok URL。
+    支持裸链接、Markdown 链接、飞书链接卡片残留。
+    """
+    if not text:
+        return ""
+
+    # Markdown link: [TikTok](https://...)
+    m = re.search(r"\[[^\]]*\]\((https?://[^)\s]*tiktok\.com/[^)\s]+)\)", text, flags=re.I)
+    if m:
+        return m.group(1).strip().rstrip("。,.，)）")
+
+    # Bare URL
+    m = re.search(r"https?://[^\s<>\)\"']*tiktok\.com/[^\s<>\)\"']+", text, flags=re.I)
+    if m:
+        return m.group(0).strip().rstrip("。,.，)）")
+
+    return ""
+
+
 def build_input(parsed: dict) -> dict:
+    # Fallback: 如果字段解析没拿到 material_url，就从原始全文里提取第一个 TikTok 链接
+    if not parsed.get("material_url"):
+        raw_text = parsed.get("_raw_text") or ""
+        fallback_url = extract_first_tiktok_url(raw_text)
+        if fallback_url:
+            parsed["material_url"] = fallback_url
+
     required = ["market", "product", "format", "material_url", "analysis_goal"]
     missing = [x for x in required if not parsed.get(x)]
 
@@ -168,6 +197,7 @@ def main():
 
     text = message_path.read_text(encoding="utf-8")
     parsed = parse_message(text)
+    parsed["_raw_text"] = text
     payload = build_input(parsed)
 
     input_path = save_input(payload)

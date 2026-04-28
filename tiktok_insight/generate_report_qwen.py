@@ -31,14 +31,15 @@ def encode_image_as_data_url(image_path: Path) -> str:
     return f"data:{mime};base64,{b64}"
 
 def main():
-    api_key = os.environ.get("QWEN_API_KEY")
-    base_url = os.environ.get("QWEN_BASE_URL")
-    model = os.environ.get("QWEN_MODEL", "qwen3.6-plus")
+    # V1: use OpenAI GPT by default.
+    # Keep this file name for pipeline compatibility.
+    api_key = os.environ.get("OPENAI_API_KEY")
+    base_url = os.environ.get("OPENAI_BASE_URL", "").strip()
+    model = os.environ.get("OPENAI_MODEL", "gpt-5.5")
 
     if not api_key:
-        raise RuntimeError("Missing QWEN_API_KEY. Please run: export QWEN_API_KEY='your_key'")
-    if not base_url:
-        raise RuntimeError("Missing QWEN_BASE_URL. Please run: export QWEN_BASE_URL='your_base_url'")
+        raise RuntimeError("Missing OPENAI_API_KEY. Please run: export OPENAI_API_KEY='your_key'")
+
 
     input_path = BASE_DIR / "input_test.json"
     payload = read_json(input_path)
@@ -68,13 +69,14 @@ def main():
     prompt_text = prompt_path.read_text(encoding="utf-8")
     image_data_url = encode_image_as_data_url(contact_sheet_path)
 
-    client = OpenAI(
-        api_key=api_key,
-        base_url=base_url,
-    )
+    client_kwargs = {"api_key": api_key}
+    if base_url:
+        client_kwargs["base_url"] = base_url
+
+    client = OpenAI(**client_kwargs)
 
     print(f"Using model: {model}")
-    print(f"Base URL: {base_url}")
+    print(f"Base URL: {base_url or 'OpenAI default'}")
     print(f"Prompt: {prompt_path}")
     print(f"Image: {contact_sheet_path}")
 
@@ -105,8 +107,7 @@ def main():
                 ]
             }
         ],
-        temperature=0.3,
-        max_tokens=12000
+        max_completion_tokens=12000
     )
 
     report_text = completion.choices[0].message.content or ""
@@ -117,7 +118,7 @@ def main():
     print(json.dumps({
         "status": "success",
         "model": model,
-        "base_url": base_url,
+        "base_url": base_url or "OpenAI default",
         "report_path": str(output_path),
         "report_chars": len(report_text),
         "preview": report_text[:1200]
