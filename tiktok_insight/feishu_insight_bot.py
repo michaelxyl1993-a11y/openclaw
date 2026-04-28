@@ -16,6 +16,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
 import hashlib
+from openai import OpenAI
 
 
 def clean_feishu_message_text(text: str) -> str:
@@ -146,23 +147,25 @@ def make_feishu_short_reply(full_text: str) -> str:
 
     # 尽量从完整报告里抽取关键章节
     wanted_heads = [
-        "## 1. 结论先行",
-        "## 2. 素材本身拆解",
-        "## 4. 商品匹配度分析",
-        "## 5. 转化阻力",
-        "## 7. 下一条图文建议",
-        "## 8. 下一条视频建议",
-        "## 10. 最终动作建议",
+        "## 1. 一句话结论",
+        "## 2. 核心情绪",
+        "## 3. 口播卖点拆解",
+        "## 4. 画面证明方式",
+        "## 5. 可套用视频模板",
+        "## 6. 可套用图文模板",
+        "## 7. 下一条直接怎么做",
+        "## 8. 风险与评论区拦截",
     ]
 
     short_head_map = {
-        "## 1. 结论先行": "## 1. 结论先行",
-        "## 2. 素材本身拆解": "## 2. 素材爆点拆解",
-        "## 4. 商品匹配度分析": "## 3. 商品匹配与转化问题",
-        "## 5. 转化阻力": "## 4. 主要转化阻力",
-        "## 7. 下一条图文建议": "## 5. 下一条图文建议",
-        "## 8. 下一条视频建议": "## 6. 下一条视频建议",
-        "## 10. 最终动作建议": "## 7. 最终动作建议",
+        "## 1. 一句话结论": "## 1. 一句话结论",
+        "## 2. 核心情绪": "## 2. 核心情绪",
+        "## 3. 口播卖点拆解": "## 3. 口播卖点拆解",
+        "## 4. 画面证明方式": "## 4. 画面证明方式",
+        "## 5. 可套用视频模板": "## 5. 可套用视频模板",
+        "## 6. 可套用图文模板": "## 6. 可套用图文模板",
+        "## 7. 下一条直接怎么做": "## 7. 下一条直接怎么做",
+        "## 8. 风险与评论区拦截": "## 8. 风险与评论区拦截",
     }
 
     lines = text.splitlines()
@@ -198,7 +201,7 @@ def make_feishu_short_reply(full_text: str) -> str:
         short = short[:max_len].rstrip() + "\n\n……"
 
     short = format_feishu_reply_for_readability(short)
-    return "✅ TikTok Insight 分析完成\n\n" + short + "\n\n📄 完整深度报告已保存到本地 reports 目录。"
+    return "✅ TikTok Insight V1 复刻执行报告\n\n" + short + "\n\n📄 完整深度报告已保存到本地 reports 目录。"
 
 
 def format_feishu_reply_for_readability(text: str) -> str:
@@ -464,6 +467,151 @@ def is_duplicate_content(payload: dict, message_id: str, text: str, ttl_seconds:
         return False
 
 
+
+LAST_CONTEXT_PATH = BASE_DIR / "feishu_last_report_context.json"
+
+def save_last_report_context(chat_id: str, message_id: str, report_path: str, reply_text: str):
+    """保存同一个群最近一次成功分析报告，用于后续追问。"""
+    if not chat_id or not report_path:
+        return
+
+    data = {}
+    if LAST_CONTEXT_PATH.exists():
+        try:
+            data = json.loads(LAST_CONTEXT_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            data = {}
+
+    data[chat_id] = {
+        "message_id": message_id,
+        "report_path": report_path,
+        "reply_preview": (reply_text or "")[:3000],
+        "time": now_ts(),
+    }
+
+    LAST_CONTEXT_PATH.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
+
+def load_last_report_context(chat_id: str) -> dict:
+    if not chat_id or not LAST_CONTEXT_PATH.exists():
+        return {}
+
+    try:
+        data = json.loads(LAST_CONTEXT_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+    ctx = data.get(chat_id) or {}
+    report_path = ctx.get("report_path")
+    if not report_path or not Path(report_path).exists():
+        return {}
+
+    return ctx
+
+
+def is_followup_message(text: str) -> bool:
+    """
+    判断是否像追问。
+    完整模板消息仍然走正式分析；非完整模板但包含追问关键词时，走追问模式。
+    """
+    if not text:
+        return False
+
+    if should_process_message(text):
+        return False
+
+    lowered = text.lower()
+    keywords = [
+        "继续", "追问", "上面", "刚才", "这条", "这个", "这份报告",
+        "适合", "图文", "视频", "复刻", "模板", "脚本", "口播",
+        "评论", "回复", "标题", "文案", "怎么做", "怎么拍", "怎么改",
+        "情绪", "卖点", "表达方式", "套用",
+        "give", "script", "template", "caption", "hook", "video", "carousel"
+    ]
+
+    return any(k in lowered or k in text for k in keywords)
+
+
+def answer_followup_with_gpt(chat_id: str, question: str) -> str:
+    ctx = load_last_report_context(chat_id)
+    if not ctx:
+        return (
+            "我还没有找到本群最近一次成功分析报告，暂时无法追问。\n\n"
+            "请先按完整模板提交一条 TikTok 素材，等 Bot 输出 V1 报告后，再在同一个群里追问。"
+        )
+
+    report_path = Path(ctx["report_path"])
+    report_text = report_path.read_text(encoding="utf-8")
+
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        return "追问失败：当前服务缺少 OPENAI_API_KEY。"
+
+    model = os.environ.get("OPENAI_FOLLOWUP_MODEL") or os.environ.get("OPENAI_MODEL", "gpt-5.5")
+    base_url = os.environ.get("OPENAI_BASE_URL", "").strip()
+
+    client_kwargs = {"api_key": api_key}
+    if base_url:
+        client_kwargs["base_url"] = base_url
+
+    client = OpenAI(**client_kwargs)
+
+    completion = client.chat.completions.create(
+        model=model,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "你是 TikTok Shop 内容复刻策略专家。"
+                    "用户正在基于上一份 TikTok Insight V1 报告做追问。"
+                    "请只回答用户追问，不要重新输出完整报告。"
+                    "回答要具体、可执行，优先给图文/视频团队能直接使用的结构、话术、模板。"
+                    "如果信息不足，明确写需商品团队确认。"
+                    "中文回复，结构清晰，避免空泛。"
+                )
+            },
+            {
+                "role": "user",
+                "content": (
+                    "以下是上一份完整报告：\n\n"
+                    f"{report_text[:20000]}\n\n"
+                    "用户追问：\n"
+                    f"{question}\n\n"
+                    "请基于上一份报告回答追问。"
+                )
+            }
+        ],
+        max_completion_tokens=5000
+    )
+
+    return completion.choices[0].message.content or "追问失败：模型没有返回内容。"
+
+
+def run_followup_and_reply(message_id: str, chat_id: str, text: str):
+    try:
+        reply_message(message_id, "收到，这是基于上一份报告的追问，我来补充回答。")
+        answer = answer_followup_with_gpt(chat_id, text)
+        reply_message(message_id, answer)
+    except Exception as e:
+        write_json_log("followup_error", {
+            "message_id": message_id,
+            "chat_id": chat_id,
+            "error": repr(e),
+            "text_preview": text[:1000],
+        })
+        try:
+            reply_message(
+                message_id,
+                "❌ 追问处理失败。\n\n"
+                f"错误：{repr(e)}"
+            )
+        except Exception:
+            pass
+
+
 def should_process_message(text: str) -> bool:
     required_markers = ["市场", "商品", "体裁"]
     has_required = all(x in text for x in required_markers)
@@ -480,7 +628,7 @@ def detect_skip_fetch(text: str) -> bool:
     return DEFAULT_SKIP_FETCH
 
 
-def submit_insight_job(message_text: str, skip_fetch: bool) -> str:
+def submit_insight_job(message_text: str, skip_fetch: bool, chat_id: str = "") -> str:
     url = f"{INSIGHT_SERVER}/analyze"
     resp = http_json("POST", url, {
         "message": message_text,
@@ -501,7 +649,7 @@ def get_insight_job(job_id: str) -> dict:
     return http_json("GET", url, timeout=30)
 
 
-def run_analysis_and_reply(message_id: str, text: str):
+def run_analysis_and_reply(message_id: str, text: str, chat_id: str = ""):
     try:
         skip_fetch = detect_skip_fetch(text)
 
@@ -510,7 +658,7 @@ def run_analysis_and_reply(message_id: str, text: str):
             "收到，开始分析这条 TikTok 素材。\n\n预计需要 1–5 分钟。分析完成后我会直接在本话题回复。"
         )
 
-        job_id = submit_insight_job(text, skip_fetch=skip_fetch)
+        job_id = submit_insight_job(text, skip_fetch=skip_fetch, chat_id=chat_id)
 
         deadline = time.time() + 1800
         last_status = ""
@@ -528,6 +676,22 @@ def run_analysis_and_reply(message_id: str, text: str):
                     reply_text = f"✅ 分析完成，但没有取到 reply_text。\nReport: {job.get('report_path')}"
                 reply_text = make_feishu_short_reply(reply_text)
                 reply_message(message_id, reply_text)
+
+                # 保存最近一次成功报告，供同群追问使用
+                try:
+                    save_last_report_context(
+                        chat_id=chat_id,
+                        message_id=message_id,
+                        report_path=job.get("report_path", ""),
+                        reply_text=reply_text,
+                    )
+                except Exception as ctx_e:
+                    write_json_log("save_context_error", {
+                        "message_id": message_id,
+                        "chat_id": chat_id,
+                        "error": repr(ctx_e),
+                    })
+
                 return
 
             if status == "failed":
@@ -642,6 +806,8 @@ class FeishuHandler(BaseHTTPRequestHandler):
                 return
 
             message_id, text = extract_text_message(payload)
+            message = payload.get("event", {}).get("message", {})
+            chat_id = message.get("chat_id", "")
 
             if not message_id:
                 self.send_json(200, {
@@ -675,6 +841,21 @@ class FeishuHandler(BaseHTTPRequestHandler):
                 return
 
             if not should_process_message(text):
+                if is_followup_message(text):
+                    write_json_log("followup_received", {
+                        "message_id": message_id,
+                        "chat_id": chat_id,
+                        "text_preview": text[:500],
+                    })
+                    self.send_json(200, {"status": "accepted", "mode": "followup"})
+                    t = threading.Thread(
+                        target=run_followup_and_reply,
+                        args=(message_id, chat_id, text),
+                        daemon=True,
+                    )
+                    t.start()
+                    return
+
                 reply_message(
                     message_id,
                     "请按这个格式提交一条素材：\n\n"
@@ -691,7 +872,7 @@ class FeishuHandler(BaseHTTPRequestHandler):
 
             t = threading.Thread(
                 target=run_analysis_and_reply,
-                args=(message_id, text),
+                args=(message_id, text, chat_id),
                 daemon=True
             )
             t.start()
