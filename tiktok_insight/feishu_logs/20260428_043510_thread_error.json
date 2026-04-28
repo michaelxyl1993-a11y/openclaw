@@ -1,0 +1,5 @@
+{
+  "message_id": "om_x100b51c8c90c7ca8b4cf6eb1045a2db",
+  "error": "RuntimeError('HTTP 429 http://127.0.0.1:8765/analyze: {\\n  \"status\": \"busy\",\\n  \"message\": \"当前已有分析任务在运行，请稍后再提交。\"\\n}')",
+  "text_preview": "市场：DE\n\n商品：ALLPOWERS tragbare Energiezentrale R600, 600 W, 299 Wh, LiFePO4-Akku, mobiler Netzteil geeignet für Garten, Reise, Camping und Wohnmobil, Notstromversorgungsgerät\n\n商品核心卖点：600W tragbare Energiezentrale, 299Wh Kapazität, LiFePO4-Akku, geeignet für Garten, Reise, Camping und Wohnmobil, mobile Stromversorgung für mehrere Geräte, Notstromversorgung für Outdoor- und Alltagssituationen, kombinierbar mit Solarpanel zum Aufladen im Freien\n\n体裁：视频\n\n视频链接：https://www.tiktok.com/@fediukstore/video/7630142079217175840\n\n分析目标：分析这条德国 TikTok 视频素材为什么能起量，重点拆解前3秒钩子、视频结构、商品露出、评论区反馈、用户购买/质疑点，并给出图文团队和视频团队可复刻的方向。\n\n补充信息：飞书Bot正式联调测试。"
+}

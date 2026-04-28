@@ -56,8 +56,8 @@
 ## 0. 用户输入信息
 
 - 市场：DE
-- 商品名称：Women's Solid Color Wireless Backless Bra, Comfortable Breathable Multiway Bras for Daily Wear, Soft Lingerie for All Seasons
-- 商品核心卖点：无线设计，减少钢圈束缚感；露背款式，适合搭配露背、低背或特殊剪裁上衣；纯色基础款，适合日常穿搭；多穿法设计，适配不同服装场景；柔软舒适，适合日常穿着；轻薄透气，适合四季内搭；兼具功能性内衣和穿搭隐形需求。
+- 商品名称：ALLPOWERS tragbare Energiezentrale R600, 600 W, 299 Wh, LiFePO4-Akku, mobiler Netzteil geeignet für Garten, Reise, Camping und Wohnmobil, Notstromversorgungsgerät
+- 商品核心卖点：600W tragbare Energiezentrale, 299Wh Kapazität, LiFePO4-Akku, geeignet für Garten, Reise, Camping und Wohnmobil, mobile Stromversorgung für mehrere Geräte, Notstromversorgung für Outdoor- und Alltagssituationen, kombinierbar mit Solarpanel zum Aufladen im Freien
 - 体裁：video
 - 素材链接：https://www.tiktok.com/@fediukstore/video/7630142079217175840
 - 分析目标：分析这条德国 TikTok 视频素材为什么能起量，重点拆解前3秒钩子、视频结构、商品露出、评论区反馈、用户购买/质疑点，并给出图文团队和视频团队可复刻的方向。
@@ -101,11 +101,11 @@
 
 ### 互动数据
 
-- play_count：218700
-- like_count：851
+- play_count：219700
+- like_count：860
 - comment_count：12
 - share_count：52
-- collect_count：427
+- collect_count：429
 - repost_count：0
 
 ---
@@ -156,14 +156,14 @@ hab ich 1 BH an oder hab ich kein BH an was denkt ihr ich hab einen BH an so kra
 
 ### 高赞评论 / 代表评论
 
-1. Gibt’s bei Temu für 3€ | likes=5, replies=0, liked_by_author=False
+1. Gibt’s bei Temu für 3€ | likes=6, replies=0, liked_by_author=False
 2. man Braucht nur ein Verlängerungs Hacken für Rücken frei. Man braucht sich nicht Extra ein Neuen BH kaufen. Die verlängrung findet man bei Amazon Temu Zalando usw | likes=1, replies=1, liked_by_author=False
 3. Ich habe BH immer in 75B welche grosse , ich nehmen soll?? | likes=1, replies=1, liked_by_author=False
 4. Das ist bestimmt auch viel gesünder!Wegen den Lymphen | likes=1, replies=0, liked_by_author=True
-5. Ich habe 3fach 😂🙈🙈 | likes=0, replies=0, liked_by_author=False
-6. finde den dennoch sehr auffällig | likes=0, replies=0, liked_by_author=False
+5. Solle sowas für große Körbchen und kleines Band geben 🥲 | likes=0, replies=0, liked_by_author=False
+6. Ich habe 3fach 😂🙈🙈 | likes=0, replies=0, liked_by_author=False
 7. bạn quá xinh đẹp và duyên dáng | likes=0, replies=0, liked_by_author=False
-8. Solle sowas für große Körbchen und kleines Band geben 🥲 | likes=0, replies=0, liked_by_author=False
+8. finde den dennoch sehr auffällig | likes=0, replies=0, liked_by_author=False
 9. man sieht den BH voll | likes=0, replies=1, liked_by_author=False
 
 ---

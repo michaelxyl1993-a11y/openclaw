@@ -15,6 +15,7 @@ from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
+import hashlib
 
 
 def clean_feishu_message_text(text: str) -> str:
@@ -32,6 +33,8 @@ def clean_feishu_message_text(text: str) -> str:
 
 BASE_DIR = Path(__file__).parent
 FEISHU_LOG_DIR = BASE_DIR / "feishu_logs"
+PROCESSED_EVENTS_PATH = BASE_DIR / "feishu_processed_events.json"
+DEDUP_LOCK = threading.Lock()
 FEISHU_LOG_DIR.mkdir(exist_ok=True)
 
 INSIGHT_SERVER = os.getenv("INSIGHT_SERVER", "http://127.0.0.1:8765").rstrip("/")
@@ -152,6 +155,16 @@ def make_feishu_short_reply(full_text: str) -> str:
         "## 10. 最终动作建议",
     ]
 
+    short_head_map = {
+        "## 1. 结论先行": "## 1. 结论先行",
+        "## 2. 素材本身拆解": "## 2. 素材爆点拆解",
+        "## 4. 商品匹配度分析": "## 3. 商品匹配与转化问题",
+        "## 5. 转化阻力": "## 4. 主要转化阻力",
+        "## 7. 下一条图文建议": "## 5. 下一条图文建议",
+        "## 8. 下一条视频建议": "## 6. 下一条视频建议",
+        "## 10. 最终动作建议": "## 7. 最终动作建议",
+    }
+
     lines = text.splitlines()
     picked = []
     current_head = None
@@ -164,7 +177,7 @@ def make_feishu_short_reply(full_text: str) -> str:
             keep = current_head in wanted_heads
             kept_lines_for_head = 0
             if keep:
-                picked.append(line)
+                picked.append(short_head_map.get(current_head, line))
             continue
 
         if keep:
@@ -182,9 +195,65 @@ def make_feishu_short_reply(full_text: str) -> str:
     # 清理过长内容
     max_len = 2200
     if len(short) > max_len:
-        short = short[:max_len].rstrip() + "\n\n……\n\n完整报告已生成，请查看本地 reports/*.md"
+        short = short[:max_len].rstrip() + "\n\n……"
 
+    short = format_feishu_reply_for_readability(short)
     return "✅ TikTok Insight 分析完成\n\n" + short + "\n\n📄 完整深度报告已保存到本地 reports 目录。"
+
+
+def format_feishu_reply_for_readability(text: str) -> str:
+    """
+    飞书阅读优化：
+    - ## 1. 结论先行 -> 【1. 结论先行】
+    - 章节前后增加空行
+    - 列表之间适度留白
+    """
+    if not text:
+        return ""
+
+    lines = text.splitlines()
+    out = []
+
+    for raw in lines:
+        line = raw.rstrip()
+
+        # Markdown 二级标题转成飞书更醒目的中文括号标题
+        if line.startswith("## "):
+            title = line.replace("## ", "", 1).strip()
+            if out and out[-1] != "":
+                out.append("")
+            out.append(f"【{title}】")
+            out.append("")
+            continue
+
+        # 去掉多余的 Markdown 加粗符号，飞书纯文本里更干净
+        line = line.replace("**", "")
+
+        # 一级标题如果保留，改成普通醒目行
+        if line.startswith("# "):
+            title = line.replace("# ", "", 1).strip()
+            if out and out[-1] != "":
+                out.append("")
+            out.append(f"【{title}】")
+            out.append("")
+            continue
+
+        out.append(line)
+
+    # 压缩连续空行，最多保留一个空行
+    cleaned = []
+    blank = False
+    for line in out:
+        if line.strip() == "":
+            if not blank:
+                cleaned.append("")
+            blank = True
+        else:
+            cleaned.append(line)
+            blank = False
+
+    return "\n".join(cleaned).strip()
+
 
 def reply_message(message_id: str, text: str):
     token = get_tenant_access_token()
@@ -256,6 +325,145 @@ def extract_text_message(event_payload: dict) -> tuple[str, str]:
     return message_id, text.strip()
 
 
+
+def load_processed_events() -> dict:
+    if not PROCESSED_EVENTS_PATH.exists():
+        return {}
+    try:
+        return json.loads(PROCESSED_EVENTS_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def save_processed_events(data: dict):
+    # 只保留最近 1000 条，避免文件无限增长
+    items = list(data.items())[-1000:]
+    compact = dict(items)
+    PROCESSED_EVENTS_PATH.write_text(
+        json.dumps(compact, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
+
+def is_duplicate_event(payload: dict, message_id: str) -> bool:
+    """
+    飞书可能同一条消息用不同 event_id 重试投递。
+    所以不能只看 event_id；event_id 和 message_id 任意一个命中过，都视为重复。
+    """
+    header = payload.get("header", {}) or {}
+    event_id = header.get("event_id", "") or payload.get("uuid", "")
+
+    keys = []
+    if event_id:
+        keys.append(f"event:{event_id}")
+    if message_id:
+        keys.append(f"message:{message_id}")
+
+    if not keys:
+        return False
+
+    data = load_processed_events()
+
+    # 任意 key 已存在，都认为重复
+    for key in keys:
+        if key in data:
+            return True
+
+    record = {
+        "message_id": message_id,
+        "event_id": event_id,
+        "time": now_ts()
+    }
+
+    # event_id 和 message_id 都写入，后续任意一种重复都能拦住
+    for key in keys:
+        data[key] = record
+
+    save_processed_events(data)
+    return False
+
+
+def get_event_chat_id(payload: dict) -> str:
+    try:
+        return (
+            payload.get("event", {})
+            .get("message", {})
+            .get("chat_id", "")
+        ) or ""
+    except Exception:
+        return ""
+
+
+def normalize_text_for_dedupe(text: str) -> str:
+    if not text:
+        return ""
+    try:
+        text = clean_feishu_message_text(text)
+    except Exception:
+        pass
+    try:
+        text = normalize_markdown_links(text)
+    except Exception:
+        pass
+    text = text.replace("\u200b", "").replace("\ufeff", "")
+    text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
+    return text.strip()
+
+
+def is_duplicate_content(payload: dict, message_id: str, text: str, ttl_seconds: int = 600) -> bool:
+    """
+    强去重：
+    同一个 chat_id + 同一段清洗正文，ttl_seconds 内只允许提交一次。
+    加 DEDUP_LOCK，避免飞书并发重试时两个请求同时穿透。
+    """
+    with DEDUP_LOCK:
+        chat_id = get_event_chat_id(payload)
+        normalized = normalize_text_for_dedupe(text)
+
+        if not normalized:
+            return False
+
+        key_raw = f"{chat_id}|{normalized}"
+        content_hash = hashlib.sha256(key_raw.encode("utf-8")).hexdigest()
+        key = f"content:{content_hash}"
+
+        data = load_processed_events()
+        now = datetime.now().timestamp()
+
+        cleaned = {}
+        for k, v in data.items():
+            if not k.startswith("content:"):
+                cleaned[k] = v
+                continue
+            try:
+                ts = float(v.get("ts", 0))
+            except Exception:
+                ts = 0
+            if now - ts <= ttl_seconds:
+                cleaned[k] = v
+
+        data = cleaned
+
+        if key in data:
+            write_json_log("duplicate_content", {
+                "message_id": message_id,
+                "chat_id": chat_id,
+                "hash": content_hash,
+                "text_preview": normalized[:300],
+            })
+            return True
+
+        data[key] = {
+            "message_id": message_id,
+            "chat_id": chat_id,
+            "text_preview": normalized[:300],
+            "time": now_ts(),
+            "ts": now,
+        }
+        save_processed_events(data)
+        return False
+
+
 def should_process_message(text: str) -> bool:
     required_markers = ["市场", "商品", "体裁"]
     has_required = all(x in text for x in required_markers)
@@ -280,6 +488,9 @@ def submit_insight_job(message_text: str, skip_fetch: bool) -> str:
     }, timeout=30)
 
     if resp.get("status") != "accepted":
+        # HTTP server busy，不当作红色失败；交给上层友好提示
+        if resp.get("status") == "busy" or "当前已有分析任务" in str(resp):
+            raise RuntimeError("BUSY: 当前已有分析任务在运行，请等待完成后再提交。")
         raise RuntimeError(f"Insight server rejected job: {resp}")
 
     return resp["job_id"]
@@ -343,11 +554,18 @@ def run_analysis_and_reply(message_id: str, text: str):
             "text_preview": text[:1000],
         })
         try:
-            reply_message(
-                message_id,
-                "❌ TikTok Insight Bot 处理失败。\n\n"
-                f"错误：{repr(e)}"
-            )
+            err = repr(e)
+            if "BUSY:" in err or "当前已有分析任务" in err:
+                reply_message(
+                    message_id,
+                    "⏳ 当前已有 TikTok Insight 分析任务在运行。\n\n请等上一条完成后再提交，避免重复消耗。"
+                )
+            else:
+                reply_message(
+                    message_id,
+                    "❌ TikTok Insight Bot 处理失败。\n\n"
+                    f"错误：{repr(e)}"
+                )
         except Exception as reply_e:
             write_json_log("reply_error", {
                 "message_id": message_id,
@@ -432,12 +650,28 @@ class FeishuHandler(BaseHTTPRequestHandler):
                 })
                 return
 
+            if is_duplicate_event(payload, message_id):
+                self.send_json(200, {
+                    "status": "ignored",
+                    "reason": "duplicate_event",
+                    "message_id": message_id
+                })
+                return
+
             if not text:
                 reply_message(
                     message_id,
                     "目前只支持文本格式。请按模板发送：市场 / 商品 / 体裁 / 链接 / 分析目标。"
                 )
                 self.send_json(200, {"status": "ignored", "reason": "non-text"})
+                return
+
+            if is_duplicate_content(payload, message_id, text):
+                self.send_json(200, {
+                    "status": "ignored",
+                    "reason": "duplicate_content",
+                    "message_id": message_id
+                })
                 return
 
             if not should_process_message(text):

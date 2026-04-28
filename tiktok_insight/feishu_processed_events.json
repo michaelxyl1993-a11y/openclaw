@@ -1,0 +1,69 @@
+{
+  "event:05fa380e20a2ce6a16c0db1e8a86c77d": {
+    "message_id": "om_x100b51c8d59760a0b344cc86b1bbab9",
+    "event_id": "05fa380e20a2ce6a16c0db1e8a86c77d",
+    "time": "2026-04-28 04:40:23"
+  },
+  "message:om_x100b51c8d59760a0b344cc86b1bbab9": {
+    "message_id": "om_x100b51c8d59760a0b344cc86b1bbab9",
+    "event_id": "05fa380e20a2ce6a16c0db1e8a86c77d",
+    "time": "2026-04-28 04:40:23"
+  },
+  "event:d7dca93ee7d53210a28bf33b91c633bc": {
+    "message_id": "om_x100b50364fedacacb2a009ac1477cc5",
+    "event_id": "d7dca93ee7d53210a28bf33b91c633bc",
+    "time": "2026-04-28 10:48:51"
+  },
+  "message:om_x100b50364fedacacb2a009ac1477cc5": {
+    "message_id": "om_x100b50364fedacacb2a009ac1477cc5",
+    "event_id": "d7dca93ee7d53210a28bf33b91c633bc",
+    "time": "2026-04-28 10:48:51"
+  },
+  "event:df7ef23373b2496b9a2488b40b1353f3": {
+    "message_id": "om_x100b5035b5e5c4a8b379124eb320989",
+    "event_id": "df7ef23373b2496b9a2488b40b1353f3",
+    "time": "2026-04-28 10:52:31"
+  },
+  "message:om_x100b5035b5e5c4a8b379124eb320989": {
+    "message_id": "om_x100b5035b5e5c4a8b379124eb320989",
+    "event_id": "df7ef23373b2496b9a2488b40b1353f3",
+    "time": "2026-04-28 10:52:31"
+  },
+  "event:a105ab23fe9862443cc06ee871fad38a": {
+    "message_id": "om_x100b5036052930b0b27675abb549320",
+    "event_id": "a105ab23fe9862443cc06ee871fad38a",
+    "time": "2026-04-28 11:08:48"
+  },
+  "message:om_x100b5036052930b0b27675abb549320": {
+    "message_id": "om_x100b5036052930b0b27675abb549320",
+    "event_id": "a105ab23fe9862443cc06ee871fad38a",
+    "time": "2026-04-28 11:08:48"
+  },
+  "event:4731d60c71a8ddcd3b0d25ef3a0e1b3b": {
+    "message_id": "om_x100b50362e9510b0b25f3c80a00b27a",
+    "event_id": "4731d60c71a8ddcd3b0d25ef3a0e1b3b",
+    "time": "2026-04-28 11:14:15"
+  },
+  "message:om_x100b50362e9510b0b25f3c80a00b27a": {
+    "message_id": "om_x100b50362e9510b0b25f3c80a00b27a",
+    "event_id": "4731d60c71a8ddcd3b0d25ef3a0e1b3b",
+    "time": "2026-04-28 11:14:15"
+  },
+  "event:227deea2e8b992588e8ab6a78a94484b": {
+    "message_id": "om_x100b5036350c88a0b10ca7cb16800ae",
+    "event_id": "227deea2e8b992588e8ab6a78a94484b",
+    "time": "2026-04-28 11:21:34"
+  },
+  "message:om_x100b5036350c88a0b10ca7cb16800ae": {
+    "message_id": "om_x100b5036350c88a0b10ca7cb16800ae",
+    "event_id": "227deea2e8b992588e8ab6a78a94484b",
+    "time": "2026-04-28 11:21:34"
+  },
+  "content:5dcf3539e6214d658b21ca372cd24c2c3b796951d086d08bfd690a41abc6d01e": {
+    "message_id": "om_x100b5036350c88a0b10ca7cb16800ae",
+    "chat_id": "oc_21849b3b7f1ba1da4bf7f977dd035b72",
+    "text_preview": "市场：DE\n商品：ALLPOWERS tragbare Energiezentrale R600, 600 W, 299 Wh, LiFePO4-Akku, mobiler Netzteil geeignet für Garten, Reise, Camping und Wohnmobil, Notstromversorgungsgerät\n商品核心卖点：600W tragbare Energiezentrale, 299Wh Kapazität, LiFePO4-Akku, geeignet für Garten, Reise, Camping und Wohnmobil, mobile S",
+    "time": "2026-04-28 11:21:34",
+    "ts": 1777346494.298334
+  }
+}
