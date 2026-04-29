@@ -107,10 +107,13 @@ def run_job(job_id: str, message_file: Path, skip_fetch: bool):
             update_job(job_id, {
                 "status": "success",
                 "finished_at": now_ts(),
+                "report_version": result.get("report_version", "v1.1"),
                 "report_path": result.get("report_path"),
                 "reply_text": result.get("reply_text"),
                 "reply_chars": result.get("reply_chars"),
+                "short_reply_path": result.get("short_reply_path"),
                 "service_result_path": result.get("result_path"),
+                "service_result": result,
             })
         else:
             update_job(job_id, {

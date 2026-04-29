@@ -191,6 +191,91 @@ def detect_material_type(input_payload: dict, data_packet: dict):
 
     return "video"
 
+V12_COMMENT_KEYWORDS = [
+    "评论区", "高赞评论", "有点赞评论", "真实需求", "用户需求",
+    "购买疑虑", "接受度", "人群", "场景", "老品", "爆品",
+    "评论反馈", "评论证据", "评论"
+]
+
+
+def pick_first_non_empty(*values):
+    for v in values:
+        if v is None:
+            continue
+        s = str(v).strip()
+        if s:
+            return s
+    return ""
+
+
+def wants_v12_comment_insight(input_payload: dict) -> bool:
+    text = "\n".join([
+        str(input_payload.get("analysis_goal", "")),
+        str(input_payload.get("analysis_target", "")),
+        str(input_payload.get("goal", "")),
+        str(input_payload.get("分析目标", "")),
+        str(input_payload.get("supplement", "")),
+        str(input_payload.get("补充信息", "")),
+    ])
+    return any(k in text for k in V12_COMMENT_KEYWORDS)
+
+
+def run_v12_comment_chain_for_pipeline(paths: dict, input_payload: dict) -> dict:
+    import subprocess
+    import sys
+
+    key = paths["key"]
+
+    market = pick_first_non_empty(
+        input_payload.get("market"),
+        input_payload.get("country"),
+        input_payload.get("市场"),
+        input_payload.get("所在国家"),
+    )
+
+    product = pick_first_non_empty(
+        input_payload.get("product"),
+        input_payload.get("product_name"),
+        input_payload.get("商品"),
+        input_payload.get("商品名称"),
+        input_payload.get("title"),
+    )
+
+    # 注意：这里用占位符。真正的 Report ID 由 feishu_insight_bot.py 统一生成。
+    placeholder_report_id = "REPORT_ID_PLACEHOLDER"
+
+    cmd = [
+        sys.executable,
+        str(BASE_DIR / "run_v12_comment_chain.py"),
+        "--key", key,
+        "--market", market,
+        "--product", product,
+        "--report-id", placeholder_report_id,
+    ]
+
+    print("\n" + "=" * 88)
+    print("🧭 V1.2 comment insight mode detected")
+    print("RUN:", " ".join(cmd))
+    print("=" * 88)
+
+    p = subprocess.run(
+        cmd,
+        cwd=str(BASE_DIR),
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+    print(p.stdout)
+
+    if p.returncode != 0:
+        raise RuntimeError("V1.2 comment chain failed:\n" + p.stdout)
+
+    result_path = REPORT_DIR / f"v12_comment_chain_result_{key}.json"
+    if not result_path.exists():
+        raise FileNotFoundError(f"Missing V1.2 result json: {result_path}")
+
+    return read_json(result_path)
 
 def get_output_paths(input_payload: dict):
     material_url = input_payload["material_url"].strip()
@@ -272,6 +357,56 @@ def main():
     else:
         branch_steps = VIDEO_STEPS
 
+    v12_result = None
+
+    # V1.2 评论证据洞察模式不需要下载视频/抽帧/contact sheet。
+    # 只依赖 raw/<key>_comments.json 和已生成的 data packet。
+    # 因此命中 V1.2 时，直接跑评论证据链路并结束，避免被 download_media.py 卡死。
+    if not args.no_report and wants_v12_comment_insight(input_payload):
+        v12_result = run_v12_comment_chain_for_pipeline(paths, input_payload)
+
+        results.append({
+            "name": "生成 V1.2 评论证据洞察报告",
+            "script": "run_v12_comment_chain.py",
+            "required": True,
+            "status": "success",
+            "report_version": "v1.2_comment",
+            "report_path": v12_result.get("report_path", ""),
+            "short_reply_path": v12_result.get("short_reply_path", ""),
+        })
+
+        paths["report_qwen_path"] = v12_result.get("report_path", paths.get("report_qwen_path", ""))
+        paths["v12_report_path"] = v12_result.get("report_path", "")
+        paths["v12_short_reply_path"] = v12_result.get("short_reply_path", "")
+        paths["v12_evidence_json"] = v12_result.get("evidence_json", "")
+        paths["v12_enriched_json"] = v12_result.get("enriched_json", "")
+
+        summary = {
+            "status": "success",
+            "input": str(input_dst),
+            "material_type": material_type,
+            "skip_fetch": args.skip_fetch,
+            "no_report": args.no_report,
+            "outputs": paths,
+            "steps": results,
+            "report_version": "v1.2_comment",
+            "report_path": v12_result.get("report_path", ""),
+            "reply_text": v12_result.get("reply_text", ""),
+            "short_reply_path": v12_result.get("short_reply_path", ""),
+        }
+
+        summary_path = REPORT_DIR / "last_run_summary.json"
+        write_json(summary_path, summary)
+
+        print("\n" + "=" * 88)
+        print("✅ TikTok Insight pipeline v2 finished")
+        print(f"Material type: {material_type}")
+        print("Report version: v1.2_comment")
+        print(f"Summary: {summary_path}")
+        print(f"Report: {v12_result.get('report_path', '')}")
+        print("=" * 88)
+        return
+
     for step in branch_steps:
         # 视频下载失败时，不允许继续进入 extract_frames.py；
         # 否则 extract_frames 可能拿到 "." 作为输入，导致 ffmpeg 报 "Is a directory"。
@@ -327,7 +462,10 @@ def main():
         "skip_fetch": args.skip_fetch,
         "no_report": args.no_report,
         "outputs": paths,
-        "steps": results
+        "steps": results,
+        "report_version": "v1.1",
+        "report_path": paths.get("report_qwen_path", ""),
+        "reply_text": "",
     }
 
     summary_path = REPORT_DIR / "last_run_summary.json"

@@ -16,6 +16,10 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def read_json(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def write_json(path: Path, data: dict):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -23,7 +27,8 @@ def write_json(path: Path, data: dict):
 def build_staff_reply(report_text: str, max_chars: int = 12000) -> str:
     """
     飞书单条消息不适合无限长。这里先做一个保守截断。
-    后面接飞书时，如果报告太长，可以改成分段发送。
+    V1.2 评论证据洞察模式会直接使用 run_insight_v2.py 写入 last_run_summary.json 的短版 reply_text，
+    不再经过这个 V1/V3 完整报告包装函数。
     """
     report_text = report_text.strip()
 
@@ -51,6 +56,70 @@ def extract_report_path(stdout: str) -> str:
         if line.startswith("Report: "):
             return line.replace("Report: ", "").strip()
     return ""
+
+
+def load_last_run_summary() -> dict:
+    summary_path = REPORT_DIR / "last_run_summary.json"
+    if not summary_path.exists():
+        return {}
+    try:
+        return read_json(summary_path)
+    except Exception:
+        return {}
+
+
+def build_success_result_from_summary(message_path: Path, result_path: Path, fallback_report_path: Path) -> dict:
+    """
+    run_insight_v2.py 会把最终产物写入 reports/last_run_summary.json。
+    - V1.2 评论证据洞察模式：直接透传其中的短版 reply_text，避免再包装成 V3 完整报告。
+    - V1/V1.1 普通素材复刻模式：保持原逻辑，读取完整报告并调用 build_staff_reply。
+    """
+    summary = load_last_run_summary()
+    report_version = summary.get("report_version", "v1.1")
+
+    if report_version == "v1.2_comment":
+        report_path_str = summary.get("report_path") or summary.get("outputs", {}).get("v12_report_path") or str(fallback_report_path)
+        short_reply_path = summary.get("outputs", {}).get("v12_short_reply_path") or ""
+        reply_text = summary.get("reply_text") or ""
+
+        # 兜底：如果 summary 没有 reply_text，就尝试读取短版文件
+        if not reply_text and short_reply_path and Path(short_reply_path).exists():
+            reply_text = read_text(Path(short_reply_path))
+
+        # 再兜底：如果短版仍不存在，就读取完整报告，但不会加 V3 标题
+        if not reply_text and report_path_str and Path(report_path_str).exists():
+            reply_text = read_text(Path(report_path_str))
+
+        result = {
+            "status": "success",
+            "message_file": str(message_path),
+            "report_version": "v1.2_comment",
+            "report_path": report_path_str,
+            "short_reply_path": short_reply_path,
+            "reply_text": reply_text,
+            "reply_chars": len(reply_text),
+            "result_path": str(result_path),
+        }
+        return result
+
+    # 原 V1/V1.1 逻辑：读取完整报告，包装成飞书内部短/长回复
+    report_path = fallback_report_path
+    if not report_path.exists():
+        raise FileNotFoundError(f"报告文件不存在：{report_path}")
+
+    report_text = read_text(report_path)
+    reply_text = build_staff_reply(report_text)
+
+    result = {
+        "status": "success",
+        "message_file": str(message_path),
+        "report_version": report_version,
+        "report_path": str(report_path),
+        "reply_text": reply_text,
+        "reply_chars": len(reply_text),
+        "result_path": str(result_path),
+    }
+    return result
 
 
 def main():
@@ -107,22 +176,13 @@ def main():
         if not report_path_str:
             raise RuntimeError("未能从 run_from_message.py 输出中提取 report_path")
 
-        report_path = Path(report_path_str)
+        fallback_report_path = Path(report_path_str)
 
-        if not report_path.exists():
-            raise FileNotFoundError(f"报告文件不存在：{report_path}")
-
-        report_text = read_text(report_path)
-        reply_text = build_staff_reply(report_text)
-
-        result = {
-            "status": "success",
-            "message_file": str(message_path),
-            "report_path": str(report_path),
-            "reply_text": reply_text,
-            "reply_chars": len(reply_text),
-            "result_path": str(result_path)
-        }
+        result = build_success_result_from_summary(
+            message_path=message_path,
+            result_path=result_path,
+            fallback_report_path=fallback_report_path,
+        )
 
         write_json(result_path, result)
 

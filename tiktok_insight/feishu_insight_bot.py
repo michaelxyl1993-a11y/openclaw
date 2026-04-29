@@ -782,15 +782,31 @@ def run_analysis_and_reply(message_id: str, text: str, chat_id: str = ""):
                 reply_text = job.get("reply_text", "").strip()
                 if not reply_text:
                     reply_text = f"✅ 分析完成，但没有取到 reply_text。\nReport: {job.get('report_path')}"
-                reply_text = make_feishu_short_reply(reply_text)
 
-                # V1.1: 为每份报告生成 Report ID，方便后续指定历史报告追问
+                # 为每份成功报告统一生成 Report ID，V1.1 / V1.2 都进入历史上下文，支持后续指定报告追问。
                 report_id = make_report_id()
-                reply_text = reply_text.replace(
-                    "✅ TikTok Insight V1 复刻执行报告",
-                    f"✅ TikTok Insight V1.1 复刻执行报告\n\n本次报告 ID：{report_id}",
-                    1
-                )
+
+                if job.get("report_version") == "v1.2_comment":
+                    # V1.2 已经由 make_v12_feishu_short_reply.py 生成飞书短版，
+                    # 不再套 V1/V1.1 的 make_feishu_short_reply()，避免标题和结构被改回 V1。
+                    reply_text = reply_text.replace("REPORT_ID_PLACEHOLDER", report_id)
+
+                    # 兜底：如果短版里没有 Report ID 行，就补一行。
+                    if "本次报告 ID：" not in reply_text:
+                        reply_text = reply_text.replace(
+                            "✅ TikTok Insight V1.2 评论证据洞察报告",
+                            f"✅ TikTok Insight V1.2 评论证据洞察报告\n本次报告 ID：{report_id}",
+                            1
+                        )
+                else:
+                    reply_text = make_feishu_short_reply(reply_text)
+
+                    # V1.1: 为每份报告生成 Report ID，方便后续指定历史报告追问。
+                    reply_text = reply_text.replace(
+                        "✅ TikTok Insight V1 复刻执行报告",
+                        f"✅ TikTok Insight V1.1 复刻执行报告\n\n本次报告 ID：{report_id}",
+                        1
+                    )
 
                 reply_message(message_id, reply_text)
 
