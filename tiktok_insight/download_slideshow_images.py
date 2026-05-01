@@ -262,22 +262,35 @@ def main():
         "failed": failed
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # 关键：如果没拿齐，直接失败，不要继续生成错误的一图报告
+    # 关键：如果没拿齐，但至少有 3 张图，就允许继续分析；
+    # TikTok CDN 偶发 SSL/EOF 失败时，不能因为单张图失败中断整条素材分析。
     if len(downloaded) < len(image_entries):
-        print(json.dumps({
-            "status": "failed",
-            "reason": "Not all slideshow images were downloaded.",
-            "expected_count": len(image_entries),
-            "downloaded_count": len(downloaded),
-            "failed_count": len(failed),
-            "debug_path": str(debug_path),
-            "downloaded": [x["local_path"] for x in downloaded],
-            "failed_sample": failed[:3]
-        }, ensure_ascii=False, indent=2))
+        if len(downloaded) >= 3:
+            print(json.dumps({
+                "status": "partial_success",
+                "reason": "Some slideshow images failed to download, but enough images are available for analysis.",
+                "expected_count": len(image_entries),
+                "downloaded_count": len(downloaded),
+                "failed_count": len(failed),
+                "debug_path": str(debug_path),
+                "downloaded": [x["local_path"] for x in downloaded],
+                "failed_sample": failed[:3]
+            }, ensure_ascii=False, indent=2))
+        else:
+            print(json.dumps({
+                "status": "failed",
+                "reason": "Not enough slideshow images were downloaded.",
+                "expected_count": len(image_entries),
+                "downloaded_count": len(downloaded),
+                "failed_count": len(failed),
+                "debug_path": str(debug_path),
+                "downloaded": [x["local_path"] for x in downloaded],
+                "failed_sample": failed[:3]
+            }, ensure_ascii=False, indent=2))
 
-        raise RuntimeError(
-            f"Slideshow image download incomplete: {len(downloaded)}/{len(image_entries)}"
-        )
+            raise RuntimeError(
+                f"Slideshow image download incomplete: {len(downloaded)}/{len(image_entries)}"
+            )
 
     data_packet = read_json(data_packet_path)
 

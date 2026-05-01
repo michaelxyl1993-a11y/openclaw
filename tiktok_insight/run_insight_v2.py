@@ -192,10 +192,29 @@ def detect_material_type(input_payload: dict, data_packet: dict):
     return "video"
 
 V12_COMMENT_KEYWORDS = [
-    "评论区", "高赞评论", "有点赞评论", "真实需求", "用户需求",
-    "购买疑虑", "接受度", "人群", "场景", "老品", "爆品",
-    "评论反馈", "评论证据", "评论"
+    "高赞评论",
+    "有点赞评论",
+    "所有有点赞评论",
+    "评论证据",
+    "评论证据洞察",
+    "V1.2",
+    "v1.2"
 ]
+
+
+def wants_v12_comment_insight(input_payload: dict) -> bool:
+    text = "\n".join([
+        str(input_payload.get("analysis_goal", "")),
+        str(input_payload.get("analysis_target", "")),
+        str(input_payload.get("goal", "")),
+        str(input_payload.get("分析目标", "")),
+        str(input_payload.get("supplement", "")),
+        str(input_payload.get("补充信息", "")),
+    ])
+
+    # 只有明确要求“评论证据/高赞评论/有点赞评论/V1.2”才进入 V1.2。
+    # 普通 V1.1 里出现“评论区反馈/用户购买疑虑/评论反馈”不触发。
+    return any(k in text for k in V12_COMMENT_KEYWORDS)
 
 
 def pick_first_non_empty(*values):
