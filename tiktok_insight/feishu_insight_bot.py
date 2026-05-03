@@ -1150,18 +1150,11 @@ class FeishuHandler(BaseHTTPRequestHandler):
                 return
 
             if is_localekit_message(text):
-                write_json_log("localekit_received", {
-                    "message_id": message_id,
-                    "chat_id": chat_id,
-                    "text_preview": text[:500],
+                self.send_json(200, {
+                    "status": "ignored",
+                    "reason": "localekit_handled_by_standalone_bot",
+                    "message_id": message_id
                 })
-                self.send_json(200, {"status": "accepted", "mode": "localekit"})
-                t = threading.Thread(
-                    target=run_localekit_and_reply,
-                    args=(message_id, chat_id, text),
-                    daemon=True,
-                )
-                t.start()
                 return
 
             if not should_process_message(text):
