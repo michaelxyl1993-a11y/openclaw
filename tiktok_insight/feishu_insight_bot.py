@@ -17,6 +17,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 import hashlib
 from openai import OpenAI
+from localekit_client import is_localekit_message, handle_localekit_text
 
 
 def clean_feishu_message_text(text: str) -> str:
@@ -867,6 +868,30 @@ def run_followup_and_reply(message_id: str, chat_id: str, text: str):
             pass
 
 
+def run_localekit_and_reply(message_id: str, chat_id: str, text: str):
+    try:
+        reply_message(message_id, "收到，正在用 LocaleKit 处理本地化请求。")
+
+        answer = handle_localekit_text(text)
+        reply_message(message_id, answer)
+
+    except Exception as e:
+        write_json_log("localekit_error", {
+            "message_id": message_id,
+            "chat_id": chat_id,
+            "error": repr(e),
+            "text_preview": text[:1000],
+        })
+        try:
+            reply_message(
+                message_id,
+                "❌ LocaleKit 处理失败。\n\n"
+                f"错误：{repr(e)}"
+            )
+        except Exception:
+            pass
+
+
 def should_process_message(text: str) -> bool:
     required_markers = ["市场", "商品", "体裁"]
     has_required = all(x in text for x in required_markers)
@@ -1106,6 +1131,7 @@ class FeishuHandler(BaseHTTPRequestHandler):
                 })
                 return
 
+
             if not text:
                 reply_message(
                     message_id,
@@ -1120,6 +1146,21 @@ class FeishuHandler(BaseHTTPRequestHandler):
                     "reason": "duplicate_content",
                     "message_id": message_id
                 })
+                return
+
+            if is_localekit_message(text):
+                write_json_log("localekit_received", {
+                    "message_id": message_id,
+                    "chat_id": chat_id,
+                    "text_preview": text[:500],
+                })
+                self.send_json(200, {"status": "accepted", "mode": "localekit"})
+                t = threading.Thread(
+                    target=run_localekit_and_reply,
+                    args=(message_id, chat_id, text),
+                    daemon=True,
+                )
+                t.start()
                 return
 
             if not should_process_message(text):
