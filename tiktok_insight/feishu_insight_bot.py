@@ -848,6 +848,43 @@ def run_followup_and_reply(message_id: str, chat_id: str, text: str):
         if requested_report_id:
             reply_message(message_id, f"收到，这是基于报告 {requested_report_id} 的追问，我来补充回答。")
         else:
+            if (
+                "商品角度拆解" in text
+                or (
+                    "商品核心卖点" in text
+                    and "内容风格" in text
+                    and "输出数量" in text
+                )
+                or (
+                    "目标体裁" in text
+                    and "商品名称" in text
+                    and "商品类目" in text
+                )
+            ):
+                self.send_json(200, {
+                    "status": "ignored",
+                    "reason": "anglekit_template_request_ignored",
+                    "message_id": message_id
+                })
+                return
+
+            if (
+                "商品N视图生成" in text
+                or "白底N视图生成" in text
+                or "商品N视图" in text
+                or (
+                    "商品图描述" in text
+                    and "商品核心特征" in text
+                    and ("视图用途" in text or "需要生成视图数量" in text)
+                )
+            ):
+                self.send_json(200, {
+                    "status": "ignored",
+                    "reason": "anglekit_nview_template_request_ignored",
+                    "message_id": message_id
+                })
+                return
+
             reply_message(message_id, "收到，这是基于最近一次成功报告的追问，我来补充回答。")
         answer = answer_followup_with_gpt(chat_id, text)
         reply_message(message_id, answer)
@@ -1145,6 +1182,21 @@ class FeishuHandler(BaseHTTPRequestHandler):
                 self.send_json(200, {
                     "status": "ignored",
                     "reason": "duplicate_content",
+                    "message_id": message_id
+                })
+                return
+
+            if (
+                "【AngleKit】" in text
+                or "【角度虾】" in text
+                or "【角度板】" in text
+                or text.strip().startswith("AngleKit")
+                or text.strip().startswith("角度虾")
+                or text.strip().startswith("角度板")
+            ):
+                self.send_json(200, {
+                    "status": "ignored",
+                    "reason": "anglekit_handled_by_standalone_bot",
                     "message_id": message_id
                 })
                 return
