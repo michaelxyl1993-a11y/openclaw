@@ -166,21 +166,55 @@ Report ID：{report_id}
 """.strip()
 
 
-def handle_localekit_text(text: str) -> str:
-    payload = parse_localekit_message(text)
 
-    ok, error = validate_localekit_payload(payload)
-    if not ok:
-        return f"""❌ LocaleKit 请求格式不完整
+def is_localekit_help_request(text: str) -> bool:
+    if not text:
+        return False
 
-{error}
+    normalized = text.strip()
+    clean = normalized.replace("【LocaleKit】", "").replace("【本地化器】", "").strip()
 
-推荐模板：
+    # 只发【LocaleKit】或【本地化器】时，返回帮助
+    if clean == "":
+        return True
+
+    lower = clean.lower()
+
+    help_keywords = [
+        "帮助", "help",
+        "模板", "用法", "怎么用", "如何使用",
+        "支持哪些", "示例", "example"
+    ]
+
+    # 注意：不要把“任务类型”本身当成帮助关键词。
+    # 因为正常请求里都会有“任务类型：xxx”。
+    has_help_keyword = any(k in clean for k in help_keywords) or any(k in lower for k in help_keywords)
+
+    if has_help_keyword:
+        return True
+
+    return False
+
+def build_localekit_help_reply() -> str:
+    return """✅ LocaleKit 本地化器使用说明
+
+LocaleKit 不是素材分析工具，不需要 TikTok 链接。
+它用于：发布文案本地化、Prompt 本地化、视频/图片模型 Prompt 格式适配、合规风险清洗。
+
+【支持的任务类型】
+1. Prompt只改口播
+2. Prompt只改图上文字
+3. 发布文案本地化
+4. 整套素材本地化
+5. 模型格式适配
+6. 合规风险清洗
+
+【标准模板】
 
 【LocaleKit】
-任务类型：
-目标市场：
-目标语言：
+任务类型：发布文案本地化
+目标市场：DE
+目标语言：德语
 目标模型：
 商品：
 原始内容：
@@ -189,7 +223,95 @@ def handle_localekit_text(text: str) -> str:
 需要改写：
 风险要求：
 输出要求：
+
+【示例】
+
+【LocaleKit】
+任务类型：发布文案本地化
+目标市场：DE
+目标语言：德语
+目标模型：
+商品：厨房收纳盒
+原始内容：
+标题：厨房终于不乱了
+Caption：这个收纳盒可以让厨房看起来更整齐，适合小户型家庭。
+
+保留不变：厨房收纳、视觉变整齐、小户型适用
+需要改写：改成德国 TikTok 达人口语
+风险要求：不要英德混用，不要新增未确认卖点
+输出要求：给我3套标题、caption、5个hashtags，并附中文解释
+
+【注意】
+- 如果要分析 TikTok 链接，请用分析虾素材分析模板，不要用 LocaleKit。
+- 如果只是本地化文案、口播、图上文字或 Prompt，请用 LocaleKit。
+- DE 必须德语，FR 必须法语，避免英德/英法混用。
 """.strip()
+
+
+def build_localekit_error_reply(error: str, payload: Dict[str, str]) -> str:
+    task_type = payload.get("task_type", "")
+    target_market = payload.get("target_market", "")
+    target_language = payload.get("target_language", "")
+    source_content = payload.get("source_content", "")
+
+    filled = []
+    if task_type:
+        filled.append(f"任务类型：{task_type}")
+    if target_market:
+        filled.append(f"目标市场：{target_market}")
+    if target_language:
+        filled.append(f"目标语言：{target_language}")
+    if source_content:
+        filled.append("原始内容：已填写")
+
+    filled_text = "\n".join(filled) if filled else "暂未识别到有效字段"
+
+    return f"""❌ LocaleKit 请求格式不完整
+
+问题：
+{error}
+
+我当前识别到：
+{filled_text}
+
+请按下面模板重新发送：
+
+【LocaleKit】
+任务类型：发布文案本地化
+目标市场：DE
+目标语言：德语
+目标模型：
+商品：
+原始内容：
+
+保留不变：
+需要改写：
+风险要求：
+输出要求：
+
+支持的任务类型：
+- Prompt只改口播
+- Prompt只改图上文字
+- 发布文案本地化
+- 整套素材本地化
+- 模型格式适配
+- 合规风险清洗
+
+如果不知道怎么写，可以直接发送：
+【LocaleKit】帮助
+""".strip()
+
+
+def handle_localekit_text(text: str) -> str:
+    if is_localekit_help_request(text):
+        return build_localekit_help_reply()
+
+    payload = parse_localekit_message(text)
+
+    ok, error = validate_localekit_payload(payload)
+    if not ok:
+        return build_localekit_error_reply(error, payload)
 
     result = call_localekit(payload)
     return build_localekit_reply(result)
+

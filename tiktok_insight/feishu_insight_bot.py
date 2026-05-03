@@ -870,7 +870,8 @@ def run_followup_and_reply(message_id: str, chat_id: str, text: str):
 
 def run_localekit_and_reply(message_id: str, chat_id: str, text: str):
     try:
-        reply_message(message_id, "收到，正在用 LocaleKit 处理本地化请求。")
+        if "目标语言" in text and "原始内容" in text:
+            reply_message(message_id, "收到，正在用 LocaleKit 处理本地化请求。")
 
         answer = handle_localekit_text(text)
         reply_message(message_id, answer)
