@@ -244,14 +244,26 @@ def is_private_chat(message: dict) -> bool:
     return chat_type in ["p2p", "private"]
 
 
+def _looks_like_localekit_mention(value: str) -> bool:
+    if not value:
+        return False
+    lower = value.lower()
+    return (
+        "localekit" in lower
+        or "localkit" in lower
+        or "本地人虾" in value
+        or "本地化器" in value
+    )
+
+
 def is_bot_mentioned(message: dict, raw_content: str) -> bool:
     """
     Group messages must @ this bot.
 
-    Best effort:
-    - If LOCALEKIT_BOT_OPEN_ID is set, match mentions by open_id.
-    - Otherwise, accept any mention placeholder in raw content or mention list.
-      This is enough for v1, because this is an independent LocaleKit bot.
+    Rules:
+    - Private chat: allow.
+    - Group chat: only allow if the actual mention looks like LocaleKit.
+    - Do NOT accept just because there is any mention, otherwise @分析虾 will also trigger LocaleKit.
     """
     if is_private_chat(message):
         return True
@@ -264,14 +276,20 @@ def is_bot_mentioned(message: dict, raw_content: str) -> bool:
             if mid.get("open_id") == BOT_OPEN_ID:
                 return True
 
-    if mentions:
-        return True
+    for m in mentions:
+        candidates = [
+            str(m.get("name", "")),
+            str(m.get("key", "")),
+            json.dumps(m, ensure_ascii=False),
+        ]
+        if any(_looks_like_localekit_mention(x) for x in candidates):
+            return True
 
-    if "@_user_" in raw_content or "user_id" in raw_content:
+    # fallback: some Feishu payloads may include display text in raw content
+    if _looks_like_localekit_mention(raw_content):
         return True
 
     return False
-
 
 def should_ack_before_processing(text: str) -> bool:
     if not text:
