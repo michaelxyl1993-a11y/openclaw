@@ -5,3 +5,9 @@ variant_payload_*.json
 find_*.py
 __pycache__/
 *.pyc
+tiktok_insight/localekit_feishu_logs/
+tiktok_insight/localekit_feishu_processed_events.json
+tiktok_insight/feishu_logs/
+tiktok_insight/service_outputs/
+writeback_*.json
+**/__pycache__/
