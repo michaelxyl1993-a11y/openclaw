@@ -1,0 +1,23 @@
+{
+  "product_id": "ttshop_fr_raised_cat_bowl_001",
+  "market": "FR",
+  "product_name": "Raised Double Cat Bowl",
+  "category_l1": "Pet Supplies",
+  "category_l2": "Cats",
+  "category_l3": "Cat Bowls & Feeders",
+  "price": "€8.99",
+  "commission_rate": "18%",
+  "product_url": "https://shop.tiktok.com/view/product/ttshop_fr_raised_cat_bowl_001",
+  "image_urls": [
+    "https://example.com/images/raised-double-cat-bowl-front.jpg",
+    "https://example.com/images/raised-double-cat-bowl-angle.jpg"
+  ],
+  "seller_id": "seller_fr_pet_1024",
+  "seller_name": "Maison Pet Picks",
+  "sales": 18420,
+  "gmv": 165595.8,
+  "growth_7d": 0.24,
+  "growth_30d": 0.73,
+  "related_video_count": 186,
+  "related_influencer_count": 42
+}
