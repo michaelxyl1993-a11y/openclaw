@@ -1,0 +1,692 @@
+# Product Intel v1.1
+
+Product Intel is the middle layer between EchoTik product intelligence and OpenClaw internal workflows.
+
+It converts raw product data into a shared **Product Fact Sheet** that can later be consumed by:
+
+- Product selection bots
+- Manager image workflows
+- Video Director video workflows
+- Product mismatch / claims QA
+
+## Current Scope
+
+This is mock v1.1. It does not call the real EchoTik or FastMoss API yet.
+
+Current flow:
+
+1. Read `mock_echotik_product.json`
+2. Convert it into a normalized Product Fact Sheet
+3. Recommend reusable hooks from the Hook Core Library
+4. Generate a lightweight Opportunity Score
+5. Read multiple mock product candidates from `mock_echotik_products.json`
+6. Batch-generate Fact Sheets and Opportunity Scores
+7. Save outputs as JSON or JSONL for downstream bots and workflows
+8. Read local CSV candidate tables and normalize common EchoTik / FastMoss / manual field names
+9. Export team-readable decision tables as CSV / Markdown
+10. Export machine-readable manager / bot payload JSON
+11. Run the full local pipeline from a single CLI command
+12. Diagnose real CSV schema and field mappings before running the pipeline
+13. Validate required fields with local smoke tests
+14. Expose a framework-neutral service handler for Feishu Bot / HTTP / manager integration
+15. Receive CSV / Excel file messages from Feishu, run Product Intel, and reply with summary text
+16. Read `.xlsx` / OOXML `.xls` files through `excel_loader.py` and include file type / sheet metadata in profiles
+
+## v0.2 Additions
+
+### Hook Library
+
+`hook_library.py` defines a first-pass Hook Core Library with 20 reusable hook types, including:
+
+- price shock
+- hot weather pain point
+- messy home pain point
+- before / after
+- problem / solution
+- pet behavior
+- daily usefulness
+- shelf value deal
+
+The Product Fact Sheet now recommends 3-5 hooks based on product category and product name.
+
+### Opportunity Score
+
+`opportunity_score.py` adds a lightweight product selection decision layer:
+
+- `opportunity_score`: 0-100
+- `decision`: `main_push`, `small_test`, `observe`, or `reject`
+- reasons and risk flags
+- suggested photo/video formats
+- suggested daily volume
+- content angle summary
+
+## v0.3 Additions
+
+### Batch Product Input
+
+`mock_echotik_products.json` contains multiple EchoTik / FastMoss-style product candidates across:
+
+- pet cat bowl
+- portable fan
+- storage bag
+- beauty product
+- snack / food
+- electronics gadget
+- fashion item
+
+`batch_fact_sheet.py` converts each product into:
+
+```json
+{
+  "items": [
+    {
+      "fact_sheet": {},
+      "opportunity": {}
+    }
+  ]
+}
+```
+
+### Export Utilities
+
+`export_utils.py` supports:
+
+- `save_json(...)`
+- `save_jsonl(...)`
+
+These outputs are intended for later selection bots, Manager image workflows, Video Director workflows, and product QA.
+
+## v0.4 Additions
+
+### CSV Input Adapter
+
+`input_adapter.py` normalizes candidate rows from EchoTik, FastMoss, or manual selection sheets into one internal product dict:
+
+```json
+{
+  "product_id": "...",
+  "product_name": "...",
+  "category": "...",
+  "price": "...",
+  "commission_rate": "...",
+  "sold_count": "...",
+  "gmv": "...",
+  "source_platform": "...",
+  "raw": {}
+}
+```
+
+Supported aliases include English and Chinese field names such as:
+
+- `product_id`, `item_id`, `goods_id`, `商品ID`
+- `product_name`, `title`, `商品名称`, `商品标题`, `name`
+- `category`, `leaf_category`, `category_name`, `类目`, `商品类目`
+- `price`, `sale_price`, `min_price`, `价格`, `售价`
+- `commission_rate`, `commission`, `佣金率`, `达人佣金率`
+- `sold_count`, `sales`, `sold`, `销量`, `已售`
+- `gmv`, `GMV`, `sales_amount`, `销售额`
+- `source_platform`, `candidate_source`, `来源`, `数据来源`
+
+`csv_loader.py` reads local CSV files and applies this normalization automatically.
+
+Current input types:
+
+- JSON mock products: `mock_echotik_products.json`
+- CSV candidate table: `mock_products.csv`
+
+## v0.5 Additions
+
+### Decision Table Output
+
+`decision_table.py` converts batch Product Intel results into one row per product for team review.
+
+Each row includes:
+
+- rank
+- product ID and name
+- category and source platform
+- price, commission, sold count, GMV
+- opportunity score and decision
+- suggested format and daily posting volume
+- recommended hooks
+- reasons, risk flags, and next action
+
+`export_decision_table.py` exports:
+
+- UTF-8-SIG CSV for Excel: `product_intel/output/mock_decision_table.csv`
+- Markdown table: `product_intel/output/mock_decision_table.md`
+
+The Markdown table keeps the review columns compact:
+
+`rank | 商品 | 类目 | 分数 | 决策 | 建议形式 | 日投放 | hooks | 风险 | 下一步动作`
+
+## v0.6 Additions
+
+### Manager / Bot JSON Payload
+
+v0.5 outputs CSV / Markdown for people.
+
+v0.6 adds a stable JSON payload for manager, bot, and workflow consumers:
+
+- OpenClaw manager
+- DS Bot
+- Feishu Bot
+- Video Director
+
+`manager_payload.py` converts batch results into:
+
+```json
+{
+  "version": "product_intel_v0.6",
+  "meta": {},
+  "summary": {},
+  "products": []
+}
+```
+
+Each product contains normalized decision, routing, recommended formats, hooks, manager instruction, and next action.
+
+`export_manager_payload.py` writes:
+
+- `product_intel/output/mock_manager_payload.json`
+
+## v0.7 Additions
+
+### Unified CLI Runner
+
+v0.5 outputs CSV / Markdown for people.
+
+v0.6 outputs JSON payload for manager / bot / workflow consumers.
+
+v0.7 adds one stable CLI runner that takes a real CSV path and runs the whole local chain:
+
+```bash
+python3 -m product_intel.run_product_intel \
+  --input product_intel/mock_products.csv \
+  --source mock \
+  --market de \
+  --output-dir product_intel/output
+```
+
+It writes:
+
+- `product_intel/output/product_intel_decision_table.csv`
+- `product_intel/output/product_intel_decision_table.md`
+- `product_intel/output/product_intel_manager_payload.json`
+
+Useful options:
+
+- `--limit 10`
+- `--format all`
+- `--format decision_csv`
+- `--format decision_md`
+- `--format manager_json`
+
+## v0.8 Additions
+
+### CSV Profile / Schema Diagnosis
+
+v0.7 is the unified CLI runner.
+
+v0.8 adds real CSV input diagnosis and field mapping reports before Product Intel runs the full pipeline.
+
+New outputs:
+
+- `product_intel/output/product_intel_csv_profile.json`
+- `product_intel/output/product_intel_csv_profile.md`
+
+Profile-only mode:
+
+```bash
+python3 -m product_intel.run_product_intel \
+  --input product_intel/mock_products.csv \
+  --source auto \
+  --profile-only
+```
+
+Full run with profiling:
+
+```bash
+python3 -m product_intel.run_product_intel \
+  --input product_intel/mock_products.csv \
+  --source auto \
+  --market de \
+  --output-dir product_intel/output
+```
+
+## v0.9 Additions
+
+### Service Handler
+
+v0.7 is the unified CLI runner.
+
+v0.8 adds CSV profile / field mapping diagnosis.
+
+v0.9 adds a framework-neutral service handler for Feishu Bot, HTTP services, and OpenClaw manager integration.
+
+It accepts a CSV file path and returns a structured result with:
+
+- Chinese `summary_text` suitable for a short Feishu reply
+- CSV profile data and output paths
+- decision summary and Top 5 products
+- decision table CSV / Markdown paths
+- manager payload JSON path
+- warnings and errors without raising into the caller
+
+Example service call:
+
+```python
+from product_intel.service_handler import run_product_intel_job
+
+result = run_product_intel_job(
+    input_path="/tmp/uploaded.csv",
+    source="auto",
+    market="de",
+    output_dir="product_intel/output",
+)
+
+print(result["summary_text"])
+```
+
+Smoke test:
+
+```bash
+python3 -m product_intel.test_service_handler
+python3 -m product_intel.test_excel_loader
+python3 -m product_intel.test_feishu_product_intel_bot
+```
+
+
+
+## v1.1 Additions
+
+### Excel Input Support
+
+v1.1 keeps CSV compatibility and adds Excel upload support for Product Intel.
+
+Supported inputs:
+
+- `.csv`
+- `.xlsx`
+- `.xls` files that contain an OOXML workbook
+
+`excel_loader.py` reads the first non-empty sheet, removes empty rows / columns, strips header whitespace, and returns the same `list[dict]` row structure as `csv_loader.py`.
+
+Input profiles now include:
+
+- `detected_file_type`
+- `detected_sheet_name`
+- `row_count`
+- `mapped_fields`
+- `missing_fields`
+- `warnings`
+
+The Feishu Bot now accepts CSV or Excel files and replies with:
+
+```text
+请上传 CSV 或 Excel 文件进行商品分析。
+```
+
+Smoke test:
+
+```bash
+python3 -m product_intel.test_excel_loader
+```
+
+## 线上运维固化
+
+当前线上配置：
+
+- 飞书回调域名：`https://productbot.packytech.com/feishu/events`
+- Product Bot 服务端口：`8788`
+- 独立 Cloudflare Tunnel 配置文件：`~/.cloudflared/product-bot.yml`
+- PM2 进程名：`product-intel-feishu-bot`、`product-bot-tunnel`
+
+启动 bot：
+
+```bash
+pm2 start "python3 -m product_intel.feishu_product_intel_bot" --name product-intel-feishu-bot
+```
+
+重启 bot：
+
+```bash
+pm2 restart product-intel-feishu-bot --update-env
+```
+
+查看日志：
+
+```bash
+pm2 logs product-intel-feishu-bot --lines 100
+pm2 logs product-bot-tunnel --lines 100
+```
+
+保存 PM2：
+
+```bash
+pm2 save
+```
+
+查看进程：
+
+```bash
+pm2 list
+```
+
+健康检查：
+
+```bash
+curl http://127.0.0.1:8788/health
+curl https://productbot.packytech.com/health
+```
+
+更详细的 health check：
+
+```bash
+curl -v --max-time 5 http://127.0.0.1:8788/health
+curl -v --noproxy "*" --max-time 15 https://productbot.packytech.com/health
+```
+
+飞书回调 challenge 检查：
+
+```bash
+curl -i --noproxy "*" -X POST https://productbot.packytech.com/feishu/events \
+  -H "Content-Type: application/json" \
+  -d '{"type":"url_verification","challenge":"product-bot-check"}'
+```
+
+运行 ops_check：
+
+```bash
+python3 -m product_intel.ops_check
+```
+
+`ops_check.py` 会输出：
+
+- `local_health`: `ok` / `fail`
+- `public_health`: `ok` / `fail`
+- `service_name`
+- `status_code`
+- `response_text`
+- 网络失败错误原因
+
+### 线上排障 SOP
+
+按以下顺序检查：
+
+1. `curl http://127.0.0.1:8788/health` 返回 HTTP 200，代表 Product Bot 本地服务正常。
+2. `curl https://productbot.packytech.com/health` 返回 HTTP 200，代表公网入口和 tunnel 基本正常。
+3. `/feishu/events` challenge 请求返回 HTTP 200 且包含原始 challenge，代表飞书回调路由正常。
+4. HTTP 530 或 Cloudflare `error 1033`，代表 tunnel 没有活跃 connector。检查 `product-bot-tunnel` 进程和 `~/.cloudflared/product-bot.yml`。
+5. HTTP 404 且响应头包含 `server: cloudflare`，代表 hostname、tunnel 或 ingress 路由异常。
+
+如果本地 health OK，外网 health 404：
+
+- 检查 `~/.cloudflared/product-bot.yml` 是否包含 `productbot.packytech.com -> 127.0.0.1:8788`
+- 检查 `product-bot-tunnel` 是否在线或已重启
+
+如果本地 health 不通：
+
+- 检查 `product-intel-feishu-bot` 是否在线：
+
+```bash
+pm2 list
+```
+
+如果飞书不回复但 health OK：
+
+- 查看日志：
+
+```bash
+pm2 logs product-intel-feishu-bot --lines 100
+```
+
+- 检查飞书事件订阅和回调 URL
+
+如果文件能分析但文本不回复：
+
+- 检查 text fallback handler
+- 日志中应出现 `text fallback replied`
+
+如果飞书上传文件可以正常处理，但外网 `curl` timeout：
+
+- 优先怀疑本机代理或 Cloudflare Tunnel 偶发连接问题
+- 这不一定代表 bot 功能失败
+- 先用本地直连 health check 确认 bot 是否在线
+- 再用 `--noproxy "*"` 排除本机代理影响
+
+## v1.2 Additions
+
+### 8 维度选品决策引擎
+
+v1.2 adds a rule-based dimension scoring layer on top of the existing `opportunity_score`.
+
+The old fields remain compatible:
+
+- `opportunity_score`
+- `decision`
+- `reasons`
+- `risk_flags`
+- `suggested_content_formats`
+- `suggested_daily_volume`
+
+Each batch item now also includes `dimension_scores`:
+
+1. `profit_window` / 利润窗口期判断
+2. `demand_pain` / 平台评论与需求痛点分析
+3. `external_trend` / 外部趋势、舆论、热点
+4. `seasonality` / 季节判断
+5. `competition` / 跟卖与竞争判断
+6. `merchant_quality` / 商家维度判断
+7. `aigc_fit` / AIGC 适配判断
+8. `final_test_decision` / 最终测试决策
+
+The first seven dimensions output:
+
+- `score`
+- `level`: `strong` / `medium` / `weak` / `unknown`
+- `reasons`
+- `missing_evidence`
+- `suggested_action`
+
+`final_test_decision` outputs:
+
+- `decision`
+- `score`
+- `reasons`
+- `next_action`
+- `suggested_daily_posts`
+- `suggested_accounts`
+- `suggested_formats`
+- `review_after_48h_metrics`
+
+Current v1.2 logic is rules-only. It uses available local fields such as category, product name, price, commission rate, sales, growth, related video count, related influencer count, rating, review count, and recommended hooks.
+
+Dimensions that still need future external data or LLM enrichment:
+
+- `demand_pain`: real review clustering and buyer language
+- `external_trend`: Google Trends, TikTok hashtags, Instagram/Reels, YouTube Shorts
+- `competition`: same-SKU count, competitor price range, top creative monopoly
+- `merchant_quality`: richer shop score, fulfillment risk, return/refund signal
+
+Decision table outputs now include:
+
+- `dimension_summary`
+- `strongest_dimensions`
+- `weakest_dimensions`
+- `missing_evidence_count`
+
+Manager payload outputs now include per-product `dimension_scores` plus summary-level:
+
+- `dimension_distribution`
+- `main_push_reasons_summary`
+- `common_missing_evidence`
+
+Smoke test:
+
+```bash
+python3 -m product_intel.test_dimension_score
+```
+
+## v1.3 Additions
+
+### LLM Summary Layer
+
+v1.3 adds an optional natural-language summary layer for operations teams.
+
+Current behavior is still local and deterministic:
+
+- No OpenAI / Qwen / Gemini API call
+- No external network request
+- No score changes
+- No decision changes
+- No `dimension_scores` changes
+
+`llm_summary.py` provides:
+
+- `build_llm_summary_prompt(manager_payload, market="de")`
+- `build_rule_based_summary(manager_payload, market="de")`
+- `attach_summary_to_payload(manager_payload, market="de", use_llm=False)`
+
+The manager payload now includes:
+
+```json
+{
+  "llm_summary": {
+    "mode": "rule_based",
+    "summary_text": "...",
+    "llm_prompt": "..."
+  }
+}
+```
+
+The prompt explicitly tells future LLMs:
+
+- Do not modify existing `score`, `decision`, or `dimension_scores`
+- Do not invent external data
+- If evidence is missing, write `缺失证据`
+- Output Chinese only
+- Make the result suitable for operations teams
+
+Feishu Bot replies now include an `运营摘要` preview, capped to the first 800 characters, while attachments remain the primary detailed delivery.
+
+Future v1.4 / v1.5 can connect a real LLM API using the generated prompt.
+
+Smoke test:
+
+```bash
+python3 -m product_intel.test_llm_summary
+```
+
+## v1.4 Additions
+
+### Fast ACK + Background Queue
+
+v1.4 moves Feishu file processing out of the Flask request thread.
+
+`job_queue.py` provides an in-process `queue.Queue` and daemon worker. The webhook flow is now:
+
+1. Parse the Feishu event
+2. Build the dedupe key from `message_id`, falling back to `event_id`
+3. Reserve the key while the job is queued or running
+4. Enqueue the background job
+5. Return HTTP 200 immediately
+6. Download files, run Product Intel, upload result attachments, and send replies in the worker
+
+Text fallback replies also use the same queue, so webhook ACK does not wait for Feishu message delivery.
+
+Useful logs:
+
+- `event_received`
+- `event_ack`
+- `job_enqueued`
+- `job_started`
+- `job_finished`
+- `job_failed`
+- `duplicate_skipped`
+
+## v1.0 Additions
+
+### Feishu CSV Upload Trigger
+
+v1.0 adds an independent Feishu bot entrypoint for Product Intel. It does not modify PublishKit or Video Director.
+
+Minimum flow:
+
+1. Feishu receives a CSV file message
+2. Bot downloads the CSV to `/tmp/product_intel_uploads`
+3. Bot calls `product_intel.service_handler.run_product_intel_job(...)`
+4. Bot replies with `summary_text` and local `output_files` paths
+
+Run locally:
+
+```bash
+cd /Users/michaelchui/Desktop/openclaw_tools
+
+export FEISHU_APP_ID=xxx
+export FEISHU_APP_SECRET=xxx
+
+python3 -m product_intel.feishu_product_intel_bot
+```
+
+Run with PM2:
+
+```bash
+pm2 start "python3 -m product_intel.feishu_product_intel_bot" --name product-intel-feishu-bot
+```
+
+Production / PM2 runtime requires:
+
+```bash
+export FEISHU_APP_ID=xxx
+export FEISHU_APP_SECRET=xxx
+```
+
+Local unit tests mock Feishu OpenAPI calls and do not require real `FEISHU_APP_ID` or `FEISHU_APP_SECRET`.
+
+Health check:
+
+```bash
+curl http://127.0.0.1:8788/health
+```
+
+Port configuration:
+
+```bash
+export PRODUCT_INTEL_BOT_PORT=8788
+```
+
+Smoke test:
+
+```bash
+python3 -m product_intel.test_feishu_product_intel_bot
+```
+
+## Run
+
+From `/Users/michaelchui/Desktop/openclaw_tools`:
+
+```bash
+python3 -m product_intel.test_product_fact_sheet
+python3 -m product_intel.test_batch_fact_sheet
+python3 -m product_intel.test_input_adapter
+python3 -m product_intel.test_decision_table
+python3 -m product_intel.test_manager_payload
+python3 -m product_intel.test_run_product_intel
+python3 -m product_intel.test_csv_profile
+python3 -m product_intel.test_service_handler
+python3 -m product_intel.run_product_intel --input product_intel/mock_products.csv --source mock --market de --output-dir product_intel/output
+python3 -m product_intel.run_product_intel --input product_intel/mock_products.csv --source auto --profile-only
+python3 -m product_intel.run_product_intel --input product_intel/mock_products.csv --source auto --market de --output-dir product_intel/output
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/qa_schema.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/test_product_fact_sheet.py
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/batch_fact_sheet.py product_intel/export_utils.py product_intel/test_batch_fact_sheet.py
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/batch_fact_sheet.py product_intel/export_utils.py product_intel/input_adapter.py product_intel/csv_loader.py product_intel/test_input_adapter.py
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/batch_fact_sheet.py product_intel/export_utils.py product_intel/input_adapter.py product_intel/csv_loader.py product_intel/decision_table.py product_intel/export_decision_table.py product_intel/test_decision_table.py
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/batch_fact_sheet.py product_intel/export_utils.py product_intel/input_adapter.py product_intel/csv_loader.py product_intel/decision_table.py product_intel/export_decision_table.py product_intel/manager_payload.py product_intel/export_manager_payload.py product_intel/test_manager_payload.py
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/batch_fact_sheet.py product_intel/export_utils.py product_intel/input_adapter.py product_intel/csv_loader.py product_intel/decision_table.py product_intel/export_decision_table.py product_intel/manager_payload.py product_intel/export_manager_payload.py product_intel/run_product_intel.py product_intel/test_run_product_intel.py
+python3 -m py_compile product_intel/product_fact_sheet.py product_intel/hook_library.py product_intel/opportunity_score.py product_intel/batch_fact_sheet.py product_intel/export_utils.py product_intel/input_adapter.py product_intel/csv_loader.py product_intel/excel_loader.py product_intel/csv_profile.py product_intel/export_csv_profile.py product_intel/decision_table.py product_intel/export_decision_table.py product_intel/manager_payload.py product_intel/export_manager_payload.py product_intel/run_product_intel.py product_intel/service_handler.py product_intel/feishu_product_intel_bot.py product_intel/test_csv_profile.py product_intel/test_excel_loader.py product_intel/test_run_product_intel.py product_intel/test_service_handler.py product_intel/test_feishu_product_intel_bot.py
+```
+
+## Next
+
+Future versions can replace the mock JSON loader with a real EchoTik client while keeping the Product Fact Sheet contract stable for product selection bots, Manager, Video Director, and QA workflows.

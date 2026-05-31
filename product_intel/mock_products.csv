@@ -1,0 +1,9 @@
+商品ID,item_id,goods_id,product_id,商品名称,title,name,商品类目,leaf_category,category_name,category,售价,sale_price,min_price,price,达人佣金率,commission,commission_rate,销量,sold,已售,sales,销售额,GMV,gmv,sales_amount,growth_7d,growth_30d,related_video_count,related_influencer_count,rating,review_count,来源,candidate_source,source_platform
+cn_pet_001,,,,Raised Double Cat Bowl,,,,Pet Supplies > Cats > Cat Bowls & Feeders,,,,€8.99,,,18%,,,,18420,,,165595.8,,,,0.31,0.58,42,28,4.7,860,EchoTik,,
+,uk_fan_002,,,,Portable Mini Handheld Fan,,,Home Appliances/Fans/Cooling,,,,£9.99,,,12%,,,9200,,,,91908,,,0.44,0.72,55,33,4.6,520,,FastMoss,
+,,uk_peeler_003,,,,Rotating Kitchen Vegetable Peeler,,Kitchen Tools > Peelers,,,,£6.99,,14%,,,,,6200,,,43338,,0.26,0.41,24,16,4.5,240,manual_sheet,,
+,,,de_litter_004,,Waterproof Cat Litter Mat,,,,Pet Supplies > Cats > Litter Mats,,,,€11.99,,,16%,,,7800,,,93522,,,,0.36,0.64,31,22,4.8,610,,,EchoTik
+,,,uk_treadmill_005,Foldable Home Walking Treadmill,,,,Sports & Fitness > Treadmills,,,,£189.00,,,6%,,,,85,,,16065,,,,0.04,0.06,4,3,4.1,24,FastMoss,,
+,,,fm_snack_006,Crispy Chocolate Wafer Snack Pack,,,,Food & Beverages > Snacks,,,,€3.49,,,8%,,,,22000,,,76780,,,,0.14,0.25,18,12,4.4,310,,FastMoss,
+,,uk_storage_007,,,,Clear Soft Storage Bag With Zipper Handles,,Home & Living > Storage Bags,,,,£7.99,,10%,,,,,760,,,6072.4,,0.11,0.19,8,5,4.3,80,manual_sheet,,
+,,,de_beauty_008,,Hydrating Glow Face Serum,,,,Beauty > Skincare > Serum,,,,€12.99,,,15%,,,4300,,,55857,,,,0.18,0.28,20,14,4.6,420,,,EchoTik

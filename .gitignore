@@ -40,3 +40,25 @@ tiktok_insight/*_processed_events.json
 writeback_*.json
 seed_split_*.json
 group_scheduler_*.log
+
+# Product Intel runtime outputs
+product_intel/__pycache__/
+product_intel/output/
+product_intel/*.pyc
+
+# Local/runtime junk
+.DS_Store
+*.log
+*.pyc
+
+# Generated media / data outputs
+tiktok_insight/media/
+tiktok_insight/raw/
+tiktok_insight/reports/
+tiktok_insight/feishu_processed_events.json
+
+# Local secret/config safety
+.cloudflared/
+*.pem
+*.key
+*credentials*.json
