@@ -605,6 +605,59 @@ Useful logs:
 - `job_failed`
 - `duplicate_skipped`
 
+## v1.5 Additions
+
+### Structured 8-Dimension Delivery
+
+v1.5 keeps the Feishu callback, PM2 process, Cloudflare Tunnel, and legacy opportunity fields unchanged. It strengthens the machine-readable selection output for OpenClaw Manager and human operations review.
+
+Each product keeps the existing fields:
+
+- `opportunity_score`
+- `decision`
+- `recommended_format`
+- `recommended_hooks`
+- `risk_flags`
+- `next_action`
+
+Each `dimension_scores` entry now exposes a consistent local-rule contract:
+
+- `score`
+- `level`
+- `reason`
+- `reasons`
+- `missing_evidence`
+
+The final decision also keeps its execution fields, including suggested formats, suggested accounts, daily posts, and 48-hour review metrics.
+
+Decision table Markdown now presents:
+
+- product name
+- final decision and total score
+- 8-dimension summary
+- strongest dimensions
+- weakest dimensions
+- main push / decision reason
+- risk flags
+- next action
+
+Manager payload products now include:
+
+- `dimension_scores`
+- `dimension_summary`
+- `strongest_dimensions`
+- `weakest_dimensions`
+- `missing_evidence_count`
+- `main_push_reason`
+- `risk_flags`
+- `next_action`
+
+This version does not call external APIs. Missing review clusters, trend signals, competitor pricing, and merchant fulfillment evidence remain explicit in `missing_evidence`.
+
+The public delivery decision has one source of truth: `dimension_scores.final_test_decision.decision`. Legacy `opportunity_score` remains available for ranking and backward compatibility, but its preliminary decision no longer overrides the 8-dimension final decision in CSV, Markdown, manager payload, or Feishu summaries.
+
+Risk flags are derived from relevant `weak` / `unknown` dimensions and category-specific review needs. Main-push products are not mechanically filled with warnings when no material risk signal exists.
+
 ## v1.0 Additions
 
 ### Feishu CSV Upload Trigger

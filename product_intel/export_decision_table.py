@@ -29,6 +29,7 @@ DECISION_CSV_FIELDS = [
     "strongest_dimensions",
     "weakest_dimensions",
     "missing_evidence_count",
+    "main_push_reason",
     "next_action",
 ]
 
@@ -51,7 +52,22 @@ def markdown_escape(value: Any) -> str:
 def save_decision_markdown(rows: list[dict[str, Any]], path: str | Path) -> Path:
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    headers = ["rank", "商品", "类目", "分数", "决策", "建议形式", "日投放", "hooks", "8维度摘要", "风险", "下一步动作"]
+    headers = [
+        "rank",
+        "商品",
+        "类目",
+        "分数",
+        "决策",
+        "建议形式",
+        "日投放",
+        "hooks",
+        "8维度摘要",
+        "强维度",
+        "弱维度",
+        "主推/判断依据",
+        "风险",
+        "下一步动作",
+    ]
     lines = [
         "| " + " | ".join(headers) + " |",
         "| " + " | ".join(["---"] * len(headers)) + " |",
@@ -67,6 +83,9 @@ def save_decision_markdown(rows: list[dict[str, Any]], path: str | Path) -> Path
             row.get("suggested_daily_posts", ""),
             row.get("recommended_hooks", ""),
             row.get("dimension_summary", ""),
+            row.get("strongest_dimensions", ""),
+            row.get("weakest_dimensions", ""),
+            row.get("main_push_reason", ""),
             row.get("risk_flags", ""),
             row.get("next_action", ""),
         ]

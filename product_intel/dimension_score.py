@@ -38,6 +38,7 @@ def base_dimension(score: int, reasons: list[str], missing: list[str], action: s
     return {
         "score": score,
         "level": level_for(score),
+        "reason": reasons[0] if reasons else "Insufficient local evidence for a stronger rule-based conclusion.",
         "reasons": reasons,
         "missing_evidence": missing,
         "suggested_action": action,
@@ -316,10 +317,21 @@ def final_test_decision(
     if dimensions["aigc_fit"]["score"] >= 75 or has_any(text, ["fan", "gadget", "tool"]):
         formats.append("video")
     suggested_daily_posts = {"main_push": 3, "small_test": 2, "hold": 1, "reject": 0}[decision]
+    missing_evidence = sorted(
+        {
+            evidence
+            for key in weighted_keys
+            for evidence in dimensions[key].get("missing_evidence", [])
+            if evidence
+        }
+    )
     return {
         "decision": decision,
         "score": score,
+        "level": level_for(score),
+        "reason": reasons[0] if reasons else "Insufficient local evidence for a stronger rule-based conclusion.",
         "reasons": reasons,
+        "missing_evidence": missing_evidence,
         "next_action": {
             "main_push": "今天可主推，进入账号分发表",
             "small_test": "小样本测试，先发1-2条验证CTR/转化",

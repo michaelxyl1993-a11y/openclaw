@@ -45,14 +45,17 @@ def assert_dimension_shape(dimensions: dict[str, Any]) -> None:
         raise AssertionError(f"unexpected dimension keys: {sorted(dimensions)}")
     for key in expected - {"final_test_decision"}:
         value = dimensions[key]
-        for field in ["score", "level", "reasons", "missing_evidence", "suggested_action"]:
+        for field in ["score", "level", "reason", "reasons", "missing_evidence", "suggested_action"]:
             if field not in value:
                 raise AssertionError(f"{key} missing {field}: {value}")
     final_decision = dimensions["final_test_decision"]
     for field in [
         "decision",
         "score",
+        "level",
+        "reason",
         "reasons",
+        "missing_evidence",
         "next_action",
         "suggested_daily_posts",
         "suggested_accounts",
@@ -104,6 +107,13 @@ def main() -> None:
     )
     if missing_count <= 0:
         raise AssertionError(f"sparse product should report missing evidence: {sparse_dims}")
+    weak_or_unknown = [
+        value
+        for key, value in sparse_dims.items()
+        if key != "final_test_decision" and isinstance(value, dict) and value.get("level") in {"weak", "unknown"}
+    ]
+    if not weak_or_unknown or not any(value.get("missing_evidence") for value in weak_or_unknown):
+        raise AssertionError(f"weak or unknown dimensions should retain missing evidence: {sparse_dims}")
 
     print("Product Intel dimension score smoke test passed.")
 

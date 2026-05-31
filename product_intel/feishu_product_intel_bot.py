@@ -530,6 +530,15 @@ def format_product_intel_reply(
         llm_summary = (
             manager_payload.get("llm_summary", {}) if isinstance(manager_payload.get("llm_summary", {}), dict) else {}
         )
+        manager_summary = (
+            manager_payload.get("summary", {}) if isinstance(manager_payload.get("summary", {}), dict) else {}
+        )
+        risk_heavy_products = (
+            manager_summary.get("risk_heavy_products", [])
+            if isinstance(manager_summary.get("risk_heavy_products", []), list)
+            else []
+        )
+        lines.extend(["", f"主要风险商品数：{len(risk_heavy_products)}"])
         summary_text = str(llm_summary.get("summary_text") or "").strip()
         if summary_text:
             lines.extend(["", "运营摘要：", short_ops_summary(summary_text)])

@@ -107,7 +107,7 @@ def build_product_payload(item: dict[str, Any], row: dict[str, Any], meta: dict[
     dimension_scores = item.get("dimension_scores", {}) if isinstance(item.get("dimension_scores", {}), dict) else {}
     category = category_text(fact_sheet, product)
     hooks = hook_types(fact_sheet)
-    decision = normalize_decision(str(opportunity.get("decision", row.get("decision", "hold"))))
+    decision = normalize_decision(str(row.get("decision", "hold")))
     formats = split_formats(opportunity.get("suggested_format"), suggested_format(opportunity, fact_sheet, product))
     return {
         "rank": row["rank"],
@@ -126,13 +126,14 @@ def build_product_payload(item: dict[str, Any], row: dict[str, Any], meta: dict[
         "recommended_hooks": hooks,
         "content_angle_summary": row["content_angle_summary"],
         "suggested_daily_posts": daily_posts(row["suggested_daily_posts"]),
-        "risk_flags": opportunity.get("risk_flags", []),
+        "risk_flags": row.get("risk_flags_list", opportunity.get("risk_flags", [])),
         "reasons": opportunity.get("reasons", []),
         "dimension_scores": dimension_scores,
         "dimension_summary": row.get("dimension_summary", ""),
         "strongest_dimensions": row.get("strongest_dimensions", ""),
         "weakest_dimensions": row.get("weakest_dimensions", ""),
         "missing_evidence_count": row.get("missing_evidence_count", 0),
+        "main_push_reason": row.get("main_push_reason", ""),
         "next_action": row["next_action"],
         "manager_instruction": manager_instruction(decision),
         "routing": build_routing(category, hooks, formats, meta),

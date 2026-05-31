@@ -77,6 +77,17 @@ def next_action(decision: str) -> str:
     return mapping.get(decision, "暂缓，不进今日主推池")
 
 
+def normalize_decision(decision: str) -> str:
+    return "hold" if decision == "observe" else decision
+
+
+def final_public_decision(opportunity: dict[str, Any], dimension_scores: dict[str, Any]) -> str:
+    final_dimension = dimension_scores.get("final_test_decision", {})
+    if not isinstance(final_dimension, dict):
+        final_dimension = {}
+    return normalize_decision(str(final_dimension.get("decision") or opportunity.get("decision") or "hold"))
+
+
 def dimension_items(dimension_scores: dict[str, Any]) -> list[tuple[str, dict[str, Any]]]:
     items: list[tuple[str, dict[str, Any]]] = []
     for key, value in dimension_scores.items():
@@ -117,6 +128,80 @@ def missing_evidence_count(dimension_scores: dict[str, Any]) -> int:
     return count
 
 
+DIMENSION_RISK_LABELS = {
+    "profit_window": "利润窗口偏弱",
+    "demand_pain": "需求痛点证据偏弱",
+    "external_trend": "外部趋势证据不足",
+    "seasonality": "季节性支撑偏弱",
+    "competition": "竞争差异化证据不足",
+    "merchant_quality": "商家质量证据不足",
+    "aigc_fit": "AIGC 适配需人工复核",
+}
+
+
+def build_risk_flags(
+    product: dict[str, Any],
+    fact_sheet: dict[str, Any],
+    opportunity: dict[str, Any],
+    dimension_scores: dict[str, Any],
+    decision: str,
+) -> list[str]:
+    flags = [
+        str(flag)
+        for flag in opportunity.get("risk_flags", [])
+        if flag
+    ] if isinstance(opportunity.get("risk_flags", []), list) else []
+    searchable = " ".join(
+        [
+            category_text(fact_sheet, product),
+            str(product.get("product_name", "")),
+            str(fact_sheet.get("product_name", "")),
+        ]
+    ).lower()
+
+    for key, value in dimension_items(dimension_scores):
+        level = str(value.get("level", "unknown"))
+        if level in {"weak", "unknown"}:
+            label = DIMENSION_RISK_LABELS.get(key, f"{key} 证据不足")
+            flags.append(f"{label}（{level}）")
+
+    if any(term in searchable for term in ["treadmill", "fitness", "walking pad"]):
+        flags.extend(["高客单/重决策商品，转化链路较长", "需补齐商家履约、退货和质量证据"])
+    if any(term in searchable for term in ["beauty", "serum", "skincare"]):
+        flags.append("功效表达需谨慎，避免缺少证据的效果承诺")
+        trend = dimension_scores.get("external_trend", {})
+        if isinstance(trend, dict) and trend.get("missing_evidence"):
+            flags.append("缺少外部趋势证据，建议先小样本测试")
+    if any(term in searchable for term in ["food", "snack", "wafer"]):
+        if str(dimension_scores.get("demand_pain", {}).get("level", "")) in {"weak", "unknown"}:
+            flags.append("食品购买痛点偏弱")
+        if str(dimension_scores.get("profit_window", {}).get("level", "")) in {"weak", "unknown"}:
+            flags.append("食品利润窗口偏弱")
+        flags.append("食品类需小样本验证转化")
+    if decision == "small_test":
+        flags.append("建议先小样本验证")
+
+    seen = set()
+    return [flag for flag in flags if flag and not (flag in seen or seen.add(flag))]
+
+
+def main_push_reason(
+    decision: str,
+    opportunity: dict[str, Any],
+    dimension_scores: dict[str, Any],
+) -> str:
+    final_dimension = dimension_scores.get("final_test_decision", {})
+    if not isinstance(final_dimension, dict):
+        final_dimension = {}
+    reasons = final_dimension.get("reasons", [])
+    if not isinstance(reasons, list) or not reasons:
+        reasons = opportunity.get("reasons", [])
+    if not isinstance(reasons, list) or not reasons:
+        return "本地证据不足，建议补齐关键数据后再决定。"
+    prefix = "主推依据" if decision == "main_push" else "判断依据"
+    return f"{prefix}：" + "；".join(str(reason) for reason in reasons[:3])
+
+
 def build_decision_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
     sorted_results = sorted(
         results,
@@ -130,8 +215,9 @@ def build_decision_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
         opportunity = item.get("opportunity", {}) if isinstance(item.get("opportunity", {}), dict) else {}
         dimensions = item.get("dimension_scores", {}) if isinstance(item.get("dimension_scores", {}), dict) else {}
         final_dimension = dimensions.get("final_test_decision", {}) if isinstance(dimensions.get("final_test_decision", {}), dict) else {}
-        decision = str(opportunity.get("decision", "observe"))
+        decision = final_public_decision(opportunity, dimensions)
         product_name = str(product.get("product_name") or fact_sheet.get("product_name") or "")
+        risk_flags = build_risk_flags(product, fact_sheet, opportunity, dimensions, decision)
         row = {
             "rank": rank,
             "product_id": str(product.get("product_id") or fact_sheet.get("product_id") or ""),
@@ -145,15 +231,17 @@ def build_decision_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "opportunity_score": int(opportunity.get("opportunity_score", 0) or 0),
             "decision": decision,
             "suggested_format": suggested_format(opportunity, fact_sheet, product),
-            "suggested_daily_posts": opportunity.get("suggested_daily_volume", ""),
+            "suggested_daily_posts": final_dimension.get("suggested_daily_posts", opportunity.get("suggested_daily_volume", "")),
             "recommended_hooks": text_join(hook_types(fact_sheet)),
             "content_angle_summary": str(opportunity.get("content_angle_summary", "")),
             "reasons": text_join(opportunity.get("reasons", []) if isinstance(opportunity.get("reasons", []), list) else []),
-            "risk_flags": text_join(opportunity.get("risk_flags", []) if isinstance(opportunity.get("risk_flags", []), list) else []),
+            "risk_flags": text_join(risk_flags),
+            "risk_flags_list": risk_flags,
             "dimension_summary": dimension_summary(dimensions),
             "strongest_dimensions": strongest_dimensions(dimensions),
             "weakest_dimensions": weakest_dimensions(dimensions),
             "missing_evidence_count": missing_evidence_count(dimensions),
+            "main_push_reason": main_push_reason(decision, opportunity, dimensions),
             "next_action": str(final_dimension.get("next_action") or next_action(decision)),
         }
         rows.append(row)
