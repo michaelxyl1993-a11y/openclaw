@@ -1,0 +1,101 @@
+{
+  "mode": "feishu_multi_attachment_dry_run_v1.20",
+  "real_feishu_api_called": false,
+  "real_download_performed": false,
+  "attachment_count": 5,
+  "supported_attachment_count": 4,
+  "unsupported_attachment_count": 1,
+  "ready_for_real_download": true,
+  "ready_for_multi_file_batch_runner": true,
+  "max_attachments": 20,
+  "max_file_size_bytes": 20971520,
+  "attachments": [
+    {
+      "attachment_index": 0,
+      "filename": "mock_echotik_products.xlsx",
+      "suffix": ".xlsx",
+      "supported": true,
+      "size_bytes": 12345,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_token_redacted": "REDACTED_FILE_TOKEN",
+      "file_token_hash": "4a421bca63dd494c44b94d16e6d0054a568995999a423669da41e9c394e0dade",
+      "planned_download_path": "product_intel/feishu_downloads/mock_echotik_products.xlsx",
+      "planned_batch_input": true,
+      "errors": []
+    },
+    {
+      "attachment_index": 1,
+      "filename": "mock_fastmoss_products.xlsx",
+      "suffix": ".xlsx",
+      "supported": true,
+      "size_bytes": 23456,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_token_redacted": "REDACTED_FILE_TOKEN",
+      "file_token_hash": "071020726571e3fcae7d8533b3436a48f871344f40b3b36cfdcd50ea12032a39",
+      "planned_download_path": "product_intel/feishu_downloads/mock_fastmoss_products.xlsx",
+      "planned_batch_input": true,
+      "errors": []
+    },
+    {
+      "attachment_index": 2,
+      "filename": "mock_kalodata_products.xlsx",
+      "suffix": ".xlsx",
+      "supported": true,
+      "size_bytes": 34567,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_token_redacted": "REDACTED_FILE_TOKEN",
+      "file_token_hash": "3da6890063f8ae820df86735e04fb705fffe255c1482737358477f6417028a3b",
+      "planned_download_path": "product_intel/feishu_downloads/mock_kalodata_products.xlsx",
+      "planned_batch_input": true,
+      "errors": []
+    },
+    {
+      "attachment_index": 3,
+      "filename": "mock_manual_products.xlsx",
+      "suffix": ".xlsx",
+      "supported": true,
+      "size_bytes": 45678,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_token_redacted": "REDACTED_FILE_TOKEN",
+      "file_token_hash": "93b93ec47d7fdaee10bc5bf09f1d94a406b170b6e3277546fac5e9258062e54e",
+      "planned_download_path": "product_intel/feishu_downloads/mock_manual_products.xlsx",
+      "planned_batch_input": true,
+      "errors": []
+    },
+    {
+      "attachment_index": 4,
+      "filename": "readme.pdf",
+      "suffix": ".pdf",
+      "supported": false,
+      "size_bytes": 5678,
+      "mime_type": "application/pdf",
+      "file_token_redacted": "REDACTED_FILE_TOKEN",
+      "file_token_hash": "ec168421c78670d343e92526d42eb883bc399fd451eef504c3be9c62d616f0d7",
+      "planned_download_path": "product_intel/feishu_downloads/readme.pdf",
+      "planned_batch_input": false,
+      "errors": [
+        "不支持的文件类型，仅允许 .csv / .xlsx / .xls"
+      ]
+    }
+  ],
+  "unsupported_attachments": [
+    {
+      "attachment_index": 4,
+      "filename": "readme.pdf",
+      "suffix": ".pdf",
+      "supported": false,
+      "size_bytes": 5678,
+      "mime_type": "application/pdf",
+      "file_token_redacted": "REDACTED_FILE_TOKEN",
+      "file_token_hash": "ec168421c78670d343e92526d42eb883bc399fd451eef504c3be9c62d616f0d7",
+      "planned_download_path": "product_intel/feishu_downloads/readme.pdf",
+      "planned_batch_input": false,
+      "errors": [
+        "不支持的文件类型，仅允许 .csv / .xlsx / .xls"
+      ]
+    }
+  ],
+  "duplicate_filename_count": 0,
+  "duplicate_file_token_count": 0,
+  "errors": []
+}

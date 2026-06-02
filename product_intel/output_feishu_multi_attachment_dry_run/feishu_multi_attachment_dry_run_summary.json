@@ -1,0 +1,21 @@
+{
+  "mode": "feishu_multi_attachment_dry_run_v1.20",
+  "attachment_count": 5,
+  "supported_attachment_count": 4,
+  "unsupported_attachment_count": 1,
+  "csv_count": 0,
+  "xlsx_count": 4,
+  "xls_count": 0,
+  "total_supported_size_bytes": 116046,
+  "duplicate_filename_count": 0,
+  "duplicate_file_token_count": 0,
+  "ready_for_real_download": true,
+  "ready_for_multi_file_batch_runner": true,
+  "planned_input_files": [
+    "product_intel/feishu_downloads/mock_echotik_products.xlsx",
+    "product_intel/feishu_downloads/mock_fastmoss_products.xlsx",
+    "product_intel/feishu_downloads/mock_kalodata_products.xlsx",
+    "product_intel/feishu_downloads/mock_manual_products.xlsx"
+  ],
+  "next_command_after_real_download": "python3 -m product_intel.multi_file_batch_runner --inputs product_intel/feishu_downloads/mock_echotik_products.xlsx product_intel/feishu_downloads/mock_fastmoss_products.xlsx product_intel/feishu_downloads/mock_kalodata_products.xlsx product_intel/feishu_downloads/mock_manual_products.xlsx --source auto --market de --output-dir product_intel/output_multi_file_from_feishu"
+}

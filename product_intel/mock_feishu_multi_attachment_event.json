@@ -1,0 +1,36 @@
+{
+  "message_id": "mock_message_id_v1_20",
+  "chat_id": "mock_chat_identifier_v1_20",
+  "attachments": [
+    {
+      "file_token": "mock_file_token_echotik",
+      "file_name": "mock_echotik_products.xlsx",
+      "size_bytes": 12345,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "file_token": "mock_file_token_fastmoss",
+      "file_name": "mock_fastmoss_products.xlsx",
+      "size_bytes": 23456,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "file_token": "mock_file_token_kalodata",
+      "file_name": "mock_kalodata_products.xlsx",
+      "size_bytes": 34567,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "file_token": "mock_file_token_manual",
+      "file_name": "mock_manual_products.xlsx",
+      "size_bytes": 45678,
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "file_token": "mock_file_token_readme",
+      "file_name": "readme.pdf",
+      "size_bytes": 5678,
+      "mime_type": "application/pdf"
+    }
+  ]
+}

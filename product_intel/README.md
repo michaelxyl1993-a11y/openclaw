@@ -1083,7 +1083,7 @@ v1.19 adds a local-only multi-file batch runner for CSV and Excel inputs.
 - It preserves per-file outputs and merges manager payload, decision table, and `all_evidence`.
 - It does not call OpenAI or the Feishu API.
 - It does not change the existing single-file `run_product_intel` semantics.
-- A future v1.20 can add a Feishu multi-attachment download dry run.
+- A future version can add a real Feishu multi-attachment download adapter.
 
 Explicit input files:
 
@@ -1114,6 +1114,31 @@ Run the batch runner regression test:
 
 ```bash
 python3 -m product_intel.test_multi_file_batch_runner
+```
+
+## v1.20 Feishu Multi-attachment Download Dry Run
+
+v1.20 adds a local-only dry-run layer for Feishu message attachments.
+
+- It parses multiple attachments from a Feishu message fixture or exported JSON file.
+- It accepts CSV, XLSX, and XLS attachments only.
+- It validates attachment count, file size, tokens, and planned local download paths.
+- It redacts every file token and stores only a SHA-256 hash.
+- It generates `planned_input_files` for the v1.19 multi-file batch runner after a future real download.
+- It does not call the Feishu API or OpenAI.
+- It does not download attachments or run Product Intel analysis.
+- A future v1.21 can implement opt-in real attachment download.
+
+```bash
+python3 -m product_intel.feishu_multi_attachment_dry_run \
+  --attachments-json product_intel/mock_feishu_multi_attachment_event.json \
+  --output-dir product_intel/output_feishu_multi_attachment_dry_run
+```
+
+Run the multi-attachment dry-run regression test:
+
+```bash
+python3 -m product_intel.test_feishu_multi_attachment_dry_run
 ```
 
 ## Run
