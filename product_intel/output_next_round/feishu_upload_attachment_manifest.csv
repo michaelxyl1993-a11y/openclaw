@@ -1,0 +1,7 @@
+﻿path,filename,file_type,size_bytes,exists,non_empty,upload_required,upload_status
+product_intel/output_next_round/final_ops_decision_table.csv,final_ops_decision_table.csv,csv,11475,True,True,True,dry_run_only
+product_intel/output_next_round/final_ops_action_summary.json,final_ops_action_summary.json,json,4967,True,True,True,dry_run_only
+product_intel/output_next_round/feishu_ops_handoff_message.md,feishu_ops_handoff_message.md,md,1476,True,True,True,dry_run_only
+product_intel/output_next_round/feishu_ops_handoff_manifest.json,feishu_ops_handoff_manifest.json,json,1027,True,True,True,dry_run_only
+product_intel/output_next_round/feishu_ops_handoff_brief.json,feishu_ops_handoff_brief.json,json,4957,True,True,True,dry_run_only
+product_intel/output_next_round/feishu_ops_handoff_checklist.md,feishu_ops_handoff_checklist.md,md,346,True,True,True,dry_run_only

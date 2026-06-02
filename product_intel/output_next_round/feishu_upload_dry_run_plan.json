@@ -1,0 +1,82 @@
+{
+  "ready_for_upload": true,
+  "total_attachments": 6,
+  "valid_attachment_count": 6,
+  "invalid_attachment_count": 0,
+  "message_ready": true,
+  "message_check": {
+    "path": "product_intel/output_next_round/feishu_ops_handoff_message.md",
+    "exists": true,
+    "non_empty": true,
+    "marker_checks": {
+      "Product Intel 选品虾｜最终运营交付": true,
+      "manual-3": true,
+      "规则建议 main_push，但 LLM Judge challenge": true
+    },
+    "ready": true
+  },
+  "will_call_feishu_api": false,
+  "will_send_message": false,
+  "attachment_items": [
+    {
+      "path": "product_intel/output_next_round/final_ops_decision_table.csv",
+      "filename": "final_ops_decision_table.csv",
+      "file_type": "csv",
+      "size_bytes": 11475,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "dry_run_only"
+    },
+    {
+      "path": "product_intel/output_next_round/final_ops_action_summary.json",
+      "filename": "final_ops_action_summary.json",
+      "file_type": "json",
+      "size_bytes": 4967,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "dry_run_only"
+    },
+    {
+      "path": "product_intel/output_next_round/feishu_ops_handoff_message.md",
+      "filename": "feishu_ops_handoff_message.md",
+      "file_type": "md",
+      "size_bytes": 1476,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "dry_run_only"
+    },
+    {
+      "path": "product_intel/output_next_round/feishu_ops_handoff_manifest.json",
+      "filename": "feishu_ops_handoff_manifest.json",
+      "file_type": "json",
+      "size_bytes": 1027,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "dry_run_only"
+    },
+    {
+      "path": "product_intel/output_next_round/feishu_ops_handoff_brief.json",
+      "filename": "feishu_ops_handoff_brief.json",
+      "file_type": "json",
+      "size_bytes": 4957,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "dry_run_only"
+    },
+    {
+      "path": "product_intel/output_next_round/feishu_ops_handoff_checklist.md",
+      "filename": "feishu_ops_handoff_checklist.md",
+      "file_type": "md",
+      "size_bytes": 346,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "dry_run_only"
+    }
+  ]
+}

@@ -932,6 +932,27 @@ Run the handoff pack regression test:
 python3 -m product_intel.test_feishu_ops_handoff_pack
 ```
 
+## v1.13 Feishu Upload Dry Run
+
+v1.13 adds a local-only upload readiness check for the Feishu operations handoff.
+
+- It does not upload attachments.
+- It does not send Feishu messages.
+- It validates handoff files and generates an upload plan, report, and attachment manifest CSV.
+
+```bash
+python3 -m product_intel.feishu_upload_dry_run \
+  --manifest product_intel/output_next_round/feishu_ops_handoff_manifest.json \
+  --message product_intel/output_next_round/feishu_ops_handoff_message.md \
+  --output-dir product_intel/output_next_round
+```
+
+Run the upload dry-run regression test:
+
+```bash
+python3 -m product_intel.test_feishu_upload_dry_run
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
