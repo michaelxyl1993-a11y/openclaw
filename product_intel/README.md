@@ -1050,6 +1050,30 @@ Run the real message adapter regression test:
 python3 -m product_intel.test_feishu_message_send_adapter_real
 ```
 
+## v1.18 Real Feishu Clean Message Pack
+
+v1.18 generates a clean operations message for real text send.
+
+- It rebuilds the operations text without mock, sandbox, or token test content.
+- It does not send attachments.
+- It does not call OpenAI or the Feishu API.
+- Use the v1.17 real sender to send the clean preview to an explicit test `chat_id`.
+- A future v1.19 can consider real attachment messages.
+
+```bash
+python3 -m product_intel.feishu_clean_message_pack \
+  --handoff-message product_intel/output_next_round/feishu_ops_handoff_message.md \
+  --final-summary product_intel/output_next_round/final_ops_action_summary.json \
+  --final-table product_intel/output_next_round/final_ops_decision_table.csv \
+  --output-dir product_intel/output_next_round
+```
+
+Run the clean message pack regression test:
+
+```bash
+python3 -m product_intel.test_feishu_clean_message_pack
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
