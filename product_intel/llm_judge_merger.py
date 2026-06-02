@@ -295,16 +295,24 @@ def summary_markdown(summary: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_outputs(merged_payload: dict[str, Any], output_dir: str | Path) -> dict[str, Path]:
+def write_outputs(
+    merged_payload: dict[str, Any],
+    output_dir: str | Path,
+    filenames: dict[str, str] | None = None,
+) -> dict[str, Path]:
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     products = merged_payload["products"]
     summary = build_ops_summary(products)
+    names = {
+        "merged_json": "all_evidence_with_llm_review.json",
+        "merged_csv": "all_evidence_with_llm_review.csv",
+        "summary_json": "llm_review_ops_summary.json",
+        "summary_md": "llm_review_ops_summary.md",
+        **(filenames or {}),
+    }
     paths = {
-        "merged_json": output / "all_evidence_with_llm_review.json",
-        "merged_csv": output / "all_evidence_with_llm_review.csv",
-        "summary_json": output / "llm_review_ops_summary.json",
-        "summary_md": output / "llm_review_ops_summary.md",
+        key: output / filename for key, filename in names.items()
     }
     paths["merged_json"].write_text(
         json.dumps(merged_payload, ensure_ascii=False, indent=2) + "\n",
@@ -347,4 +355,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

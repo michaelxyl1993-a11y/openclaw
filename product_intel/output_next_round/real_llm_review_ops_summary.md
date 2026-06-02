@@ -1,0 +1,23 @@
+# Product Intel v1.9 LLM Review Ops Summary
+
+## 核心统计
+
+- 商品总数：12
+- 规则决策分布：{"hold": 3, "main_push": 1, "small_test": 8}
+- LLM 复核分布：{"agree": 2, "insufficient_evidence": 1, "not_reviewed": 9}
+- 人工复核优先级：{"high": 1, "medium": 11}
+- LLM challenge 数量：0
+- 证据不足数量：1
+- 未复核数量：9
+
+## 高优先级人工复核商品
+
+| 商品 ID | 商品名 | 规则决策 | LLM 复核 | 原因 |
+| --- | --- | --- | --- | --- |
+| echo-3 | Echo Mini Fan | small_test | insufficient_evidence | LLM Judge 判断证据不足，且整体证据覆盖较弱，需优先补证 |
+
+## 主推商品 LLM Challenge
+
+| 商品 ID | 商品名 | 原因 |
+| --- | --- | --- |
+| - | - | 无 |

@@ -1,0 +1,36 @@
+{
+  "total_products": 12,
+  "rule_decision_counts": {
+    "hold": 3,
+    "main_push": 1,
+    "small_test": 8
+  },
+  "llm_review_result_counts": {
+    "agree": 2,
+    "insufficient_evidence": 1,
+    "not_reviewed": 9
+  },
+  "llm_confidence_counts": {
+    "low": 1,
+    "medium": 2,
+    "missing": 9
+  },
+  "final_human_review_priority_counts": {
+    "high": 1,
+    "medium": 11
+  },
+  "challenge_count": 0,
+  "insufficient_evidence_count": 1,
+  "high_priority_count": 1,
+  "high_priority_products": [
+    {
+      "product_id": "echo-3",
+      "product_name": "Echo Mini Fan",
+      "rule_decision": "small_test",
+      "llm_review_result": "insufficient_evidence",
+      "reason": "LLM Judge 判断证据不足，且整体证据覆盖较弱，需优先补证"
+    }
+  ],
+  "main_push_challenged_products": [],
+  "missing_judge_result_count": 9
+}

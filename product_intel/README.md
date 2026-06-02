@@ -839,6 +839,57 @@ Run the batch runner regression test:
 python3 -m product_intel.test_real_llm_judge_runner
 ```
 
+## v1.10.1 Append and Resume
+
+v1.10.1 adds cumulative result handling for incremental real Judge runs.
+
+- Use `--append` to load existing results and upsert newly processed products by `product_id`.
+- Use `--resume` to skip products that already have `runner_status=success` and `real_llm_called=true`.
+- With `--resume`, `--limit` means the maximum number of not-yet-successful products to process in the current run.
+- Use `--existing-results` to load a non-default cumulative results file.
+- When `--merge` is combined with `--append` or `--resume`, operations outputs use cumulative results.
+
+Recommended incremental real review flow:
+
+```bash
+python3 -m product_intel.real_llm_judge_runner \
+  --evidence product_intel/output_next_round/all_evidence.json \
+  --output-dir product_intel/output_next_round \
+  --real-llm \
+  --limit 1 \
+  --merge \
+  --append
+
+python3 -m product_intel.real_llm_judge_runner \
+  --evidence product_intel/output_next_round/all_evidence.json \
+  --output-dir product_intel/output_next_round \
+  --real-llm \
+  --limit 1 \
+  --merge \
+  --resume
+```
+
+## v1.10.2 Real Success Protection
+
+v1.10.2 protects completed real Judge reviews during cumulative runs.
+
+- Dry-run `--append` and `--resume` runs do not overwrite an existing result with `runner_status=success` and `real_llm_called=true`.
+- `--resume` skips existing real successes before applying `--limit`, so incremental runs continue with the next product requiring review.
+- Use `--force-overwrite-success` only when an existing real success must be rerun or deliberately replaced.
+- Cumulative `--merge` outputs use the protected result set.
+
+Recommended command for reviewing one additional product:
+
+```bash
+python3 -m product_intel.real_llm_judge_runner \
+  --evidence product_intel/output_next_round/all_evidence.json \
+  --output-dir product_intel/output_next_round \
+  --real-llm \
+  --limit 1 \
+  --resume \
+  --merge
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

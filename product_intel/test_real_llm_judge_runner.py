@@ -11,7 +11,11 @@ from types import SimpleNamespace
 
 from .evidence_pack import DIMENSIONS
 from .llm_judge_merger import merge_llm_judge_results
-from .real_llm_judge_runner import run_batch, write_runner_outputs
+from .real_llm_judge_runner import (
+    load_existing_results,
+    run_batch,
+    write_runner_outputs,
+)
 
 
 PACKAGE_DIR = Path(__file__).resolve().parent
@@ -43,6 +47,23 @@ def valid_response_json(product: dict) -> str:
         },
         ensure_ascii=False,
     )
+
+
+def successful_result(product: dict) -> dict:
+    return {
+        "product_id": product["product_id"],
+        "product_name": product["product_name"],
+        "rule_decision": product["decision"],
+        "review_result": "agree",
+        "confidence": "high",
+        "challenge_reason": "",
+        "missing_evidence": [],
+        "dimension_reviews": {},
+        "recommended_human_action": "test success",
+        "real_llm_called": True,
+        "runner_status": "success",
+        "runner_error": "",
+    }
 
 
 class FakeResponses:
@@ -203,7 +224,187 @@ class RealLLMJudgeRunnerTest(unittest.TestCase):
             self.assertIn("merge_merged_json", paths)
             self.assertTrue(paths["merge_merged_json"].exists())
 
+    def test_append_preserves_existing_and_adds_new_product(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, _, summary = run_batch(
+            payload,
+            limit=1,
+            start_index=1,
+            append=True,
+            existing_results_payload=existing,
+            environ={},
+        )
+        self.assertEqual(
+            [item["product_id"] for item in results["results"]],
+            [payload["products"][0]["product_id"], payload["products"][1]["product_id"]],
+        )
+        self.assertEqual(summary["existing_result_count"], 1)
+        self.assertEqual(summary["appended_result_count"], 1)
+        self.assertEqual(summary["cumulative_result_count"], 2)
+
+    def test_dry_run_append_protects_existing_real_success(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, _, summary = run_batch(
+            payload,
+            limit=1,
+            append=True,
+            existing_results_payload=existing,
+            environ={},
+        )
+        self.assertTrue(results["results"][0]["real_llm_called"])
+        self.assertEqual(results["results"][0]["runner_status"], "success")
+        self.assertEqual(summary["updated_result_count"], 0)
+        self.assertEqual(summary["protected_success_count"], 1)
+        self.assertEqual(summary["cumulative_result_count"], 1)
+
+    def test_resume_skips_real_success_and_limit_applies_after_skip(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, _, summary = run_batch(
+            payload,
+            limit=1,
+            resume=True,
+            existing_results_payload=existing,
+            environ={},
+        )
+        self.assertEqual(summary["attempted_products"], 1)
+        self.assertEqual(summary["resumed_skipped_count"], 1)
+        self.assertEqual(
+            summary["resumed_skipped_product_ids"],
+            [payload["products"][0]["product_id"]],
+        )
+        self.assertEqual(summary["appended_result_count"], 1)
+        self.assertEqual(
+            [item["product_id"] for item in results["results"]],
+            [payload["products"][0]["product_id"], payload["products"][1]["product_id"]],
+        )
+
+    def test_resume_merge_uses_cumulative_results(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, samples, summary = run_batch(
+            payload,
+            limit=1,
+            resume=True,
+            existing_results_payload=existing,
+            environ={},
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            paths = write_runner_outputs(
+                results,
+                samples,
+                summary,
+                temp_dir,
+                merge=True,
+                evidence_payload=payload,
+            )
+            merged = json.loads(paths["merge_merged_json"].read_text(encoding="utf-8"))
+            self.assertEqual(merged["products"][0]["llm_review_result"], "agree")
+            self.assertEqual(
+                merged["products"][1]["llm_review_result"],
+                "insufficient_evidence",
+            )
+
+    def test_dry_run_resume_does_not_overwrite_existing_real_success(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, _, summary = run_batch(
+            payload,
+            limit=1,
+            resume=True,
+            existing_results_payload=existing,
+            environ={},
+        )
+        self.assertTrue(results["results"][0]["real_llm_called"])
+        self.assertEqual(summary["resumed_skipped_count"], 1)
+        self.assertEqual(summary["protected_success_count"], 0)
+        self.assertIn(payload["products"][0]["product_id"], summary["successful_product_ids"])
+
+    def test_append_real_success_can_update_existing_real_success(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        client = FakeClient(payload["products"][:1])
+        results, _, summary = run_batch(
+            payload,
+            real_llm_requested=True,
+            limit=1,
+            append=True,
+            existing_results_payload=existing,
+            client=client,
+            environ={
+                "PRODUCT_INTEL_REAL_LLM_ENABLED": "true",
+                "OPENAI_API_KEY": "test-key-not-real",
+            },
+        )
+        self.assertTrue(results["results"][0]["real_llm_called"])
+        self.assertEqual(summary["updated_result_count"], 1)
+        self.assertEqual(summary["protected_success_count"], 0)
+
+    def test_force_overwrite_success_allows_disabled_result(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, _, summary = run_batch(
+            payload,
+            limit=1,
+            append=True,
+            existing_results_payload=existing,
+            force_overwrite_success=True,
+            environ={},
+        )
+        self.assertFalse(results["results"][0]["real_llm_called"])
+        self.assertEqual(results["results"][0]["runner_status"], "disabled")
+        self.assertEqual(summary["updated_result_count"], 1)
+        self.assertEqual(summary["protected_success_count"], 0)
+        self.assertTrue(summary["force_overwrite_success"])
+
+    def test_resume_real_success_processes_next_product(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        client = FakeClient(payload["products"][1:2])
+        results, _, summary = run_batch(
+            payload,
+            real_llm_requested=True,
+            limit=1,
+            resume=True,
+            existing_results_payload=existing,
+            client=client,
+            environ={
+                "PRODUCT_INTEL_REAL_LLM_ENABLED": "true",
+                "OPENAI_API_KEY": "test-key-not-real",
+            },
+        )
+        self.assertEqual(summary["attempted_product_ids"], [payload["products"][1]["product_id"]])
+        self.assertEqual(summary["resumed_skipped_count"], 1)
+        self.assertEqual(summary["cumulative_real_success_count"], 2)
+        self.assertEqual(
+            summary["successful_product_ids"],
+            [payload["products"][0]["product_id"], payload["products"][1]["product_id"]],
+        )
+        self.assertNotIn(payload["products"][1]["product_id"], summary["not_reviewed_product_ids"])
+
+    def test_invalid_existing_results_raise_clear_error(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "invalid.json"
+            path.write_text('{"results": "not-a-list"}', encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "results list"):
+                load_existing_results(path)
+
+    def test_default_mode_does_not_accumulate_existing_results(self) -> None:
+        payload = evidence_payload()
+        existing = {"results": [successful_result(payload["products"][0])]}
+        results, _, summary = run_batch(
+            payload,
+            limit=1,
+            start_index=1,
+            existing_results_payload=existing,
+            environ={},
+        )
+        self.assertEqual(len(results["results"]), 1)
+        self.assertEqual(results["results"][0]["product_id"], payload["products"][1]["product_id"])
+        self.assertEqual(summary["existing_result_count"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
-

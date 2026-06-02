@@ -1,27 +1,63 @@
 {
   "total_products": 12,
-  "attempted_products": 2,
+  "attempted_products": 1,
   "real_llm_requested": false,
-  "real_llm_enabled": false,
+  "real_llm_enabled": true,
   "model": "gpt-5.5",
-  "limit": 2,
+  "limit": 1,
   "start_index": 0,
   "real_llm_called_count": 0,
-  "skipped_count": 10,
+  "skipped_count": 11,
   "success_count": 0,
-  "disabled_count": 2,
+  "disabled_count": 1,
   "error_count": 0,
   "review_result_counts": {
-    "insufficient_evidence": 2
+    "insufficient_evidence": 1
   },
   "confidence_counts": {
-    "low": 2
+    "low": 1
   },
   "error_products": [],
+  "existing_result_count": 2,
+  "appended_result_count": 1,
+  "updated_result_count": 0,
+  "protected_success_count": 0,
+  "force_overwrite_success": false,
+  "newly_successful_product_ids": [],
+  "attempted_product_ids": [
+    "echo-3"
+  ],
+  "resumed_skipped_count": 2,
+  "resumed_skipped_product_ids": [
+    "echo-1",
+    "echo-2"
+  ],
+  "cumulative_result_count": 3,
+  "cumulative_real_success_count": 2,
+  "successful_product_ids": [
+    "echo-1",
+    "echo-2"
+  ],
+  "not_reviewed_product_ids": [
+    "echo-3",
+    "fm-1",
+    "fm-2",
+    "fm-3",
+    "kalo-1",
+    "kalo-3",
+    "kalo-2",
+    "manual-3",
+    "manual-1",
+    "manual-2"
+  ],
   "output_files": {
     "judge_results": "product_intel/output_next_round/all_evidence_real_llm_judge_results.json",
     "prompt_samples": "product_intel/output_next_round/all_evidence_real_llm_judge_prompt_samples.json",
     "run_summary_json": "product_intel/output_next_round/real_llm_judge_run_summary.json",
-    "run_summary_md": "product_intel/output_next_round/real_llm_judge_run_summary.md"
+    "run_summary_md": "product_intel/output_next_round/real_llm_judge_run_summary.md",
+    "merge_merged_json": "product_intel/output_next_round/all_evidence_with_real_llm_review.json",
+    "merge_merged_csv": "product_intel/output_next_round/all_evidence_with_real_llm_review.csv",
+    "merge_summary_json": "product_intel/output_next_round/real_llm_review_ops_summary.json",
+    "merge_summary_md": "product_intel/output_next_round/real_llm_review_ops_summary.md"
   }
 }

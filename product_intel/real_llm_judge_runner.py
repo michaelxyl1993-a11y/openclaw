@@ -116,6 +116,72 @@ def error_result(evidence_item: dict[str, Any], error_message: str) -> dict[str,
     return result
 
 
+def validate_existing_results_payload(payload: Any) -> dict[str, Any]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("results"), list):
+        raise ValueError("existing results must be an object containing a results list.")
+    seen: set[str] = set()
+    for item in payload["results"]:
+        if not isinstance(item, dict):
+            raise ValueError("existing result items must be objects.")
+        product_id = str(item.get("product_id", "")).strip()
+        if not product_id:
+            raise ValueError("existing result item missing product_id.")
+        if product_id in seen:
+            raise ValueError(f"duplicate existing result product_id: {product_id}")
+        if item.get("runner_status") not in {"disabled", "success", "error"}:
+            raise ValueError(f"{product_id}: invalid existing runner_status.")
+        if not isinstance(item.get("real_llm_called"), bool):
+            raise ValueError(f"{product_id}: existing real_llm_called must be a boolean.")
+        seen.add(product_id)
+    return payload
+
+
+def load_existing_results(path: str | Path) -> dict[str, Any]:
+    existing_path = Path(path)
+    if not existing_path.exists():
+        return {"results": []}
+    return validate_existing_results_payload(load_json(existing_path))
+
+
+def is_real_success(result: dict[str, Any] | None) -> bool:
+    return bool(
+        result
+        and result.get("runner_status") == "success"
+        and result.get("real_llm_called") is True
+    )
+
+
+def upsert_results(
+    existing_results: list[dict[str, Any]],
+    new_results: list[dict[str, Any]],
+    *,
+    force_overwrite_success: bool = False,
+) -> tuple[list[dict[str, Any]], int, int, int, list[str]]:
+    cumulative = {str(item["product_id"]): item for item in existing_results}
+    appended = 0
+    updated = 0
+    protected = 0
+    newly_successful: list[str] = []
+    for item in new_results:
+        product_id = str(item["product_id"])
+        existing = cumulative.get(product_id)
+        if (
+            is_real_success(existing)
+            and not is_real_success(item)
+            and not force_overwrite_success
+        ):
+            protected += 1
+            continue
+        if existing is not None:
+            updated += 1
+        else:
+            appended += 1
+        if is_real_success(item) and not is_real_success(existing):
+            newly_successful.append(product_id)
+        cumulative[product_id] = item
+    return list(cumulative.values()), appended, updated, protected, newly_successful
+
+
 def run_batch(
     evidence_payload: Any,
     *,
@@ -127,6 +193,10 @@ def run_batch(
     client: Any | None = None,
     environ: Mapping[str, str] | None = None,
     sleep_fn: Callable[[float], None] = time.sleep,
+    append: bool = False,
+    resume: bool = False,
+    existing_results_payload: Any | None = None,
+    force_overwrite_success: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     env = dict(environ if environ is not None else os.environ)
     if start_index < 0:
@@ -136,8 +206,34 @@ def run_batch(
     if sleep_seconds < 0:
         raise ValueError("sleep_seconds must be >= 0.")
 
+    if append and resume:
+        raise ValueError("append and resume are mutually exclusive.")
+    existing_payload = (
+        validate_existing_results_payload(existing_results_payload)
+        if existing_results_payload is not None
+        else {"results": []}
+    )
+    existing_results = existing_payload["results"] if append or resume else []
+    existing_by_id = {
+        str(item["product_id"]): item for item in existing_results
+    }
+
     products = extract_items(evidence_payload, "evidence payload")
-    selected = products[start_index:]
+    candidates = products[start_index:]
+    resumed_skipped_product_ids: list[str] = []
+    if resume:
+        selected = []
+        for product in candidates:
+            product_id = str(product.get("product_id", ""))
+            if (
+                is_real_success(existing_by_id.get(product_id))
+                and not force_overwrite_success
+            ):
+                resumed_skipped_product_ids.append(product_id)
+                continue
+            selected.append(product)
+    else:
+        selected = candidates
     if limit is not None:
         selected = selected[:limit]
     selected_model = model or env.get(OPENAI_MODEL_ENV) or DEFAULT_MODEL
@@ -166,19 +262,31 @@ def run_batch(
         if sleep_seconds and index < len(selected) - 1:
             sleep_fn(sleep_seconds)
 
+    (
+        cumulative_results,
+        appended_count,
+        updated_count,
+        protected_count,
+        newly_successful_product_ids,
+    ) = upsert_results(
+        existing_results,
+        results,
+        force_overwrite_success=force_overwrite_success,
+    )
+    output_results = cumulative_results if append or resume else results
     results_payload = {
-        "mode": "real_llm_judge_runner_v1.10",
+        "mode": "real_llm_judge_runner_v1.10.1",
         "real_llm_requested": real_llm_requested,
         "real_llm_enabled": is_real_llm_enabled(env),
         "model": selected_model,
         "product_count": len(products),
         "real_llm_called_count": sum(
-            bool(result["real_llm_called"]) for result in results
+            bool(result["real_llm_called"]) for result in output_results
         ),
-        "results": results,
+        "results": output_results,
     }
     samples_payload = {
-        "mode": "real_llm_judge_runner_prompt_samples_v1.10",
+        "mode": "real_llm_judge_runner_prompt_samples_v1.10.1",
         "model": selected_model,
         "product_count": len(samples),
         "samples": samples,
@@ -191,6 +299,15 @@ def run_batch(
         model=selected_model,
         limit=limit,
         start_index=start_index,
+        existing_results=existing_results,
+        cumulative_results=output_results,
+        appended_result_count=appended_count,
+        updated_result_count=updated_count,
+        protected_success_count=protected_count,
+        force_overwrite_success=force_overwrite_success,
+        newly_successful_product_ids=newly_successful_product_ids,
+        resumed_skipped_product_ids=resumed_skipped_product_ids,
+        evidence_products=products,
     )
     return results_payload, samples_payload, summary
 
@@ -204,7 +321,24 @@ def build_run_summary(
     model: str,
     limit: int | None,
     start_index: int,
+    existing_results: list[dict[str, Any]] | None = None,
+    cumulative_results: list[dict[str, Any]] | None = None,
+    appended_result_count: int = 0,
+    updated_result_count: int = 0,
+    protected_success_count: int = 0,
+    force_overwrite_success: bool = False,
+    newly_successful_product_ids: list[str] | None = None,
+    resumed_skipped_product_ids: list[str] | None = None,
+    evidence_products: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    existing_results = existing_results or []
+    cumulative_results = cumulative_results if cumulative_results is not None else results
+    evidence_products = evidence_products or []
+    newly_successful_product_ids = newly_successful_product_ids or []
+    resumed_skipped_product_ids = resumed_skipped_product_ids or []
+    cumulative_by_id = {
+        str(result["product_id"]): result for result in cumulative_results
+    }
     status_counts = Counter(result["runner_status"] for result in results)
     review_counts = Counter(result["review_result"] for result in results)
     confidence_counts = Counter(result["confidence"] for result in results)
@@ -234,6 +368,31 @@ def build_run_summary(
             for result in results
             if result["runner_status"] == "error"
         ],
+        "existing_result_count": len(existing_results),
+        "appended_result_count": appended_result_count,
+        "updated_result_count": updated_result_count,
+        "protected_success_count": protected_success_count,
+        "force_overwrite_success": force_overwrite_success,
+        "newly_successful_product_ids": newly_successful_product_ids,
+        "attempted_product_ids": [
+            str(result["product_id"]) for result in results
+        ],
+        "resumed_skipped_count": len(resumed_skipped_product_ids),
+        "resumed_skipped_product_ids": resumed_skipped_product_ids,
+        "cumulative_result_count": len(cumulative_results),
+        "cumulative_real_success_count": sum(
+            is_real_success(result) for result in cumulative_results
+        ),
+        "successful_product_ids": [
+            str(result["product_id"])
+            for result in cumulative_results
+            if is_real_success(result)
+        ],
+        "not_reviewed_product_ids": [
+            str(product.get("product_id", ""))
+            for product in evidence_products
+            if not is_real_success(cumulative_by_id.get(str(product.get("product_id", ""))))
+        ],
         "output_files": {},
     }
 
@@ -241,7 +400,7 @@ def build_run_summary(
 def summary_markdown(summary: dict[str, Any]) -> str:
     return "\n".join(
         [
-            "# Product Intel v1.10 Real LLM Judge Run Summary",
+            "# Product Intel v1.10.2 Real LLM Judge Run Summary",
             "",
             f"- 商品总数：{summary['total_products']}",
             f"- 本次处理商品数：{summary['attempted_products']}",
@@ -255,6 +414,19 @@ def summary_markdown(summary: dict[str, Any]) -> str:
             f"- success：{summary['success_count']}",
             f"- disabled：{summary['disabled_count']}",
             f"- error：{summary['error_count']}",
+            f"- 已有结果数：{summary['existing_result_count']}",
+            f"- 本次新增结果数：{summary['appended_result_count']}",
+            f"- 本次更新结果数：{summary['updated_result_count']}",
+            f"- 受保护真实成功结果数：{summary['protected_success_count']}",
+            f"- 强制覆盖真实成功：{str(summary['force_overwrite_success']).lower()}",
+            f"- 本次新增真实成功商品：{json.dumps(summary['newly_successful_product_ids'], ensure_ascii=False)}",
+            f"- 本次尝试商品：{json.dumps(summary['attempted_product_ids'], ensure_ascii=False)}",
+            f"- resume 跳过成功商品数：{summary['resumed_skipped_count']}",
+            f"- resume 跳过成功商品：{json.dumps(summary['resumed_skipped_product_ids'], ensure_ascii=False)}",
+            f"- 累计结果数：{summary['cumulative_result_count']}",
+            f"- 累计真实成功商品数：{summary['cumulative_real_success_count']}",
+            f"- 已真实成功商品：{json.dumps(summary['successful_product_ids'], ensure_ascii=False)}",
+            f"- 尚未真实成功商品：{json.dumps(summary['not_reviewed_product_ids'], ensure_ascii=False)}",
             f"- review 分布：{json.dumps(summary['review_result_counts'], ensure_ascii=False)}",
             f"- confidence 分布：{json.dumps(summary['confidence_counts'], ensure_ascii=False)}",
             "",
@@ -331,12 +503,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sleep-seconds", type=float, default=0)
     parser.add_argument("--merge", action="store_true")
     parser.add_argument("--judge-results-output", default=RESULTS_FILENAME)
+    parser.add_argument("--append", action="store_true")
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--existing-results")
+    parser.add_argument("--force-overwrite-success", action="store_true")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
     evidence_payload = load_json(args.evidence)
+    existing_path = args.existing_results or str(
+        Path(args.output_dir) / args.judge_results_output
+    )
+    existing_results_payload = (
+        load_existing_results(existing_path) if args.append or args.resume else None
+    )
     results_payload, samples_payload, summary = run_batch(
         evidence_payload,
         real_llm_requested=args.real_llm,
@@ -344,6 +526,10 @@ def main() -> None:
         start_index=args.start_index,
         model=args.model,
         sleep_seconds=args.sleep_seconds,
+        append=args.append,
+        resume=args.resume,
+        existing_results_payload=existing_results_payload,
+        force_overwrite_success=args.force_overwrite_success,
     )
     paths = write_runner_outputs(
         results_payload,
@@ -361,4 +547,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

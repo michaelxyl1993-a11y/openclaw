@@ -1,43 +1,31 @@
 {
-  "mode": "real_llm_judge_runner_v1.10",
+  "mode": "real_llm_judge_runner_v1.10.1",
   "real_llm_requested": false,
-  "real_llm_enabled": false,
+  "real_llm_enabled": true,
   "model": "gpt-5.5",
   "product_count": 12,
-  "real_llm_called_count": 0,
+  "real_llm_called_count": 2,
   "results": [
     {
       "product_id": "echo-1",
       "product_name": "Echo Pet Brush",
       "rule_decision": "small_test",
-      "review_result": "insufficient_evidence",
-      "confidence": "low",
-      "challenge_reason": "",
+      "review_result": "agree",
+      "confidence": "medium",
+      "challenge_reason": "不提出 challenge。rule_decision 为 small_test，与 evidence_pack 中整体证据覆盖 weak、外部趋势/竞争/商家质量证据不足，以及最终 next_action 建议先发1-2条验证CTR/转化相一致。当前证据不足以支持更激进决策，但足以支持谨慎小样本验证。",
       "missing_evidence": [
-        "Google Trends signal",
-        "Instagram/Reels context",
-        "TikTok hashtag volume",
-        "YouTube Shorts context",
-        "growth_30d",
-        "market-specific pet season signal",
-        "merchant_name",
-        "negative review clusters",
-        "price range by competitor",
-        "product_url",
-        "rating",
-        "related_influencer_count",
-        "related_video_count",
-        "review text themes",
-        "review_count",
-        "same SKU count",
-        "shop_rating",
-        "strong related_video_count signal",
-        "top creative monopoly check"
+        "补充 growth_30d 以验证增长持续性",
+        "补充 related_video_count 和 related_influencer_count 以判断内容生态热度",
+        "补充 Google Trends signal 和 TikTok hashtag volume 等外部趋势证据",
+        "补充同款 SKU 数量和竞品价格区间以评估竞争强度",
+        "补充商品评分、评论数、评论文本主题和差评聚类以验证需求痛点",
+        "补充 shop_rating、product_url、merchant_name 等商家质量证据",
+        "补充德国市场宠物用品相关季节性信号"
       ],
       "dimension_reviews": {
         "profit_window": {
           "evidence_sufficiency": "medium",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有价格、佣金率、销量、GMV、7日增长等基础字段，可初步支持小样本测试判断；但缺少30日增长、相关视频数、相关达人数等验证增长持续性和内容带货规模的证据。",
           "missing_evidence": [
             "growth_30d",
             "strong related_video_count signal",
@@ -47,7 +35,7 @@
         },
         "demand_pain": {
           "evidence_sufficiency": "medium",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有类目和销量字段，能说明该商品存在一定成交基础；但缺少评论文本、差评聚类、评分、评论数，无法充分确认真实用户痛点和购买动机。",
           "missing_evidence": [
             "review text themes",
             "negative review clusters",
@@ -57,7 +45,7 @@
         },
         "external_trend": {
           "evidence_sufficiency": "weak",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "仅有7日增长24%的单一趋势字段，缺少跨平台趋势、30日增长、相关视频和达人数量，因此无法判断趋势是否稳定或是否具备外部热度支撑。",
           "missing_evidence": [
             "Google Trends signal",
             "TikTok hashtag volume",
@@ -70,14 +58,14 @@
         },
         "seasonality": {
           "evidence_sufficiency": "strong",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有类目和市场字段，coverage 标记为 strong，可作为基础季节性判断输入；但仍缺少德国市场宠物用品相关的具体季节信号。",
           "missing_evidence": [
             "market-specific pet season signal"
           ]
         },
         "competition": {
           "evidence_sufficiency": "weak",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "仅有价格字段，缺少同款数量、竞品价格区间、头部素材垄断情况、相关视频数和达人数，无法判断竞争强度和进入难度。",
           "missing_evidence": [
             "same SKU count",
             "price range by competitor",
@@ -88,7 +76,7 @@
         },
         "merchant_quality": {
           "evidence_sufficiency": "weak",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "仅有店铺名称 Echo Store，缺少商家评分、商品评分、评论数、商品链接等关键字段，无法充分评估履约、口碑和可信度风险。",
           "missing_evidence": [
             "merchant_name",
             "rating",
@@ -99,12 +87,12 @@
         },
         "aigc_fit": {
           "evidence_sufficiency": "strong",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有类目、推荐 hooks、推荐内容形式和风险提示，能够支持判断该商品具备一定 AIGC 内容测试适配性。",
           "missing_evidence": []
         },
         "final": {
           "evidence_sufficiency": "strong",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "最终字段已给出机会分60、决策 small_test、下一步建议为小样本测试；该结论与整体证据覆盖偏弱、多个关键维度证据不足的情况一致，属于谨慎推进而非放量。",
           "missing_evidence": [
             "growth_30d",
             "market-specific pet season signal",
@@ -121,14 +109,117 @@
           ]
         }
       },
-      "recommended_human_action": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
-      "real_llm_called": false,
-      "runner_status": "disabled",
+      "recommended_human_action": "建议维持 small_test：先以1-2条素材验证CTR和转化，不建议在缺少外部趋势、竞争、商家质量和用户评论证据前放量。",
+      "real_llm_called": true,
+      "runner_status": "success",
       "runner_error": ""
     },
     {
       "product_id": "echo-2",
       "product_name": "Echo Storage Bag",
+      "rule_decision": "small_test",
+      "review_result": "agree",
+      "confidence": "medium",
+      "challenge_reason": "不提出challenge。rule_decision为small_test，与证据包中的弱整体覆盖、多个关键维度证据不足以及风险提示一致；现有销量、GMV和7日增长可支持小样本验证，但不足以支持更激进决策。",
+      "missing_evidence": [
+        "补充growth_30d以验证趋势持续性",
+        "补充related_video_count和related_influencer_count以判断内容扩散与达人带货基础",
+        "补充review text themes、negative review clusters、rating、review_count以验证真实需求痛点",
+        "补充same SKU count和price range by competitor以判断竞争格局",
+        "补充shop_rating、merchant_name、product_url以评估商家质量与履约风险"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格、佣金率、销量、GMV、7日增长等字段，可初步支持存在一定利润与销售窗口，但缺少30日增长、相关视频数、相关达人数量等验证需求扩散与持续性的信号。",
+          "missing_evidence": [
+            "growth_30d",
+            "strong related_video_count signal",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有类目和销量，能说明该商品有一定成交基础，但缺少评论文本、差评聚类、评分和评论数，无法充分证明具体需求痛点。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters",
+            "rating",
+            "review_count"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有7日增长16%的单一趋势信号，缺少外部平台趋势、30日增长、相关视频和达人数量，无法确认趋势是否真实、持续或外溢。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_30d",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有类目和市场字段，且该维度未列出缺失项，可用于基础季节性判断。",
+          "missing_evidence": []
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有价格字段，缺少同款SKU数量、竞品价格区间、头部创意垄断检查以及相关视频/达人数据，无法判断竞争强度。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有店铺名称，缺少商家名称、评分、评论数、店铺评分和商品链接，无法评估商家履约与质量风险。",
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating",
+            "product_url"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有类目、推荐 hooks、推荐形式和风险提示，能支持初步内容生产适配判断。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "medium",
+          "reason": "最终给出的机会分45和small_test决策与当前证据结构一致：有一定成交和短期增长信号，但整体证据覆盖弱且关键缺失较多，因此更适合小样本验证而非放量。",
+          "missing_evidence": [
+            "growth_30d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "recommended_human_action": "建议维持小样本测试，先用1-2条内容验证CTR和转化；在补齐趋势、评论、竞争和商家质量证据前，不建议放量。",
+      "real_llm_called": true,
+      "runner_status": "success",
+      "runner_error": ""
+    },
+    {
+      "product_id": "echo-3",
+      "product_name": "Echo Mini Fan",
       "rule_decision": "small_test",
       "review_result": "insufficient_evidence",
       "confidence": "low",
