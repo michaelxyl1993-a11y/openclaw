@@ -3,7 +3,7 @@
   "meta": {
     "source": "auto",
     "market": "de",
-    "generated_at": "2026-06-02T06:17:32.174588+00:00",
+    "generated_at": "2026-06-02T06:24:28.265909+00:00",
     "total_products": 3,
     "main_push_count": 0,
     "small_test_count": 2,
@@ -352,6 +352,147 @@
         "de": true,
         "fr": false,
         "account_type": "pet/home/lifestyle"
+      },
+      "evidence_pack": {
+        "product_id": "fm-1",
+        "product_name": "FastMoss Cat Bowl",
+        "source_platform": "fastmoss",
+        "source_detected": "fastmoss",
+        "market": "de",
+        "evidence": {
+          "profit_window": {
+            "available_fields": {
+              "price": 15.9,
+              "commission_rate": "11%",
+              "sold_count": 510,
+              "gmv": 8109,
+              "related_video_count": 42
+            },
+            "coverage": "medium",
+            "missing": [
+              "growth_7d",
+              "growth_30d",
+              "related_influencer_count"
+            ]
+          },
+          "demand_pain": {
+            "available_fields": {
+              "category": "Pet Supplies",
+              "sold_count": 510
+            },
+            "coverage": "medium",
+            "missing": [
+              "review text themes",
+              "negative review clusters",
+              "rating",
+              "review_count"
+            ]
+          },
+          "external_trend": {
+            "available_fields": {
+              "related_video_count": 42
+            },
+            "coverage": "weak",
+            "missing": [
+              "Google Trends signal",
+              "TikTok hashtag volume",
+              "Instagram/Reels context",
+              "YouTube Shorts context",
+              "growth_7d",
+              "growth_30d",
+              "related_influencer_count"
+            ]
+          },
+          "seasonality": {
+            "available_fields": {
+              "category": "Pet Supplies",
+              "market": "de"
+            },
+            "coverage": "strong",
+            "missing": [
+              "market-specific pet season signal"
+            ]
+          },
+          "competition": {
+            "available_fields": {
+              "price": 15.9,
+              "related_video_count": 42
+            },
+            "coverage": "medium",
+            "missing": [
+              "same SKU count",
+              "price range by competitor",
+              "top creative monopoly check",
+              "related_influencer_count"
+            ]
+          },
+          "merchant_quality": {
+            "available_fields": {
+              "shop_name": "FM Pet",
+              "product_url": "https://example.com/fm-1"
+            },
+            "coverage": "medium",
+            "missing": [
+              "merchant_name",
+              "rating",
+              "review_count",
+              "shop_rating"
+            ]
+          },
+          "aigc_fit": {
+            "available_fields": {
+              "category": "Pet Supplies",
+              "recommended_hooks": [
+                "pet_behavior",
+                "problem_solution",
+                "daily_usefulness"
+              ],
+              "recommended_formats": [
+                "photo"
+              ],
+              "risk_flags": [
+                "商家质量证据不足（weak）",
+                "建议先小样本验证"
+              ]
+            },
+            "coverage": "strong",
+            "missing": []
+          },
+          "final": {
+            "available_fields": {
+              "opportunity_score": 55,
+              "decision": "small_test",
+              "next_action": "小样本测试，先发1-2条验证CTR/转化"
+            },
+            "coverage": "strong",
+            "missing": [
+              "growth_30d",
+              "growth_7d",
+              "market-specific pet season signal",
+              "merchant_name",
+              "negative review clusters",
+              "price range by competitor",
+              "rating",
+              "review text themes",
+              "review_count",
+              "same SKU count",
+              "shop_rating",
+              "top creative monopoly check"
+            ]
+          }
+        },
+        "overall_evidence_coverage": "weak",
+        "missing_evidence_total": 35
+      },
+      "evidence_coverage_summary": {
+        "overall_evidence_coverage": "weak",
+        "missing_evidence_total": 35,
+        "dimension_coverage_counts": {
+          "strong": 3,
+          "medium": 4,
+          "weak": 1,
+          "missing": 0
+        }
       }
     },
     {
@@ -538,6 +679,147 @@
         "de": true,
         "fr": false,
         "account_type": "mature_female_home"
+      },
+      "evidence_pack": {
+        "product_id": "fm-2",
+        "product_name": "FastMoss Desk Lamp",
+        "source_platform": "fastmoss",
+        "source_detected": "fastmoss",
+        "market": "de",
+        "evidence": {
+          "profit_window": {
+            "available_fields": {
+              "price": 19.9,
+              "commission_rate": "8%",
+              "sold_count": 390,
+              "gmv": 7761,
+              "related_video_count": 27
+            },
+            "coverage": "medium",
+            "missing": [
+              "growth_7d",
+              "growth_30d",
+              "related_influencer_count"
+            ]
+          },
+          "demand_pain": {
+            "available_fields": {
+              "category": "Home",
+              "sold_count": 390
+            },
+            "coverage": "medium",
+            "missing": [
+              "review text themes",
+              "negative review clusters",
+              "rating",
+              "review_count"
+            ]
+          },
+          "external_trend": {
+            "available_fields": {
+              "related_video_count": 27
+            },
+            "coverage": "weak",
+            "missing": [
+              "Google Trends signal",
+              "TikTok hashtag volume",
+              "Instagram/Reels context",
+              "YouTube Shorts context",
+              "growth_7d",
+              "growth_30d",
+              "related_influencer_count"
+            ]
+          },
+          "seasonality": {
+            "available_fields": {
+              "category": "Home",
+              "market": "de"
+            },
+            "coverage": "strong",
+            "missing": []
+          },
+          "competition": {
+            "available_fields": {
+              "price": 19.9,
+              "related_video_count": 27
+            },
+            "coverage": "medium",
+            "missing": [
+              "same SKU count",
+              "price range by competitor",
+              "top creative monopoly check",
+              "related_influencer_count"
+            ]
+          },
+          "merchant_quality": {
+            "available_fields": {
+              "shop_name": "FM Home",
+              "product_url": "https://example.com/fm-2"
+            },
+            "coverage": "medium",
+            "missing": [
+              "merchant_name",
+              "rating",
+              "review_count",
+              "shop_rating"
+            ]
+          },
+          "aigc_fit": {
+            "available_fields": {
+              "category": "Home",
+              "recommended_hooks": [
+                "problem_solution",
+                "daily_usefulness",
+                "shelf_value_deal"
+              ],
+              "recommended_formats": [
+                "photo"
+              ],
+              "risk_flags": [
+                "利润窗口偏弱（weak）",
+                "需求痛点证据偏弱（weak）",
+                "外部趋势证据不足（weak）",
+                "商家质量证据不足（weak）",
+                "建议先小样本验证"
+              ]
+            },
+            "coverage": "strong",
+            "missing": []
+          },
+          "final": {
+            "available_fields": {
+              "opportunity_score": 55,
+              "decision": "small_test",
+              "next_action": "小样本测试，先发1-2条验证CTR/转化"
+            },
+            "coverage": "strong",
+            "missing": [
+              "growth_30d",
+              "growth_7d",
+              "merchant_name",
+              "negative review clusters",
+              "price range by competitor",
+              "rating",
+              "review text themes",
+              "review_count",
+              "same SKU count",
+              "shop_rating",
+              "top creative monopoly check"
+            ]
+          }
+        },
+        "overall_evidence_coverage": "weak",
+        "missing_evidence_total": 33
+      },
+      "evidence_coverage_summary": {
+        "overall_evidence_coverage": "weak",
+        "missing_evidence_total": 33,
+        "dimension_coverage_counts": {
+          "strong": 3,
+          "medium": 4,
+          "weak": 1,
+          "missing": 0
+        }
       }
     },
     {
@@ -724,12 +1006,155 @@
         "de": true,
         "fr": false,
         "account_type": "male_functional"
+      },
+      "evidence_pack": {
+        "product_id": "fm-3",
+        "product_name": "FastMoss Cable Set",
+        "source_platform": "fastmoss",
+        "source_detected": "fastmoss",
+        "market": "de",
+        "evidence": {
+          "profit_window": {
+            "available_fields": {
+              "price": 6.9,
+              "commission_rate": "13%",
+              "sold_count": 920,
+              "gmv": 6348,
+              "related_video_count": 65
+            },
+            "coverage": "medium",
+            "missing": [
+              "growth_7d",
+              "growth_30d",
+              "related_influencer_count"
+            ]
+          },
+          "demand_pain": {
+            "available_fields": {
+              "category": "Electronics",
+              "sold_count": 920
+            },
+            "coverage": "medium",
+            "missing": [
+              "review text themes",
+              "negative review clusters",
+              "rating",
+              "review_count"
+            ]
+          },
+          "external_trend": {
+            "available_fields": {
+              "related_video_count": 65
+            },
+            "coverage": "weak",
+            "missing": [
+              "Google Trends signal",
+              "TikTok hashtag volume",
+              "Instagram/Reels context",
+              "YouTube Shorts context",
+              "growth_7d",
+              "growth_30d",
+              "related_influencer_count"
+            ]
+          },
+          "seasonality": {
+            "available_fields": {
+              "category": "Electronics",
+              "market": "de"
+            },
+            "coverage": "strong",
+            "missing": []
+          },
+          "competition": {
+            "available_fields": {
+              "price": 6.9,
+              "related_video_count": 65
+            },
+            "coverage": "medium",
+            "missing": [
+              "same SKU count",
+              "price range by competitor",
+              "top creative monopoly check",
+              "related_influencer_count"
+            ]
+          },
+          "merchant_quality": {
+            "available_fields": {
+              "shop_name": "FM Tech",
+              "product_url": "https://example.com/fm-3"
+            },
+            "coverage": "medium",
+            "missing": [
+              "merchant_name",
+              "rating",
+              "review_count",
+              "shop_rating"
+            ]
+          },
+          "aigc_fit": {
+            "available_fields": {
+              "category": "Electronics",
+              "recommended_hooks": [
+                "is_it_worth_it",
+                "not_an_iq_tax",
+                "daily_usefulness"
+              ],
+              "recommended_formats": [
+                "photo",
+                "video"
+              ],
+              "risk_flags": [
+                "中风险商品，建议人工复核",
+                "需要人工复核后再发布",
+                "需求痛点证据偏弱（weak）",
+                "外部趋势证据不足（weak）",
+                "季节性支撑偏弱（weak）",
+                "商家质量证据不足（weak）"
+              ]
+            },
+            "coverage": "strong",
+            "missing": []
+          },
+          "final": {
+            "available_fields": {
+              "opportunity_score": 40,
+              "decision": "hold",
+              "next_action": "暂缓，不进今日主推池，补齐证据后再测"
+            },
+            "coverage": "strong",
+            "missing": [
+              "growth_30d",
+              "growth_7d",
+              "merchant_name",
+              "negative review clusters",
+              "price range by competitor",
+              "rating",
+              "review text themes",
+              "review_count",
+              "same SKU count",
+              "shop_rating",
+              "top creative monopoly check"
+            ]
+          }
+        },
+        "overall_evidence_coverage": "weak",
+        "missing_evidence_total": 33
+      },
+      "evidence_coverage_summary": {
+        "overall_evidence_coverage": "weak",
+        "missing_evidence_total": 33,
+        "dimension_coverage_counts": {
+          "strong": 3,
+          "medium": 4,
+          "weak": 1,
+          "missing": 0
+        }
       }
     }
   ],
   "llm_summary": {
     "mode": "rule_based",
     "summary_text": "运营摘要：\n市场：de\n本批次输入商品数：3\n决策分布：main_push 0 / small_test 2 / hold 1 / reject 0\n\nTop 5 商品：\n- 1. 55 / small_test / FastMoss Cat Bowl / 形式:photo / hooks:pet_behavior, problem_solution, daily_usefulness\n- 2. 55 / small_test / FastMoss Desk Lamp / 形式:photo / hooks:problem_solution, daily_usefulness, shelf_value_deal\n- 3. 40 / hold / FastMoss Cable Set / 形式:photo,video / hooks:is_it_worth_it, not_an_iq_tax, daily_usefulness\n\n今天优先主推商品：\n- 暂无明确主推商品，建议先从 small_test 商品做小样本验证。\n\n建议小测商品：\n- FastMoss Cat Bowl：先发1-2条，观察CTR/CVR/评论阻力。\n- FastMoss Desk Lamp：先发1-2条，观察CTR/CVR/评论阻力。\n\n暂缓 / 放弃商品：\n- FastMoss Cable Set：hold，补证据或不进今日生产池。\n\n主推理由摘要：\n- 主推理由不足，请优先补充增长、佣金、评论与竞品证据。\n\n主要缺失证据：\n- profit_window: growth_7d（3）\n- profit_window: growth_30d（3）\n- demand_pain: review text themes（3）\n- demand_pain: negative review clusters（3）\n- external_trend: Google Trends signal（3）\n\n下一步动作：\n- main_push 商品进入今日账号分发表，优先生成图文素材。\n- small_test 商品先做1-2条，48小时后看 CTR、CVR、加购率、评论异议和质量投诉。\n- hold/reject 商品不要占用今日主推产能，先补齐缺失证据。",
-    "llm_prompt": "你是 OpenClaw 商品运营分析助手。请基于下面 Product Intel v1.2 的结构化结果，输出适合运营团队直接阅读的中文选品建议。\n\n硬性规则：\n- 只做解释和归纳，不允许修改已有 score、decision、dimension_scores。\n- 不允许虚构外部数据，不允许假装已经查过 Google Trends、TikTok、Instagram、YouTube Shorts 或 Reels。\n- 如果缺数据，必须写“缺失证据”，不能编造。\n- 输出必须中文。\n- 输出必须适合发给运营团队，清晰、短句、可执行。\n- 市场：de\n\n请输出以下 9 个部分：\n1）本批次整体结论\n2）今天优先主推商品\n3）建议小测商品\n4）暂缓 / 放弃商品\n5）每个 main_push 商品的核心理由\n6）每个商品适合图文还是视频\n7）适合的内容角度 / hook 方向\n8）主要缺失证据\n9）48小时后复盘指标\n\nProduct Intel 结构化结果：\n{\n  \"meta\": {\n    \"source\": \"auto\",\n    \"market\": \"de\",\n    \"generated_at\": \"2026-06-02T06:17:32.174588+00:00\",\n    \"total_products\": 3,\n    \"main_push_count\": 0,\n    \"small_test_count\": 2,\n    \"hold_count\": 1,\n    \"reject_count\": 0\n  },\n  \"summary\": {\n    \"top_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"fm-1\",\n        \"product_name\": \"FastMoss Cat Bowl\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"fm-2\",\n        \"product_name\": \"FastMoss Desk Lamp\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"fm-3\",\n        \"product_name\": \"FastMoss Cable Set\",\n        \"opportunity_score\": 40,\n        \"decision\": \"hold\"\n      }\n    ],\n    \"main_push_products\": [],\n    \"small_test_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"fm-1\",\n        \"product_name\": \"FastMoss Cat Bowl\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"fm-2\",\n        \"product_name\": \"FastMoss Desk Lamp\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      }\n    ],\n    \"risk_heavy_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"fm-1\",\n        \"product_name\": \"FastMoss Cat Bowl\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"fm-2\",\n        \"product_name\": \"FastMoss Desk Lamp\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"fm-3\",\n        \"product_name\": \"FastMoss Cable Set\",\n        \"opportunity_score\": 40,\n        \"decision\": \"hold\"\n      }\n    ],\n    \"dimension_distribution\": {\n      \"profit_window\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"demand_pain\": {\n        \"strong\": 0,\n        \"medium\": 1,\n        \"weak\": 2,\n        \"unknown\": 0\n      },\n      \"external_trend\": {\n        \"strong\": 0,\n        \"medium\": 1,\n        \"weak\": 2,\n        \"unknown\": 0\n      },\n      \"seasonality\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"competition\": {\n        \"strong\": 0,\n        \"medium\": 3,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"merchant_quality\": {\n        \"strong\": 0,\n        \"medium\": 0,\n        \"weak\": 3,\n        \"unknown\": 0\n      },\n      \"aigc_fit\": {\n        \"strong\": 1,\n        \"medium\": 2,\n        \"weak\": 0,\n        \"unknown\": 0\n      }\n    },\n    \"main_push_reasons_summary\": [],\n    \"common_missing_evidence\": [\n      {\n        \"evidence\": \"profit_window: growth_7d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"profit_window: growth_30d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: review text themes\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: negative review clusters\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Google Trends signal\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: TikTok hashtag volume\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Instagram/Reels context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: YouTube Shorts context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: same SKU count\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: price range by competitor\",\n        \"count\": 3\n      }\n    ]\n  },\n  \"products\": [\n    {\n      \"rank\": 1,\n      \"product_id\": \"fm-1\",\n      \"product_name\": \"FastMoss Cat Bowl\",\n      \"category\": \"Pet Supplies\",\n      \"opportunity_score\": 55,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"pet_behavior\",\n        \"problem_solution\",\n        \"daily_usefulness\"\n      ],\n      \"content_angle_summary\": \"Start with pet_behavior, problem_solution, daily_usefulness; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 64,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\",\n            \"There is enough related video proof without relying on zero-signal testing.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 57,\n          \"level\": \"medium\",\n          \"reason\": \"Pet routines create visible daily-use pain points.\",\n          \"reasons\": [\n            \"Pet routines create visible daily-use pain points.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Pet care has evergreen social content context.\",\n          \"reasons\": [\n            \"Pet care has evergreen social content context.\",\n            \"Related video count suggests existing TikTok context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 65,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Pet products are evergreen; shedding and home-care angles can be seasonal.\"\n          ],\n          \"missing_evidence\": [\n            \"market-specific pet season signal\"\n          ],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 69,\n          \"level\": \"medium\",\n          \"reason\": \"Competition exists, but there may still be usable proof and angle space.\",\n          \"reasons\": [\n            \"Competition exists, but there may still be usable proof and angle space.\",\n            \"Category still allows differentiated demo or scene framing.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 96,\n          \"level\": \"strong\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product can be shown in concrete daily-use scenes.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 62,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: medium (64)\",\n          \"reasons\": [\n            \"profit_window: medium (64)\",\n            \"demand_pain: medium (57)\",\n            \"seasonality: medium (65)\",\n            \"competition: medium (69)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: strong (96)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"market-specific pet season signal\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 16,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 2,\n      \"product_id\": \"fm-2\",\n      \"product_name\": \"FastMoss Desk Lamp\",\n      \"category\": \"Home\",\n      \"opportunity_score\": 55,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"problem_solution\",\n        \"daily_usefulness\",\n        \"shelf_value_deal\"\n      ],\n      \"content_angle_summary\": \"Start with problem_solution, daily_usefulness, shelf_value_deal; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"利润窗口偏弱（weak）\",\n        \"需求痛点证据偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 48,\n          \"level\": \"weak\",\n          \"reason\": \"There is enough related video proof without relying on zero-signal testing.\",\n          \"reasons\": [\n            \"There is enough related video proof without relying on zero-signal testing.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 49,\n          \"level\": \"weak\",\n          \"reason\": \"Home organisation products can show before/after pain clearly.\",\n          \"reasons\": [\n            \"Home organisation products can show before/after pain clearly.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Related video count suggests existing TikTok context.\",\n          \"reasons\": [\n            \"Related video count suggests existing TikTok context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 59,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Home organisation is evergreen with cleaning/reset moments.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 63,\n          \"level\": \"medium\",\n          \"reason\": \"Competition exists, but there may still be usable proof and angle space.\",\n          \"reasons\": [\n            \"Competition exists, but there may still be usable proof and angle space.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 74,\n          \"level\": \"medium\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: weak (48)\",\n          \"reasons\": [\n            \"profit_window: weak (48)\",\n            \"demand_pain: weak (49)\",\n            \"seasonality: medium (59)\",\n            \"competition: medium (63)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: medium (74)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 15,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 3,\n      \"product_id\": \"fm-3\",\n      \"product_name\": \"FastMoss Cable Set\",\n      \"category\": \"Electronics\",\n      \"opportunity_score\": 40,\n      \"decision\": \"hold\",\n      \"recommended_formats\": [\n        \"photo\",\n        \"video\"\n      ],\n      \"recommended_hooks\": [\n        \"is_it_worth_it\",\n        \"not_an_iq_tax\",\n        \"daily_usefulness\"\n      ],\n      \"content_angle_summary\": \"Start with is_it_worth_it, not_an_iq_tax, daily_usefulness; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"中风险商品，建议人工复核\",\n        \"需要人工复核后再发布\",\n        \"需求痛点证据偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"季节性支撑偏弱（weak）\",\n        \"商家质量证据不足（weak）\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 64,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\",\n            \"There is enough related video proof without relying on zero-signal testing.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 35,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Related video count suggests existing TikTok context.\",\n          \"reasons\": [\n            \"Related video count suggests existing TikTok context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 63,\n          \"level\": \"medium\",\n          \"reason\": \"Competition exists, but there may still be usable proof and angle space.\",\n          \"reasons\": [\n            \"Competition exists, but there may still be usable proof and angle space.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Medium or high risk requires human claim review.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"hold\",\n          \"score\": 47,\n          \"level\": \"weak\",\n          \"reason\": \"profit_window: medium (64)\",\n          \"reasons\": [\n            \"profit_window: medium (64)\",\n            \"demand_pain: weak (35)\",\n            \"seasonality: weak (45)\",\n            \"competition: medium (63)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: medium (56)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"暂缓，不进今日主推池，补齐证据后再测\",\n          \"suggested_daily_posts\": 1,\n          \"suggested_accounts\": [\n            \"male_functional\",\n            \"home/lifestyle\"\n          ],\n          \"suggested_formats\": [\n            \"photo\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 15,\n      \"next_action\": \"暂缓，不进今日主推池，补齐证据后再测\"\n    }\n  ]\n}\n"
+    "llm_prompt": "你是 OpenClaw 商品运营分析助手。请基于下面 Product Intel v1.2 的结构化结果，输出适合运营团队直接阅读的中文选品建议。\n\n硬性规则：\n- 只做解释和归纳，不允许修改已有 score、decision、dimension_scores。\n- 不允许虚构外部数据，不允许假装已经查过 Google Trends、TikTok、Instagram、YouTube Shorts 或 Reels。\n- 如果缺数据，必须写“缺失证据”，不能编造。\n- 输出必须中文。\n- 输出必须适合发给运营团队，清晰、短句、可执行。\n- 市场：de\n\n请输出以下 9 个部分：\n1）本批次整体结论\n2）今天优先主推商品\n3）建议小测商品\n4）暂缓 / 放弃商品\n5）每个 main_push 商品的核心理由\n6）每个商品适合图文还是视频\n7）适合的内容角度 / hook 方向\n8）主要缺失证据\n9）48小时后复盘指标\n\nProduct Intel 结构化结果：\n{\n  \"meta\": {\n    \"source\": \"auto\",\n    \"market\": \"de\",\n    \"generated_at\": \"2026-06-02T06:24:28.265909+00:00\",\n    \"total_products\": 3,\n    \"main_push_count\": 0,\n    \"small_test_count\": 2,\n    \"hold_count\": 1,\n    \"reject_count\": 0\n  },\n  \"summary\": {\n    \"top_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"fm-1\",\n        \"product_name\": \"FastMoss Cat Bowl\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"fm-2\",\n        \"product_name\": \"FastMoss Desk Lamp\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"fm-3\",\n        \"product_name\": \"FastMoss Cable Set\",\n        \"opportunity_score\": 40,\n        \"decision\": \"hold\"\n      }\n    ],\n    \"main_push_products\": [],\n    \"small_test_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"fm-1\",\n        \"product_name\": \"FastMoss Cat Bowl\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"fm-2\",\n        \"product_name\": \"FastMoss Desk Lamp\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      }\n    ],\n    \"risk_heavy_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"fm-1\",\n        \"product_name\": \"FastMoss Cat Bowl\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"fm-2\",\n        \"product_name\": \"FastMoss Desk Lamp\",\n        \"opportunity_score\": 55,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"fm-3\",\n        \"product_name\": \"FastMoss Cable Set\",\n        \"opportunity_score\": 40,\n        \"decision\": \"hold\"\n      }\n    ],\n    \"dimension_distribution\": {\n      \"profit_window\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"demand_pain\": {\n        \"strong\": 0,\n        \"medium\": 1,\n        \"weak\": 2,\n        \"unknown\": 0\n      },\n      \"external_trend\": {\n        \"strong\": 0,\n        \"medium\": 1,\n        \"weak\": 2,\n        \"unknown\": 0\n      },\n      \"seasonality\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"competition\": {\n        \"strong\": 0,\n        \"medium\": 3,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"merchant_quality\": {\n        \"strong\": 0,\n        \"medium\": 0,\n        \"weak\": 3,\n        \"unknown\": 0\n      },\n      \"aigc_fit\": {\n        \"strong\": 1,\n        \"medium\": 2,\n        \"weak\": 0,\n        \"unknown\": 0\n      }\n    },\n    \"main_push_reasons_summary\": [],\n    \"common_missing_evidence\": [\n      {\n        \"evidence\": \"profit_window: growth_7d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"profit_window: growth_30d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: review text themes\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: negative review clusters\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Google Trends signal\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: TikTok hashtag volume\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Instagram/Reels context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: YouTube Shorts context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: same SKU count\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: price range by competitor\",\n        \"count\": 3\n      }\n    ]\n  },\n  \"products\": [\n    {\n      \"rank\": 1,\n      \"product_id\": \"fm-1\",\n      \"product_name\": \"FastMoss Cat Bowl\",\n      \"category\": \"Pet Supplies\",\n      \"opportunity_score\": 55,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"pet_behavior\",\n        \"problem_solution\",\n        \"daily_usefulness\"\n      ],\n      \"content_angle_summary\": \"Start with pet_behavior, problem_solution, daily_usefulness; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 64,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\",\n            \"There is enough related video proof without relying on zero-signal testing.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 57,\n          \"level\": \"medium\",\n          \"reason\": \"Pet routines create visible daily-use pain points.\",\n          \"reasons\": [\n            \"Pet routines create visible daily-use pain points.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Pet care has evergreen social content context.\",\n          \"reasons\": [\n            \"Pet care has evergreen social content context.\",\n            \"Related video count suggests existing TikTok context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 65,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Pet products are evergreen; shedding and home-care angles can be seasonal.\"\n          ],\n          \"missing_evidence\": [\n            \"market-specific pet season signal\"\n          ],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 69,\n          \"level\": \"medium\",\n          \"reason\": \"Competition exists, but there may still be usable proof and angle space.\",\n          \"reasons\": [\n            \"Competition exists, but there may still be usable proof and angle space.\",\n            \"Category still allows differentiated demo or scene framing.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 96,\n          \"level\": \"strong\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product can be shown in concrete daily-use scenes.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 62,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: medium (64)\",\n          \"reasons\": [\n            \"profit_window: medium (64)\",\n            \"demand_pain: medium (57)\",\n            \"seasonality: medium (65)\",\n            \"competition: medium (69)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: strong (96)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"market-specific pet season signal\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 16,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 2,\n      \"product_id\": \"fm-2\",\n      \"product_name\": \"FastMoss Desk Lamp\",\n      \"category\": \"Home\",\n      \"opportunity_score\": 55,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"problem_solution\",\n        \"daily_usefulness\",\n        \"shelf_value_deal\"\n      ],\n      \"content_angle_summary\": \"Start with problem_solution, daily_usefulness, shelf_value_deal; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"利润窗口偏弱（weak）\",\n        \"需求痛点证据偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 48,\n          \"level\": \"weak\",\n          \"reason\": \"There is enough related video proof without relying on zero-signal testing.\",\n          \"reasons\": [\n            \"There is enough related video proof without relying on zero-signal testing.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 49,\n          \"level\": \"weak\",\n          \"reason\": \"Home organisation products can show before/after pain clearly.\",\n          \"reasons\": [\n            \"Home organisation products can show before/after pain clearly.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Related video count suggests existing TikTok context.\",\n          \"reasons\": [\n            \"Related video count suggests existing TikTok context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 59,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Home organisation is evergreen with cleaning/reset moments.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 63,\n          \"level\": \"medium\",\n          \"reason\": \"Competition exists, but there may still be usable proof and angle space.\",\n          \"reasons\": [\n            \"Competition exists, but there may still be usable proof and angle space.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 74,\n          \"level\": \"medium\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: weak (48)\",\n          \"reasons\": [\n            \"profit_window: weak (48)\",\n            \"demand_pain: weak (49)\",\n            \"seasonality: medium (59)\",\n            \"competition: medium (63)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: medium (74)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 15,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 3,\n      \"product_id\": \"fm-3\",\n      \"product_name\": \"FastMoss Cable Set\",\n      \"category\": \"Electronics\",\n      \"opportunity_score\": 40,\n      \"decision\": \"hold\",\n      \"recommended_formats\": [\n        \"photo\",\n        \"video\"\n      ],\n      \"recommended_hooks\": [\n        \"is_it_worth_it\",\n        \"not_an_iq_tax\",\n        \"daily_usefulness\"\n      ],\n      \"content_angle_summary\": \"Start with is_it_worth_it, not_an_iq_tax, daily_usefulness; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"中风险商品，建议人工复核\",\n        \"需要人工复核后再发布\",\n        \"需求痛点证据偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"季节性支撑偏弱（weak）\",\n        \"商家质量证据不足（weak）\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 64,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\",\n            \"There is enough related video proof without relying on zero-signal testing.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 35,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Related video count suggests existing TikTok context.\",\n          \"reasons\": [\n            \"Related video count suggests existing TikTok context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 63,\n          \"level\": \"medium\",\n          \"reason\": \"Competition exists, but there may still be usable proof and angle space.\",\n          \"reasons\": [\n            \"Competition exists, but there may still be usable proof and angle space.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Medium or high risk requires human claim review.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"hold\",\n          \"score\": 47,\n          \"level\": \"weak\",\n          \"reason\": \"profit_window: medium (64)\",\n          \"reasons\": [\n            \"profit_window: medium (64)\",\n            \"demand_pain: weak (35)\",\n            \"seasonality: weak (45)\",\n            \"competition: medium (63)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: medium (56)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"暂缓，不进今日主推池，补齐证据后再测\",\n          \"suggested_daily_posts\": 1,\n          \"suggested_accounts\": [\n            \"male_functional\",\n            \"home/lifestyle\"\n          ],\n          \"suggested_formats\": [\n            \"photo\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 15,\n      \"next_action\": \"暂缓，不进今日主推池，补齐证据后再测\"\n    }\n  ]\n}\n"
   }
 }

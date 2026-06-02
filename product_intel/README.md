@@ -715,6 +715,23 @@ Smoke test:
 python3 -m product_intel.test_feishu_product_intel_bot
 ```
 
+## v1.7 Evidence Pack
+
+v1.7 adds a local-only Evidence Pack layer before a future LLM Judge integration.
+
+- Each manager payload product now includes `evidence_pack` and `evidence_coverage_summary`.
+- Evidence Packs expose the available fields, coverage level, and missing evidence for 8 dimensions: `profit_window`, `demand_pain`, `external_trend`, `seasonality`, `competition`, `merchant_quality`, `aigc_fit`, and `final`.
+- Evidence Pack generation is read-only. It does not change scoring, `decision`, `next_action`, `risk_flags`, or `ops_risk_note`.
+- v1.7 does not call external APIs.
+- v1.7 does not call OpenAI or GPT-5.5.
+- A future v1.8 can pass this evidence layer to GPT-5.5 for evidence-bounded review without allowing unsupported assumptions.
+
+Run the Evidence Pack regression test:
+
+```bash
+python3 -m product_intel.test_evidence_pack
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from .decision_table import build_decision_rows, category_text, hook_types, suggested_format
+from .evidence_pack import build_evidence_coverage_summary, build_evidence_pack
 from .llm_summary import attach_summary_to_payload
 
 
@@ -109,7 +110,7 @@ def build_product_payload(item: dict[str, Any], row: dict[str, Any], meta: dict[
     hooks = hook_types(fact_sheet)
     decision = normalize_decision(str(row.get("decision", "hold")))
     formats = split_formats(opportunity.get("suggested_format"), suggested_format(opportunity, fact_sheet, product))
-    return {
+    payload_product = {
         "rank": row["rank"],
         "product_id": row["product_id"],
         "product_name": row["product_name"],
@@ -139,6 +140,15 @@ def build_product_payload(item: dict[str, Any], row: dict[str, Any], meta: dict[
         "manager_instruction": manager_instruction(decision),
         "routing": build_routing(category, hooks, formats, meta),
     }
+    evidence_product = {**product, **payload_product}
+    evidence_pack = build_evidence_pack(
+        evidence_product,
+        source_detected=str(meta.get("source_detected") or product.get("raw_source") or payload_product["source_platform"]),
+        market=str(meta.get("market") or product.get("market") or ""),
+    )
+    payload_product["evidence_pack"] = evidence_pack
+    payload_product["evidence_coverage_summary"] = build_evidence_coverage_summary(evidence_pack)
+    return payload_product
 
 
 def summary_product(product: dict[str, Any]) -> dict[str, Any]:
