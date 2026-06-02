@@ -53,6 +53,21 @@ def assert_common_outputs(result: dict, expected_file_type: str) -> dict:
 
 
 def assert_mock_decisions(payload: dict) -> None:
+    meta = payload.get("meta", {})
+    actual_counts = {
+        "main_push_count": meta.get("main_push_count"),
+        "small_test_count": meta.get("small_test_count"),
+        "hold_count": meta.get("hold_count"),
+        "reject_count": meta.get("reject_count"),
+    }
+    expected_counts = {
+        "main_push_count": 3,
+        "small_test_count": 4,
+        "hold_count": 1,
+        "reject_count": 0,
+    }
+    if actual_counts != expected_counts:
+        raise AssertionError(f"mock decision distribution changed: expected {expected_counts}, got {actual_counts}")
     products = {item["product_name"]: item for item in payload.get("products", [])}
     for name in ["Raised Double Cat Bowl", "Waterproof Cat Litter Mat", "Portable Mini Handheld Fan"]:
         decision = products.get(name, {}).get("decision")

@@ -25,9 +25,13 @@ def save_csv_profile_markdown(profile: dict[str, Any], path: str | Path) -> Path
         "## Source Detection",
         "",
         f"- source_detected: {profile.get('source_detected', '')}",
+        f"- source_platform_value: {profile.get('source_platform_value', '') or '(missing)'}",
+        f"- source_platform_source: {profile.get('source_platform_source', 'missing')}",
         f"- detected_file_type: {profile.get('detected_file_type', '')}",
         f"- detected_sheet_name: {profile.get('detected_sheet_name', '') or '(none)'}",
         f"- row_count: {profile.get('row_count', 0)}",
+        f"- field_quality_score: {profile.get('field_quality_score', 0)}",
+        f"- mapping_confidence: {profile.get('mapping_confidence', '')}",
         "",
         "## Input Columns",
         "",
@@ -39,11 +43,15 @@ def save_csv_profile_markdown(profile: dict[str, Any], path: str | Path) -> Path
         "| --- | --- |",
     ]
     for field, column in mapped.items():
+        if field == "source_platform" and not column and profile.get("source_platform_source") == "inferred":
+            column = f"(inferred from source_detected: {profile.get('source_platform_value', '')})"
         lines.append(f"| {field} | {column or '(missing)'} |")
     lines.extend(["", "## Missing Fields", ""])
     lines.append("- missing_fields: " + (", ".join(profile.get("missing_fields", [])) or "(none)"))
     lines.append("- required: " + (", ".join(profile.get("missing_required_fields", [])) or "(none)"))
     lines.append("- optional: " + (", ".join(profile.get("missing_optional_fields", [])) or "(none)"))
+    lines.append("- unmapped_columns: " + (", ".join(profile.get("unmapped_columns", [])) or "(none)"))
+    lines.append("- duplicate_columns: " + (", ".join(profile.get("duplicate_columns", [])) or "(none)"))
     lines.extend(["", "## Sample Values", ""])
     for field, values in samples.items():
         lines.append(f"- {field}: {', '.join(values) if values else '(none)'}")

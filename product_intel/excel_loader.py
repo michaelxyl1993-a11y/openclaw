@@ -7,6 +7,7 @@ from typing import Any
 
 from openpyxl import load_workbook
 
+from .field_aliases import DUPLICATE_SUFFIX
 from .input_adapter import normalize_product_rows
 
 
@@ -39,6 +40,20 @@ def first_non_empty_sheet(workbook: Any) -> Any:
     return workbook.worksheets[0]
 
 
+def unique_headers(values: list[Any]) -> list[str]:
+    headers: list[str] = []
+    counts: dict[str, int] = {}
+    for value in values:
+        header = str(value or "").strip()
+        if not header:
+            headers.append("")
+            continue
+        counts[header] = counts.get(header, 0) + 1
+        suffix = f"{DUPLICATE_SUFFIX}{counts[header]}" if counts[header] > 1 else ""
+        headers.append(header + suffix)
+    return headers
+
+
 def load_raw_excel_rows(path: str | Path) -> tuple[list[dict[str, Any]], str]:
     excel_path = Path(path)
     file = excel_path.open("rb")
@@ -54,7 +69,7 @@ def load_raw_excel_rows(path: str | Path) -> tuple[list[dict[str, Any]], str]:
         if not raw_rows:
             return [], sheet.title
 
-        headers = [str(value or "").strip() for value in raw_rows[0]]
+        headers = unique_headers(raw_rows[0])
         rows: list[dict[str, Any]] = []
         for raw_row in raw_rows[1:]:
             item = {header: raw_row[index] if index < len(raw_row) else "" for index, header in enumerate(headers) if header}

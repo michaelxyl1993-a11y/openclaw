@@ -5,25 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from .csv_profile import FIELD_ALIASES as PROFILE_FIELD_ALIASES, profile_csv_rows
-
-
-FIELD_ALIASES = {
-    "product_id": ["product_id", "item_id", "goods_id", "商品ID", "商品id"],
-    "product_name": ["product_name", "title", "商品名称", "商品标题", "name"],
-    "category": ["category", "leaf_category", "category_name", "类目", "商品类目"],
-    "price": ["price", "sale_price", "min_price", "价格", "售价"],
-    "commission_rate": ["commission_rate", "commission", "佣金率", "达人佣金率"],
-    "sold_count": ["sold_count", "sales", "sold", "销量", "已售", "近7天销量"],
-    "gmv": ["gmv", "GMV", "sales_amount", "销售额", "成交金额"],
-    "source_platform": ["source_platform", "candidate_source", "来源", "数据来源"],
-    "growth_7d": ["growth_7d", "7d_growth", "growth7d", "近7天增长", "7日增长"],
-    "growth_30d": ["growth_30d", "30d_growth", "growth30d", "近30天增长", "30日增长"],
-    "related_video_count": ["related_video_count", "video_count", "关联视频数", "相关视频数"],
-    "related_influencer_count": ["related_influencer_count", "influencer_count", "达人数量", "关联达人数"],
-    "rating": ["rating", "评分", "商品评分"],
-    "review_count": ["review_count", "reviews", "评价数", "评论数"],
-}
+from .csv_profile import profile_csv_rows
+from .field_aliases import FIELD_ALIASES
 
 
 def first_present(row: dict[str, Any], aliases: list[str]) -> Any:
@@ -43,7 +26,7 @@ def value_from_mapping(row: dict[str, Any], field: str, mapped_fields: dict[str,
         mapped_value = row.get(mapped_fields[field], "")
         if mapped_value not in ("", None):
             return mapped_value
-    aliases = FIELD_ALIASES.get(field) or PROFILE_FIELD_ALIASES.get(field, [])
+    aliases = FIELD_ALIASES.get(field, [])
     return first_present(row, aliases)
 
 
@@ -93,7 +76,7 @@ def normalize_product_row(
         fallback_name = product["product_name"] or "unknown_product"
         product["product_id"] = "manual_" + "_".join(fallback_name.lower().split())[:80]
     if not product["source_platform"]:
-        product["source_platform"] = "unknown"
+        product["source_platform"] = raw_source or "manual_or_unknown"
 
     return product
 

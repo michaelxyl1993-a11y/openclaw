@@ -17,7 +17,7 @@ from .export_manager_payload import save_manager_payload_json
 from .manager_payload import build_manager_payload
 
 
-VALID_SOURCES = {"auto", "mock", "echotik", "fastmoss", "manual"}
+VALID_SOURCES = {"auto", "mock", "echotik", "fastmoss", "kalodata", "manual", "manual_or_unknown"}
 VALID_MARKETS = {"all", "de", "fr", "uk", "us"}
 VALID_FORMATS = {"all", "decision_csv", "decision_md", "manager_json"}
 

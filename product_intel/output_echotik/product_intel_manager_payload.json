@@ -1,0 +1,737 @@
+{
+  "version": "product_intel_v0.6",
+  "meta": {
+    "source": "auto",
+    "market": "de",
+    "generated_at": "2026-06-02T04:44:30.950292+00:00",
+    "total_products": 3,
+    "main_push_count": 0,
+    "small_test_count": 3,
+    "hold_count": 0,
+    "reject_count": 0
+  },
+  "summary": {
+    "top_products": [
+      {
+        "rank": 1,
+        "product_id": "echo-1",
+        "product_name": "Echo Pet Brush",
+        "opportunity_score": 60,
+        "decision": "small_test"
+      },
+      {
+        "rank": 2,
+        "product_id": "echo-2",
+        "product_name": "Echo Storage Bag",
+        "opportunity_score": 45,
+        "decision": "small_test"
+      },
+      {
+        "rank": 3,
+        "product_id": "echo-3",
+        "product_name": "Echo Mini Fan",
+        "opportunity_score": 45,
+        "decision": "small_test"
+      }
+    ],
+    "main_push_products": [],
+    "small_test_products": [
+      {
+        "rank": 1,
+        "product_id": "echo-1",
+        "product_name": "Echo Pet Brush",
+        "opportunity_score": 60,
+        "decision": "small_test"
+      },
+      {
+        "rank": 2,
+        "product_id": "echo-2",
+        "product_name": "Echo Storage Bag",
+        "opportunity_score": 45,
+        "decision": "small_test"
+      },
+      {
+        "rank": 3,
+        "product_id": "echo-3",
+        "product_name": "Echo Mini Fan",
+        "opportunity_score": 45,
+        "decision": "small_test"
+      }
+    ],
+    "risk_heavy_products": [
+      {
+        "rank": 1,
+        "product_id": "echo-1",
+        "product_name": "Echo Pet Brush",
+        "opportunity_score": 60,
+        "decision": "small_test"
+      },
+      {
+        "rank": 2,
+        "product_id": "echo-2",
+        "product_name": "Echo Storage Bag",
+        "opportunity_score": 45,
+        "decision": "small_test"
+      },
+      {
+        "rank": 3,
+        "product_id": "echo-3",
+        "product_name": "Echo Mini Fan",
+        "opportunity_score": 45,
+        "decision": "small_test"
+      }
+    ],
+    "dimension_distribution": {
+      "profit_window": {
+        "strong": 0,
+        "medium": 3,
+        "weak": 0,
+        "unknown": 0
+      },
+      "demand_pain": {
+        "strong": 0,
+        "medium": 2,
+        "weak": 1,
+        "unknown": 0
+      },
+      "external_trend": {
+        "strong": 0,
+        "medium": 1,
+        "weak": 2,
+        "unknown": 0
+      },
+      "seasonality": {
+        "strong": 1,
+        "medium": 2,
+        "weak": 0,
+        "unknown": 0
+      },
+      "competition": {
+        "strong": 0,
+        "medium": 3,
+        "weak": 0,
+        "unknown": 0
+      },
+      "merchant_quality": {
+        "strong": 0,
+        "medium": 0,
+        "weak": 3,
+        "unknown": 0
+      },
+      "aigc_fit": {
+        "strong": 2,
+        "medium": 1,
+        "weak": 0,
+        "unknown": 0
+      }
+    },
+    "main_push_reasons_summary": [],
+    "common_missing_evidence": [
+      {
+        "evidence": "profit_window: growth_30d",
+        "count": 3
+      },
+      {
+        "evidence": "profit_window: strong related_video_count signal",
+        "count": 3
+      },
+      {
+        "evidence": "demand_pain: review text themes",
+        "count": 3
+      },
+      {
+        "evidence": "demand_pain: negative review clusters",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: Google Trends signal",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: TikTok hashtag volume",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: Instagram/Reels context",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: YouTube Shorts context",
+        "count": 3
+      },
+      {
+        "evidence": "competition: same SKU count",
+        "count": 3
+      },
+      {
+        "evidence": "competition: price range by competitor",
+        "count": 3
+      }
+    ]
+  },
+  "products": [
+    {
+      "rank": 1,
+      "product_id": "echo-1",
+      "product_name": "Echo Pet Brush",
+      "category": "Pet Supplies",
+      "source_platform": "echotik",
+      "price": 12.9,
+      "commission_rate": "12%",
+      "sold_count": 820,
+      "gmv": 10578,
+      "opportunity_score": 60,
+      "decision": "small_test",
+      "decision_label": "小样本测试",
+      "recommended_formats": [
+        "photo"
+      ],
+      "recommended_hooks": [
+        "pet_behavior",
+        "problem_solution",
+        "daily_usefulness"
+      ],
+      "content_angle_summary": "Start with pet_behavior, problem_solution, daily_usefulness; keep claims grounded in the Product Fact Sheet.",
+      "suggested_daily_posts": 2,
+      "risk_flags": [
+        "外部趋势证据不足（weak）",
+        "商家质量证据不足（weak）",
+        "建议先小样本验证"
+      ],
+      "reasons": [
+        "7-day growth is above 20%.",
+        "Commission rate is at least 8%."
+      ],
+      "dimension_scores": {
+        "profit_window": {
+          "score": 74,
+          "level": "medium",
+          "reason": "7-day growth indicates the product is still moving.",
+          "reasons": [
+            "7-day growth indicates the product is still moving.",
+            "Commission is attractive for content investment."
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "strong related_video_count signal"
+          ],
+          "suggested_action": "Push now if content angle is differentiated; otherwise run small controlled test."
+        },
+        "demand_pain": {
+          "score": 57,
+          "level": "medium",
+          "reason": "Pet routines create visible daily-use pain points.",
+          "reasons": [
+            "Pet routines create visible daily-use pain points."
+          ],
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters"
+          ],
+          "suggested_action": "Extract review language before scaling; turn repeated pain into hooks."
+        },
+        "external_trend": {
+          "score": 51,
+          "level": "weak",
+          "reason": "Pet care has evergreen social content context.",
+          "reasons": [
+            "Pet care has evergreen social content context."
+          ],
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ],
+          "suggested_action": "Validate with Trends and hashtag search before assigning heavy volume."
+        },
+        "seasonality": {
+          "score": 65,
+          "level": "medium",
+          "reason": "Current month is 6; market=de.",
+          "reasons": [
+            "Current month is 6; market=de.",
+            "Pet products are evergreen; shedding and home-care angles can be seasonal."
+          ],
+          "missing_evidence": [
+            "market-specific pet season signal"
+          ],
+          "suggested_action": "Use season-specific copy only when market timing supports it."
+        },
+        "competition": {
+          "score": 61,
+          "level": "medium",
+          "reason": "Category still allows differentiated demo or scene framing.",
+          "reasons": [
+            "Category still allows differentiated demo or scene framing."
+          ],
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ],
+          "suggested_action": "Use a differentiated hook before scaling into crowded categories."
+        },
+        "merchant_quality": {
+          "score": 45,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating"
+          ],
+          "suggested_action": "Proceed when rating and fulfillment evidence are acceptable."
+        },
+        "aigc_fit": {
+          "score": 96,
+          "level": "strong",
+          "reason": "At least three hook routes are available.",
+          "reasons": [
+            "At least three hook routes are available.",
+            "Product can be shown in concrete daily-use scenes.",
+            "Low rule risk is suitable for AIGC image/video tests.",
+            "Opportunity layer recommends video as an available format."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Generate photo first unless demo motion is central; keep Product Fact Sheet constraints."
+        },
+        "final_test_decision": {
+          "decision": "small_test",
+          "score": 64,
+          "level": "medium",
+          "reason": "profit_window: medium (74)",
+          "reasons": [
+            "profit_window: medium (74)",
+            "demand_pain: medium (57)",
+            "seasonality: medium (65)",
+            "competition: medium (61)",
+            "merchant_quality: weak (45)",
+            "aigc_fit: strong (96)"
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "market-specific pet season signal",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ],
+          "next_action": "小样本测试，先发1-2条验证CTR/转化",
+          "suggested_daily_posts": 2,
+          "suggested_accounts": [
+            "pet/home/lifestyle",
+            "mature_female_home"
+          ],
+          "suggested_formats": [
+            "photo",
+            "video"
+          ],
+          "review_after_48h_metrics": [
+            "CTR",
+            "CVR",
+            "add-to-cart rate",
+            "comment objections",
+            "refund or quality complaints"
+          ]
+        }
+      },
+      "dimension_summary": "profit_window:medium/74; demand_pain:medium/57; external_trend:weak/51; seasonality:medium/65; competition:medium/61; merchant_quality:weak/45; aigc_fit:strong/96; final:small_test/64",
+      "strongest_dimensions": "aigc_fit(96), profit_window(74), seasonality(65)",
+      "weakest_dimensions": "merchant_quality(45), external_trend(51), demand_pain(57)",
+      "missing_evidence_count": 16,
+      "main_push_reason": "判断依据：profit_window: medium (74)；demand_pain: medium (57)；seasonality: medium (65)",
+      "next_action": "小样本测试，先发1-2条验证CTR/转化",
+      "manager_instruction": "进入小样本测试池，先生成1-2条素材验证CTR/转化",
+      "routing": {
+        "photo": true,
+        "video": false,
+        "de": true,
+        "fr": false,
+        "account_type": "pet/home/lifestyle"
+      }
+    },
+    {
+      "rank": 2,
+      "product_id": "echo-2",
+      "product_name": "Echo Storage Bag",
+      "category": "Home",
+      "source_platform": "echotik",
+      "price": 8.5,
+      "commission_rate": "10%",
+      "sold_count": 430,
+      "gmv": 3655,
+      "opportunity_score": 45,
+      "decision": "small_test",
+      "decision_label": "小样本测试",
+      "recommended_formats": [
+        "photo"
+      ],
+      "recommended_hooks": [
+        "problem_solution",
+        "daily_usefulness",
+        "shelf_value_deal"
+      ],
+      "content_angle_summary": "Start with problem_solution, daily_usefulness, shelf_value_deal; keep claims grounded in the Product Fact Sheet.",
+      "suggested_daily_posts": 2,
+      "risk_flags": [
+        "需求痛点证据偏弱（weak）",
+        "外部趋势证据不足（weak）",
+        "商家质量证据不足（weak）",
+        "建议先小样本验证"
+      ],
+      "reasons": [
+        "Commission rate is at least 8%."
+      ],
+      "dimension_scores": {
+        "profit_window": {
+          "score": 56,
+          "level": "medium",
+          "reason": "Commission is attractive for content investment.",
+          "reasons": [
+            "Commission is attractive for content investment."
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "strong related_video_count signal"
+          ],
+          "suggested_action": "Push now if content angle is differentiated; otherwise run small controlled test."
+        },
+        "demand_pain": {
+          "score": 49,
+          "level": "weak",
+          "reason": "Home organisation products can show before/after pain clearly.",
+          "reasons": [
+            "Home organisation products can show before/after pain clearly."
+          ],
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters"
+          ],
+          "suggested_action": "Extract review language before scaling; turn repeated pain into hooks."
+        },
+        "external_trend": {
+          "score": 35,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ],
+          "suggested_action": "Validate with Trends and hashtag search before assigning heavy volume."
+        },
+        "seasonality": {
+          "score": 59,
+          "level": "medium",
+          "reason": "Current month is 6; market=de.",
+          "reasons": [
+            "Current month is 6; market=de.",
+            "Home organisation is evergreen with cleaning/reset moments."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Use season-specific copy only when market timing supports it."
+        },
+        "competition": {
+          "score": 61,
+          "level": "medium",
+          "reason": "Category still allows differentiated demo or scene framing.",
+          "reasons": [
+            "Category still allows differentiated demo or scene framing."
+          ],
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ],
+          "suggested_action": "Use a differentiated hook before scaling into crowded categories."
+        },
+        "merchant_quality": {
+          "score": 45,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating"
+          ],
+          "suggested_action": "Proceed when rating and fulfillment evidence are acceptable."
+        },
+        "aigc_fit": {
+          "score": 90,
+          "level": "strong",
+          "reason": "At least three hook routes are available.",
+          "reasons": [
+            "At least three hook routes are available.",
+            "Product can be shown in concrete daily-use scenes.",
+            "Low rule risk is suitable for AIGC image/video tests."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Generate photo first unless demo motion is central; keep Product Fact Sheet constraints."
+        },
+        "final_test_decision": {
+          "decision": "small_test",
+          "score": 55,
+          "level": "medium",
+          "reason": "profit_window: medium (56)",
+          "reasons": [
+            "profit_window: medium (56)",
+            "demand_pain: weak (49)",
+            "seasonality: medium (59)",
+            "competition: medium (61)",
+            "merchant_quality: weak (45)",
+            "aigc_fit: strong (90)"
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ],
+          "next_action": "小样本测试，先发1-2条验证CTR/转化",
+          "suggested_daily_posts": 2,
+          "suggested_accounts": [
+            "pet/home/lifestyle",
+            "mature_female_home"
+          ],
+          "suggested_formats": [
+            "photo",
+            "video"
+          ],
+          "review_after_48h_metrics": [
+            "CTR",
+            "CVR",
+            "add-to-cart rate",
+            "comment objections",
+            "refund or quality complaints"
+          ]
+        }
+      },
+      "dimension_summary": "profit_window:medium/56; demand_pain:weak/49; external_trend:weak/35; seasonality:medium/59; competition:medium/61; merchant_quality:weak/45; aigc_fit:strong/90; final:small_test/55",
+      "strongest_dimensions": "aigc_fit(90), competition(61), seasonality(59)",
+      "weakest_dimensions": "external_trend(35), merchant_quality(45), demand_pain(49)",
+      "missing_evidence_count": 15,
+      "main_push_reason": "判断依据：profit_window: medium (56)；demand_pain: weak (49)；seasonality: medium (59)",
+      "next_action": "小样本测试，先发1-2条验证CTR/转化",
+      "manager_instruction": "进入小样本测试池，先生成1-2条素材验证CTR/转化",
+      "routing": {
+        "photo": true,
+        "video": false,
+        "de": true,
+        "fr": false,
+        "account_type": "mature_female_home"
+      }
+    },
+    {
+      "rank": 3,
+      "product_id": "echo-3",
+      "product_name": "Echo Mini Fan",
+      "category": "Electronics",
+      "source_platform": "echotik",
+      "price": 16.8,
+      "commission_rate": "9%",
+      "sold_count": 1200,
+      "gmv": 20160,
+      "opportunity_score": 45,
+      "decision": "small_test",
+      "decision_label": "小样本测试",
+      "recommended_formats": [
+        "photo",
+        "video"
+      ],
+      "recommended_hooks": [
+        "pain_point_hot_weather",
+        "no_installation",
+        "small_space_solution"
+      ],
+      "content_angle_summary": "Start with pain_point_hot_weather, no_installation, small_space_solution; keep claims grounded in the Product Fact Sheet.",
+      "suggested_daily_posts": 2,
+      "risk_flags": [
+        "Medium product risk level.",
+        "Human review is required.",
+        "商家质量证据不足（weak）",
+        "建议先小样本验证"
+      ],
+      "reasons": [
+        "7-day growth is above 20%.",
+        "Commission rate is at least 8%."
+      ],
+      "dimension_scores": {
+        "profit_window": {
+          "score": 58,
+          "level": "medium",
+          "reason": "7-day growth indicates the product is still moving.",
+          "reasons": [
+            "7-day growth indicates the product is still moving."
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "strong related_video_count signal"
+          ],
+          "suggested_action": "Push now if content angle is differentiated; otherwise run small controlled test."
+        },
+        "demand_pain": {
+          "score": 72,
+          "level": "medium",
+          "reason": "Sales indicate real purchase motivation.",
+          "reasons": [
+            "Sales indicate real purchase motivation.",
+            "Heat discomfort is a clear seasonal pain point."
+          ],
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters"
+          ],
+          "suggested_action": "Extract review language before scaling; turn repeated pain into hooks."
+        },
+        "external_trend": {
+          "score": 57,
+          "level": "medium",
+          "reason": "Cooling products have obvious summer search and social context.",
+          "reasons": [
+            "Cooling products have obvious summer search and social context."
+          ],
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ],
+          "suggested_action": "Validate with Trends and hashtag search before assigning heavy volume."
+        },
+        "seasonality": {
+          "score": 77,
+          "level": "strong",
+          "reason": "Current month is 6; market=de.",
+          "reasons": [
+            "Current month is 6; market=de.",
+            "Cooling product is in or near summer demand season."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Use season-specific copy only when market timing supports it."
+        },
+        "competition": {
+          "score": 61,
+          "level": "medium",
+          "reason": "Category still allows differentiated demo or scene framing.",
+          "reasons": [
+            "Category still allows differentiated demo or scene framing."
+          ],
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ],
+          "suggested_action": "Use a differentiated hook before scaling into crowded categories."
+        },
+        "merchant_quality": {
+          "score": 45,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating"
+          ],
+          "suggested_action": "Proceed when rating and fulfillment evidence are acceptable."
+        },
+        "aigc_fit": {
+          "score": 72,
+          "level": "medium",
+          "reason": "At least three hook routes are available.",
+          "reasons": [
+            "At least three hook routes are available.",
+            "Product can be shown in concrete daily-use scenes.",
+            "Medium or high risk requires human claim review."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Generate photo first unless demo motion is central; keep Product Fact Sheet constraints."
+        },
+        "final_test_decision": {
+          "decision": "small_test",
+          "score": 57,
+          "level": "medium",
+          "reason": "profit_window: medium (58)",
+          "reasons": [
+            "profit_window: medium (58)",
+            "demand_pain: medium (72)",
+            "seasonality: strong (77)",
+            "competition: medium (61)",
+            "merchant_quality: weak (45)",
+            "aigc_fit: medium (72)"
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ],
+          "next_action": "小样本测试，先发1-2条验证CTR/转化",
+          "suggested_daily_posts": 2,
+          "suggested_accounts": [
+            "male_functional",
+            "home/lifestyle"
+          ],
+          "suggested_formats": [
+            "photo",
+            "video"
+          ],
+          "review_after_48h_metrics": [
+            "CTR",
+            "CVR",
+            "add-to-cart rate",
+            "comment objections",
+            "refund or quality complaints"
+          ]
+        }
+      },
+      "dimension_summary": "profit_window:medium/58; demand_pain:medium/72; external_trend:medium/57; seasonality:strong/77; competition:medium/61; merchant_quality:weak/45; aigc_fit:medium/72; final:small_test/57",
+      "strongest_dimensions": "seasonality(77), demand_pain(72), aigc_fit(72)",
+      "weakest_dimensions": "merchant_quality(45), external_trend(57), profit_window(58)",
+      "missing_evidence_count": 15,
+      "main_push_reason": "判断依据：profit_window: medium (58)；demand_pain: medium (72)；seasonality: strong (77)",
+      "next_action": "小样本测试，先发1-2条验证CTR/转化",
+      "manager_instruction": "进入小样本测试池，先生成1-2条素材验证CTR/转化",
+      "routing": {
+        "photo": true,
+        "video": true,
+        "de": true,
+        "fr": false,
+        "account_type": "male_functional"
+      }
+    }
+  ],
+  "llm_summary": {
+    "mode": "rule_based",
+    "summary_text": "运营摘要：\n市场：de\n本批次输入商品数：3\n决策分布：main_push 0 / small_test 3 / hold 0 / reject 0\n\nTop 5 商品：\n- 1. 60 / small_test / Echo Pet Brush / 形式:photo / hooks:pet_behavior, problem_solution, daily_usefulness\n- 2. 45 / small_test / Echo Storage Bag / 形式:photo / hooks:problem_solution, daily_usefulness, shelf_value_deal\n- 3. 45 / small_test / Echo Mini Fan / 形式:photo,video / hooks:pain_point_hot_weather, no_installation, small_space_solution\n\n今天优先主推商品：\n- 暂无明确主推商品，建议先从 small_test 商品做小样本验证。\n\n建议小测商品：\n- Echo Pet Brush：先发1-2条，观察CTR/CVR/评论阻力。\n- Echo Storage Bag：先发1-2条，观察CTR/CVR/评论阻力。\n- Echo Mini Fan：先发1-2条，观察CTR/CVR/评论阻力。\n\n暂缓 / 放弃商品：\n- 暂无暂缓或放弃商品。\n\n主推理由摘要：\n- 主推理由不足，请优先补充增长、佣金、评论与竞品证据。\n\n主要缺失证据：\n- profit_window: growth_30d（3）\n- profit_window: strong related_video_count signal（3）\n- demand_pain: review text themes（3）\n- demand_pain: negative review clusters（3）\n- external_trend: Google Trends signal（3）\n\n下一步动作：\n- main_push 商品进入今日账号分发表，优先生成图文素材。\n- small_test 商品先做1-2条，48小时后看 CTR、CVR、加购率、评论异议和质量投诉。\n- hold/reject 商品不要占用今日主推产能，先补齐缺失证据。",
+    "llm_prompt": "你是 OpenClaw 商品运营分析助手。请基于下面 Product Intel v1.2 的结构化结果，输出适合运营团队直接阅读的中文选品建议。\n\n硬性规则：\n- 只做解释和归纳，不允许修改已有 score、decision、dimension_scores。\n- 不允许虚构外部数据，不允许假装已经查过 Google Trends、TikTok、Instagram、YouTube Shorts 或 Reels。\n- 如果缺数据，必须写“缺失证据”，不能编造。\n- 输出必须中文。\n- 输出必须适合发给运营团队，清晰、短句、可执行。\n- 市场：de\n\n请输出以下 9 个部分：\n1）本批次整体结论\n2）今天优先主推商品\n3）建议小测商品\n4）暂缓 / 放弃商品\n5）每个 main_push 商品的核心理由\n6）每个商品适合图文还是视频\n7）适合的内容角度 / hook 方向\n8）主要缺失证据\n9）48小时后复盘指标\n\nProduct Intel 结构化结果：\n{\n  \"meta\": {\n    \"source\": \"auto\",\n    \"market\": \"de\",\n    \"generated_at\": \"2026-06-02T04:44:30.950292+00:00\",\n    \"total_products\": 3,\n    \"main_push_count\": 0,\n    \"small_test_count\": 3,\n    \"hold_count\": 0,\n    \"reject_count\": 0\n  },\n  \"summary\": {\n    \"top_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"echo-1\",\n        \"product_name\": \"Echo Pet Brush\",\n        \"opportunity_score\": 60,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"echo-2\",\n        \"product_name\": \"Echo Storage Bag\",\n        \"opportunity_score\": 45,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"echo-3\",\n        \"product_name\": \"Echo Mini Fan\",\n        \"opportunity_score\": 45,\n        \"decision\": \"small_test\"\n      }\n    ],\n    \"main_push_products\": [],\n    \"small_test_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"echo-1\",\n        \"product_name\": \"Echo Pet Brush\",\n        \"opportunity_score\": 60,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"echo-2\",\n        \"product_name\": \"Echo Storage Bag\",\n        \"opportunity_score\": 45,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"echo-3\",\n        \"product_name\": \"Echo Mini Fan\",\n        \"opportunity_score\": 45,\n        \"decision\": \"small_test\"\n      }\n    ],\n    \"risk_heavy_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"echo-1\",\n        \"product_name\": \"Echo Pet Brush\",\n        \"opportunity_score\": 60,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"echo-2\",\n        \"product_name\": \"Echo Storage Bag\",\n        \"opportunity_score\": 45,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"echo-3\",\n        \"product_name\": \"Echo Mini Fan\",\n        \"opportunity_score\": 45,\n        \"decision\": \"small_test\"\n      }\n    ],\n    \"dimension_distribution\": {\n      \"profit_window\": {\n        \"strong\": 0,\n        \"medium\": 3,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"demand_pain\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"external_trend\": {\n        \"strong\": 0,\n        \"medium\": 1,\n        \"weak\": 2,\n        \"unknown\": 0\n      },\n      \"seasonality\": {\n        \"strong\": 1,\n        \"medium\": 2,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"competition\": {\n        \"strong\": 0,\n        \"medium\": 3,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"merchant_quality\": {\n        \"strong\": 0,\n        \"medium\": 0,\n        \"weak\": 3,\n        \"unknown\": 0\n      },\n      \"aigc_fit\": {\n        \"strong\": 2,\n        \"medium\": 1,\n        \"weak\": 0,\n        \"unknown\": 0\n      }\n    },\n    \"main_push_reasons_summary\": [],\n    \"common_missing_evidence\": [\n      {\n        \"evidence\": \"profit_window: growth_30d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"profit_window: strong related_video_count signal\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: review text themes\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: negative review clusters\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Google Trends signal\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: TikTok hashtag volume\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Instagram/Reels context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: YouTube Shorts context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: same SKU count\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: price range by competitor\",\n        \"count\": 3\n      }\n    ]\n  },\n  \"products\": [\n    {\n      \"rank\": 1,\n      \"product_id\": \"echo-1\",\n      \"product_name\": \"Echo Pet Brush\",\n      \"category\": \"Pet Supplies\",\n      \"opportunity_score\": 60,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"pet_behavior\",\n        \"problem_solution\",\n        \"daily_usefulness\"\n      ],\n      \"content_angle_summary\": \"Start with pet_behavior, problem_solution, daily_usefulness; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"外部趋势证据不足（weak）\",\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 74,\n          \"level\": \"medium\",\n          \"reason\": \"7-day growth indicates the product is still moving.\",\n          \"reasons\": [\n            \"7-day growth indicates the product is still moving.\",\n            \"Commission is attractive for content investment.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"strong related_video_count signal\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 57,\n          \"level\": \"medium\",\n          \"reason\": \"Pet routines create visible daily-use pain points.\",\n          \"reasons\": [\n            \"Pet routines create visible daily-use pain points.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 51,\n          \"level\": \"weak\",\n          \"reason\": \"Pet care has evergreen social content context.\",\n          \"reasons\": [\n            \"Pet care has evergreen social content context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 65,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Pet products are evergreen; shedding and home-care angles can be seasonal.\"\n          ],\n          \"missing_evidence\": [\n            \"market-specific pet season signal\"\n          ],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Category still allows differentiated demo or scene framing.\",\n          \"reasons\": [\n            \"Category still allows differentiated demo or scene framing.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 96,\n          \"level\": \"strong\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product can be shown in concrete daily-use scenes.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 64,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: medium (74)\",\n          \"reasons\": [\n            \"profit_window: medium (74)\",\n            \"demand_pain: medium (57)\",\n            \"seasonality: medium (65)\",\n            \"competition: medium (61)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: strong (96)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"market-specific pet season signal\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"strong related_video_count signal\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 16,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 2,\n      \"product_id\": \"echo-2\",\n      \"product_name\": \"Echo Storage Bag\",\n      \"category\": \"Home\",\n      \"opportunity_score\": 45,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"problem_solution\",\n        \"daily_usefulness\",\n        \"shelf_value_deal\"\n      ],\n      \"content_angle_summary\": \"Start with problem_solution, daily_usefulness, shelf_value_deal; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"需求痛点证据偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"strong related_video_count signal\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 49,\n          \"level\": \"weak\",\n          \"reason\": \"Home organisation products can show before/after pain clearly.\",\n          \"reasons\": [\n            \"Home organisation products can show before/after pain clearly.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 35,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 59,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Home organisation is evergreen with cleaning/reset moments.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Category still allows differentiated demo or scene framing.\",\n          \"reasons\": [\n            \"Category still allows differentiated demo or scene framing.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 90,\n          \"level\": \"strong\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product can be shown in concrete daily-use scenes.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 55,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: medium (56)\",\n          \"reasons\": [\n            \"profit_window: medium (56)\",\n            \"demand_pain: weak (49)\",\n            \"seasonality: medium (59)\",\n            \"competition: medium (61)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: strong (90)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"strong related_video_count signal\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 15,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 3,\n      \"product_id\": \"echo-3\",\n      \"product_name\": \"Echo Mini Fan\",\n      \"category\": \"Electronics\",\n      \"opportunity_score\": 45,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\",\n        \"video\"\n      ],\n      \"recommended_hooks\": [\n        \"pain_point_hot_weather\",\n        \"no_installation\",\n        \"small_space_solution\"\n      ],\n      \"content_angle_summary\": \"Start with pain_point_hot_weather, no_installation, small_space_solution; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"Medium product risk level.\",\n        \"Human review is required.\",\n        \"商家质量证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 58,\n          \"level\": \"medium\",\n          \"reason\": \"7-day growth indicates the product is still moving.\",\n          \"reasons\": [\n            \"7-day growth indicates the product is still moving.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"strong related_video_count signal\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 72,\n          \"level\": \"medium\",\n          \"reason\": \"Sales indicate real purchase motivation.\",\n          \"reasons\": [\n            \"Sales indicate real purchase motivation.\",\n            \"Heat discomfort is a clear seasonal pain point.\"\n          ],\n          \"missing_evidence\": [\n            \"review text themes\",\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 57,\n          \"level\": \"medium\",\n          \"reason\": \"Cooling products have obvious summer search and social context.\",\n          \"reasons\": [\n            \"Cooling products have obvious summer search and social context.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 77,\n          \"level\": \"strong\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Cooling product is in or near summer demand season.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Category still allows differentiated demo or scene framing.\",\n          \"reasons\": [\n            \"Category still allows differentiated demo or scene framing.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"rating\",\n            \"review_count\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 72,\n          \"level\": \"medium\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product can be shown in concrete daily-use scenes.\",\n            \"Medium or high risk requires human claim review.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 57,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: medium (58)\",\n          \"reasons\": [\n            \"profit_window: medium (58)\",\n            \"demand_pain: medium (72)\",\n            \"seasonality: strong (77)\",\n            \"competition: medium (61)\",\n            \"merchant_quality: weak (45)\",\n            \"aigc_fit: medium (72)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"rating\",\n            \"review text themes\",\n            \"review_count\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"strong related_video_count signal\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"male_functional\",\n            \"home/lifestyle\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 15,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    }\n  ]\n}\n"
+  }
+}

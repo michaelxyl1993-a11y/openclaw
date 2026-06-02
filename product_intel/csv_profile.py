@@ -1,36 +1,33 @@
-"""CSV schema profiling and field mapping diagnosis."""
+"""Candidate sheet profiling and field mapping diagnosis."""
 
 from __future__ import annotations
 
 from typing import Any
 
+from .field_aliases import (
+    FIELD_ALIASES,
+    OPTIONAL_FIELDS,
+    REQUIRED_FIELDS,
+    base_column_name,
+    detect_source_from_features,
+    duplicate_columns,
+    normalize_header,
+    source_from_value,
+)
 
-FIELD_ALIASES = {
-    "product_id": ["product_id", "item_id", "goods_id", "商品ID", "商品id", "id"],
-    "product_name": ["product_name", "title", "商品名称", "商品标题", "产品名称", "name"],
-    "category": ["category", "类目", "分类", "category_name", "leaf_category", "商品类目"],
-    "price": ["price", "商品价格", "售价", "final_price", "sale_price", "min_price", "价格"],
-    "sold_count": ["sold_count", "sales", "sold", "销量", "已售", "近7天销量"],
-    "gmv": ["gmv", "GMV", "销售额", "成交金额", "sales_amount"],
-    "commission_rate": ["commission", "commission_rate", "佣金", "佣金率", "达人佣金率"],
-    "product_url": ["product_url", "url", "商品链接", "链接"],
-    "shop_name": ["shop_name", "seller_name", "店铺", "店铺名称", "卖家名称"],
-    "source_platform": ["source_platform", "candidate_source", "来源", "数据来源"],
-    "growth_7d": ["growth_7d", "7d_growth", "growth7d", "近7天增长", "7日增长"],
-    "growth_30d": ["growth_30d", "30d_growth", "growth30d", "近30天增长", "30日增长"],
-    "related_video_count": ["related_video_count", "video_count", "关联视频数", "相关视频数"],
-    "related_influencer_count": ["related_influencer_count", "influencer_count", "达人数量", "关联达人数"],
-    "rating": ["rating", "评分", "商品评分"],
-    "review_count": ["review_count", "reviews", "评价数", "评论数"],
+
+VALID_SOURCES = {"auto", "mock", "echotik", "fastmoss", "kalodata", "manual", "manual_or_unknown"}
+
+WARNING_MESSAGES = {
+    "product_url": "缺少 product_url：不影响初筛，但后续无法直接跳转商品链接",
+    "shop_name": "缺少 shop_name：无法判断商家维度，merchant_quality 会降权",
+    "commission_rate": "缺少 commission_rate：利润窗口判断可信度下降",
+    "rating_review_count": "缺少 rating/review_count：商家质量和用户反馈证据不足",
+    "trend_content_heat": "缺少 growth_30d / related_video_count / related_influencer_count：趋势/内容热度证据不足",
 }
 
-REQUIRED_FIELDS = ["product_id", "product_name", "category"]
-OPTIONAL_FIELDS = ["price", "sold_count", "gmv", "commission_rate", "product_url", "shop_name", "growth_7d", "growth_30d", "related_video_count", "related_influencer_count", "rating", "review_count"]
-VALID_SOURCES = {"auto", "mock", "echotik", "fastmoss", "manual"}
-
-
-def normalize_header(value: Any) -> str:
-    return str(value or "").strip().lower().replace(" ", "").replace("_", "").replace("-", "")
+CORE_MAPPING_FIELDS = ["product_id", "product_name", "category", "price", "sold_count", "gmv", "commission_rate"]
+INFERABLE_SOURCES = {"echotik", "fastmoss", "kalodata", "manual"}
 
 
 def non_empty_count(rows: list[dict[str, Any]], column: str) -> int:
@@ -39,16 +36,11 @@ def non_empty_count(rows: list[dict[str, Any]], column: str) -> int:
 
 def find_mapped_column(columns: list[str], aliases: list[str], rows: list[dict[str, Any]] | None = None) -> str:
     candidates: list[str] = []
-    exact = {str(column): str(column) for column in columns}
     for alias in aliases:
-        if alias in exact and exact[alias] not in candidates:
-            candidates.append(exact[alias])
-
-    normalized_columns = {normalize_header(column): str(column) for column in columns}
-    for alias in aliases:
-        match = normalized_columns.get(normalize_header(alias))
-        if match and match not in candidates:
-            candidates.append(match)
+        for column in columns:
+            if alias == column or normalize_header(alias) == normalize_header(base_column_name(column)):
+                if column not in candidates:
+                    candidates.append(column)
     if not candidates:
         return ""
     if rows:
@@ -56,20 +48,29 @@ def find_mapped_column(columns: list[str], aliases: list[str], rows: list[dict[s
     return candidates[0]
 
 
-def detect_source(columns: list[str], requested_source: str) -> str:
+def detect_source(columns: list[str], rows: list[dict[str, Any]], mapped_fields: dict[str, str], requested_source: str) -> str:
     requested = requested_source.strip().lower()
     if requested != "auto":
-        return requested if requested in VALID_SOURCES else "unknown"
-    joined = " ".join(columns).lower()
-    if "source_platform" in joined or "mock" in joined:
-        return "mock"
-    if "candidate_source" in joined or "fastmoss" in joined:
-        return "fastmoss"
-    if "商品id" in joined or "达人佣金" in joined or "echotik" in joined:
-        return "echotik"
-    if any(term in joined for term in ["商品名称", "类目", "来源"]):
-        return "manual"
-    return "unknown"
+        return requested if requested in VALID_SOURCES else "manual_or_unknown"
+    source_column = mapped_fields.get("source_platform", "")
+    if source_column:
+        for row in rows:
+            detected = source_from_value(row.get(source_column, ""))
+            if detected:
+                return detected
+    return detect_source_from_features(columns)
+
+
+def source_platform_diagnosis(rows: list[dict[str, Any]], mapped_fields: dict[str, str], source_detected: str) -> tuple[str, str]:
+    source_column = mapped_fields.get("source_platform", "")
+    if source_column:
+        for row in rows:
+            value = source_from_value(row.get(source_column, ""))
+            if value:
+                return value, "explicit"
+    if source_detected in INFERABLE_SOURCES:
+        return source_detected, "inferred"
+    return "", "missing"
 
 
 def sample_values(rows: list[dict[str, Any]], mapped_fields: dict[str, str]) -> dict[str, list[str]]:
@@ -88,6 +89,38 @@ def sample_values(rows: list[dict[str, Any]], mapped_fields: dict[str, str]) -> 
     return samples
 
 
+def build_warnings(rows: list[dict[str, Any]], missing_required: list[str], missing_optional: list[str], duplicates: list[str]) -> list[str]:
+    warnings: list[str] = []
+    if not rows:
+        warnings.append("文件中没有可读取的数据行")
+    warnings.extend(f"缺少必填字段 {field}：请补充该字段后再进行完整判断" for field in missing_required)
+    for field in missing_optional:
+        if field in WARNING_MESSAGES:
+            warnings.append(WARNING_MESSAGES[field])
+    if "rating" in missing_optional or "review_count" in missing_optional:
+        warnings.append(WARNING_MESSAGES["rating_review_count"])
+    if any(field in missing_optional for field in ["growth_30d", "related_video_count", "related_influencer_count"]):
+        warnings.append(WARNING_MESSAGES["trend_content_heat"])
+    if duplicates:
+        warnings.append("存在重复列名：" + ", ".join(duplicates) + "；已优先选择非空数据更多的列")
+    return warnings
+
+
+def calculate_quality_score(mapped_fields: dict[str, str], duplicates: list[str]) -> int:
+    required_score = sum(bool(mapped_fields.get(field)) for field in REQUIRED_FIELDS) / len(REQUIRED_FIELDS) * 55
+    optional_score = sum(bool(mapped_fields.get(field)) for field in OPTIONAL_FIELDS) / len(OPTIONAL_FIELDS) * 45
+    return max(0, min(100, round(required_score + optional_score - min(len(duplicates) * 3, 12))))
+
+
+def mapping_confidence(mapped_fields: dict[str, str]) -> str:
+    missing_core = [field for field in CORE_MAPPING_FIELDS if not mapped_fields.get(field)]
+    if not missing_core:
+        return "high"
+    if len(missing_core) <= 2:
+        return "medium"
+    return "low"
+
+
 def profile_csv_rows(
     rows: list[dict[str, Any]],
     source: str = "auto",
@@ -101,26 +134,33 @@ def profile_csv_rows(
         field: find_mapped_column(input_columns, aliases, rows)
         for field, aliases in FIELD_ALIASES.items()
     }
+    source_detected = detect_source(input_columns, rows, mapped_fields, source)
+    source_platform_value, source_platform_source = source_platform_diagnosis(rows, mapped_fields, source_detected)
     missing_required = [field for field in REQUIRED_FIELDS if not mapped_fields.get(field)]
-    missing_optional = [field for field in OPTIONAL_FIELDS if not mapped_fields.get(field)]
-    warnings: list[str] = []
-    if not rows:
-        warnings.append("CSV has no data rows.")
-    for field in missing_required:
-        warnings.append(f"Missing required field mapping: {field}")
-    for field in missing_optional:
-        warnings.append(f"Missing optional field mapping: {field}")
-
+    missing_optional = [
+        field for field in OPTIONAL_FIELDS
+        if not mapped_fields.get(field) and not (field == "source_platform" and source_platform_source == "inferred")
+    ]
+    duplicates = duplicate_columns(input_columns)
+    mapped_columns = {column for column in mapped_fields.values() if column}
+    unmapped = [column for column in input_columns if column not in mapped_columns]
+    score = calculate_quality_score(mapped_fields, duplicates)
     return {
-        "source_detected": detect_source(input_columns, source),
         "detected_file_type": detected_file_type,
         "detected_sheet_name": detected_sheet_name,
-        "input_columns": input_columns,
+        "source_detected": source_detected,
+        "source_platform_value": source_platform_value,
+        "source_platform_source": source_platform_source,
+        "row_count": len(rows),
         "mapped_fields": mapped_fields,
         "missing_required_fields": missing_required,
         "missing_optional_fields": missing_optional,
+        "unmapped_columns": unmapped,
+        "duplicate_columns": duplicates,
+        "warnings": build_warnings(rows, missing_required, missing_optional, duplicates),
+        "field_quality_score": score,
+        "mapping_confidence": mapping_confidence(mapped_fields),
+        "input_columns": input_columns,
         "missing_fields": missing_required + missing_optional,
-        "row_count": len(rows),
         "sample_values": sample_values(rows, mapped_fields),
-        "warnings": warnings,
     }

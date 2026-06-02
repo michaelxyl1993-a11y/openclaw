@@ -1,0 +1,724 @@
+{
+  "version": "product_intel_v0.6",
+  "meta": {
+    "source": "auto",
+    "market": "de",
+    "generated_at": "2026-06-02T04:44:30.950416+00:00",
+    "total_products": 3,
+    "main_push_count": 0,
+    "small_test_count": 2,
+    "hold_count": 1,
+    "reject_count": 0
+  },
+  "summary": {
+    "top_products": [
+      {
+        "rank": 1,
+        "product_id": "kalo-1",
+        "product_name": "KaLoData Travel Cup",
+        "opportunity_score": 62,
+        "decision": "small_test"
+      },
+      {
+        "rank": 2,
+        "product_id": "kalo-3",
+        "product_name": "KaLoData Makeup Bag",
+        "opportunity_score": 62,
+        "decision": "small_test"
+      },
+      {
+        "rank": 3,
+        "product_id": "kalo-2",
+        "product_name": "KaLoData Phone Stand",
+        "opportunity_score": 47,
+        "decision": "hold"
+      }
+    ],
+    "main_push_products": [],
+    "small_test_products": [
+      {
+        "rank": 1,
+        "product_id": "kalo-1",
+        "product_name": "KaLoData Travel Cup",
+        "opportunity_score": 62,
+        "decision": "small_test"
+      },
+      {
+        "rank": 2,
+        "product_id": "kalo-3",
+        "product_name": "KaLoData Makeup Bag",
+        "opportunity_score": 62,
+        "decision": "small_test"
+      }
+    ],
+    "risk_heavy_products": [
+      {
+        "rank": 1,
+        "product_id": "kalo-1",
+        "product_name": "KaLoData Travel Cup",
+        "opportunity_score": 62,
+        "decision": "small_test"
+      },
+      {
+        "rank": 2,
+        "product_id": "kalo-3",
+        "product_name": "KaLoData Makeup Bag",
+        "opportunity_score": 62,
+        "decision": "small_test"
+      },
+      {
+        "rank": 3,
+        "product_id": "kalo-2",
+        "product_name": "KaLoData Phone Stand",
+        "opportunity_score": 47,
+        "decision": "hold"
+      }
+    ],
+    "dimension_distribution": {
+      "profit_window": {
+        "strong": 0,
+        "medium": 2,
+        "weak": 1,
+        "unknown": 0
+      },
+      "demand_pain": {
+        "strong": 0,
+        "medium": 2,
+        "weak": 1,
+        "unknown": 0
+      },
+      "external_trend": {
+        "strong": 0,
+        "medium": 0,
+        "weak": 3,
+        "unknown": 0
+      },
+      "seasonality": {
+        "strong": 0,
+        "medium": 1,
+        "weak": 2,
+        "unknown": 0
+      },
+      "competition": {
+        "strong": 0,
+        "medium": 3,
+        "weak": 0,
+        "unknown": 0
+      },
+      "merchant_quality": {
+        "strong": 3,
+        "medium": 0,
+        "weak": 0,
+        "unknown": 0
+      },
+      "aigc_fit": {
+        "strong": 2,
+        "medium": 0,
+        "weak": 1,
+        "unknown": 0
+      }
+    },
+    "main_push_reasons_summary": [],
+    "common_missing_evidence": [
+      {
+        "evidence": "profit_window: growth_7d",
+        "count": 3
+      },
+      {
+        "evidence": "profit_window: growth_30d",
+        "count": 3
+      },
+      {
+        "evidence": "profit_window: strong related_video_count signal",
+        "count": 3
+      },
+      {
+        "evidence": "demand_pain: negative review clusters",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: Google Trends signal",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: TikTok hashtag volume",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: Instagram/Reels context",
+        "count": 3
+      },
+      {
+        "evidence": "external_trend: YouTube Shorts context",
+        "count": 3
+      },
+      {
+        "evidence": "competition: same SKU count",
+        "count": 3
+      },
+      {
+        "evidence": "competition: price range by competitor",
+        "count": 3
+      }
+    ]
+  },
+  "products": [
+    {
+      "rank": 1,
+      "product_id": "kalo-1",
+      "product_name": "KaLoData Travel Cup",
+      "category": "Kitchen",
+      "source_platform": "kalodata",
+      "price": 10.9,
+      "commission_rate": "10%",
+      "sold_count": 680,
+      "gmv": 7412,
+      "opportunity_score": 62,
+      "decision": "small_test",
+      "decision_label": "小样本测试",
+      "recommended_formats": [
+        "photo"
+      ],
+      "recommended_hooks": [
+        "problem_solution",
+        "daily_usefulness",
+        "shelf_value_deal"
+      ],
+      "content_angle_summary": "Start with problem_solution, daily_usefulness, shelf_value_deal; keep claims grounded in the Product Fact Sheet.",
+      "suggested_daily_posts": 2,
+      "risk_flags": [
+        "外部趋势证据不足（weak）",
+        "建议先小样本验证"
+      ],
+      "reasons": [
+        "There are more than 10 related influencers.",
+        "Commission rate is at least 8%.",
+        "Rating and review count show basic buyer validation."
+      ],
+      "dimension_scores": {
+        "profit_window": {
+          "score": 56,
+          "level": "medium",
+          "reason": "Commission is attractive for content investment.",
+          "reasons": [
+            "Commission is attractive for content investment."
+          ],
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "strong related_video_count signal"
+          ],
+          "suggested_action": "Push now if content angle is differentiated; otherwise run small controlled test."
+        },
+        "demand_pain": {
+          "score": 61,
+          "level": "medium",
+          "reason": "Rating and review count provide buyer validation.",
+          "reasons": [
+            "Rating and review count provide buyer validation.",
+            "Home organisation products can show before/after pain clearly."
+          ],
+          "missing_evidence": [
+            "negative review clusters"
+          ],
+          "suggested_action": "Extract review language before scaling; turn repeated pain into hooks."
+        },
+        "external_trend": {
+          "score": 35,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ],
+          "suggested_action": "Validate with Trends and hashtag search before assigning heavy volume."
+        },
+        "seasonality": {
+          "score": 59,
+          "level": "medium",
+          "reason": "Current month is 6; market=de.",
+          "reasons": [
+            "Current month is 6; market=de.",
+            "Home organisation is evergreen with cleaning/reset moments."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Use season-specific copy only when market timing supports it."
+        },
+        "competition": {
+          "score": 67,
+          "level": "medium",
+          "reason": "Creator activity is healthy without clearly proving saturation.",
+          "reasons": [
+            "Creator activity is healthy without clearly proving saturation.",
+            "Category still allows differentiated demo or scene framing."
+          ],
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ],
+          "suggested_action": "Use a differentiated hook before scaling into crowded categories."
+        },
+        "merchant_quality": {
+          "score": 75,
+          "level": "strong",
+          "reason": "Product rating is strong.",
+          "reasons": [
+            "Product rating is strong.",
+            "Review count gives basic trust evidence."
+          ],
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating"
+          ],
+          "suggested_action": "Proceed when rating and fulfillment evidence are acceptable."
+        },
+        "aigc_fit": {
+          "score": 96,
+          "level": "strong",
+          "reason": "At least three hook routes are available.",
+          "reasons": [
+            "At least three hook routes are available.",
+            "Product can be shown in concrete daily-use scenes.",
+            "Low rule risk is suitable for AIGC image/video tests.",
+            "Opportunity layer recommends video as an available format."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Generate photo first unless demo motion is central; keep Product Fact Sheet constraints."
+        },
+        "final_test_decision": {
+          "decision": "small_test",
+          "score": 67,
+          "level": "medium",
+          "reason": "profit_window: medium (56)",
+          "reasons": [
+            "profit_window: medium (56)",
+            "demand_pain: medium (61)",
+            "seasonality: medium (59)",
+            "competition: medium (67)",
+            "merchant_quality: strong (75)",
+            "aigc_fit: strong (96)"
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ],
+          "next_action": "小样本测试，先发1-2条验证CTR/转化",
+          "suggested_daily_posts": 2,
+          "suggested_accounts": [
+            "pet/home/lifestyle",
+            "mature_female_home"
+          ],
+          "suggested_formats": [
+            "photo",
+            "video"
+          ],
+          "review_after_48h_metrics": [
+            "CTR",
+            "CVR",
+            "add-to-cart rate",
+            "comment objections",
+            "refund or quality complaints"
+          ]
+        }
+      },
+      "dimension_summary": "profit_window:medium/56; demand_pain:medium/61; external_trend:weak/35; seasonality:medium/59; competition:medium/67; merchant_quality:strong/75; aigc_fit:strong/96; final:small_test/67",
+      "strongest_dimensions": "aigc_fit(96), merchant_quality(75), competition(67)",
+      "weakest_dimensions": "external_trend(35), profit_window(56), seasonality(59)",
+      "missing_evidence_count": 13,
+      "main_push_reason": "判断依据：profit_window: medium (56)；demand_pain: medium (61)；seasonality: medium (59)",
+      "next_action": "小样本测试，先发1-2条验证CTR/转化",
+      "manager_instruction": "进入小样本测试池，先生成1-2条素材验证CTR/转化",
+      "routing": {
+        "photo": true,
+        "video": false,
+        "de": true,
+        "fr": false,
+        "account_type": "mature_female_home"
+      }
+    },
+    {
+      "rank": 2,
+      "product_id": "kalo-3",
+      "product_name": "KaLoData Makeup Bag",
+      "category": "Beauty",
+      "source_platform": "kalodata",
+      "price": 9.9,
+      "commission_rate": "9%",
+      "sold_count": 440,
+      "gmv": 4356,
+      "opportunity_score": 62,
+      "decision": "small_test",
+      "decision_label": "小样本测试",
+      "recommended_formats": [
+        "photo"
+      ],
+      "recommended_hooks": [
+        "before_after",
+        "daily_usefulness",
+        "gift_for_her"
+      ],
+      "content_angle_summary": "Start with before_after, daily_usefulness, gift_for_her; keep claims grounded in the Product Fact Sheet.",
+      "suggested_daily_posts": 2,
+      "risk_flags": [
+        "利润窗口偏弱（weak）",
+        "外部趋势证据不足（weak）",
+        "季节性支撑偏弱（weak）",
+        "功效表达需谨慎，避免缺少证据的效果承诺",
+        "缺少外部趋势证据，建议先小样本测试",
+        "建议先小样本验证"
+      ],
+      "reasons": [
+        "There are more than 10 related influencers.",
+        "Commission rate is at least 8%.",
+        "Rating and review count show basic buyer validation."
+      ],
+      "dimension_scores": {
+        "profit_window": {
+          "score": 40,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "strong related_video_count signal"
+          ],
+          "suggested_action": "Push now if content angle is differentiated; otherwise run small controlled test."
+        },
+        "demand_pain": {
+          "score": 57,
+          "level": "medium",
+          "reason": "Rating and review count provide buyer validation.",
+          "reasons": [
+            "Rating and review count provide buyer validation.",
+            "Beauty products have routine-based content angles but claims need restraint."
+          ],
+          "missing_evidence": [
+            "negative review clusters"
+          ],
+          "suggested_action": "Extract review language before scaling; turn repeated pain into hooks."
+        },
+        "external_trend": {
+          "score": 47,
+          "level": "weak",
+          "reason": "Category has social content context, but external trend data is still needed.",
+          "reasons": [
+            "Category has social content context, but external trend data is still needed."
+          ],
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ],
+          "suggested_action": "Validate with Trends and hashtag search before assigning heavy volume."
+        },
+        "seasonality": {
+          "score": 45,
+          "level": "weak",
+          "reason": "Current month is 6; market=de.",
+          "reasons": [
+            "Current month is 6; market=de."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Use season-specific copy only when market timing supports it."
+        },
+        "competition": {
+          "score": 61,
+          "level": "medium",
+          "reason": "Creator activity is healthy without clearly proving saturation.",
+          "reasons": [
+            "Creator activity is healthy without clearly proving saturation."
+          ],
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ],
+          "suggested_action": "Use a differentiated hook before scaling into crowded categories."
+        },
+        "merchant_quality": {
+          "score": 75,
+          "level": "strong",
+          "reason": "Product rating is strong.",
+          "reasons": [
+            "Product rating is strong.",
+            "Review count gives basic trust evidence."
+          ],
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating"
+          ],
+          "suggested_action": "Proceed when rating and fulfillment evidence are acceptable."
+        },
+        "aigc_fit": {
+          "score": 86,
+          "level": "strong",
+          "reason": "At least three hook routes are available.",
+          "reasons": [
+            "At least three hook routes are available.",
+            "Product supports lifestyle content but needs stricter claim control.",
+            "Low rule risk is suitable for AIGC image/video tests.",
+            "Opportunity layer recommends video as an available format."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Generate photo first unless demo motion is central; keep Product Fact Sheet constraints."
+        },
+        "final_test_decision": {
+          "decision": "small_test",
+          "score": 61,
+          "level": "medium",
+          "reason": "profit_window: weak (40)",
+          "reasons": [
+            "profit_window: weak (40)",
+            "demand_pain: medium (57)",
+            "seasonality: weak (45)",
+            "competition: medium (61)",
+            "merchant_quality: strong (75)",
+            "aigc_fit: strong (86)"
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ],
+          "next_action": "小样本测试，先发1-2条验证CTR/转化",
+          "suggested_daily_posts": 2,
+          "suggested_accounts": [
+            "young_female_lifestyle"
+          ],
+          "suggested_formats": [
+            "photo",
+            "video"
+          ],
+          "review_after_48h_metrics": [
+            "CTR",
+            "CVR",
+            "add-to-cart rate",
+            "comment objections",
+            "refund or quality complaints"
+          ]
+        }
+      },
+      "dimension_summary": "profit_window:weak/40; demand_pain:medium/57; external_trend:weak/47; seasonality:weak/45; competition:medium/61; merchant_quality:strong/75; aigc_fit:strong/86; final:small_test/61",
+      "strongest_dimensions": "aigc_fit(86), merchant_quality(75), competition(61)",
+      "weakest_dimensions": "profit_window(40), seasonality(45), external_trend(47)",
+      "missing_evidence_count": 13,
+      "main_push_reason": "判断依据：profit_window: weak (40)；demand_pain: medium (57)；seasonality: weak (45)",
+      "next_action": "小样本测试，先发1-2条验证CTR/转化",
+      "manager_instruction": "进入小样本测试池，先生成1-2条素材验证CTR/转化",
+      "routing": {
+        "photo": true,
+        "video": false,
+        "de": true,
+        "fr": false,
+        "account_type": "young_female_lifestyle"
+      }
+    },
+    {
+      "rank": 3,
+      "product_id": "kalo-2",
+      "product_name": "KaLoData Phone Stand",
+      "category": "Electronics",
+      "source_platform": "kalodata",
+      "price": 7.9,
+      "commission_rate": "12%",
+      "sold_count": 760,
+      "gmv": 6004,
+      "opportunity_score": 47,
+      "decision": "hold",
+      "decision_label": "暂缓观察",
+      "recommended_formats": [
+        "photo",
+        "video"
+      ],
+      "recommended_hooks": [
+        "is_it_worth_it",
+        "not_an_iq_tax",
+        "daily_usefulness"
+      ],
+      "content_angle_summary": "Start with is_it_worth_it, not_an_iq_tax, daily_usefulness; keep claims grounded in the Product Fact Sheet.",
+      "suggested_daily_posts": 1,
+      "risk_flags": [
+        "Medium product risk level.",
+        "Human review is required.",
+        "需求痛点证据偏弱（weak）",
+        "外部趋势证据不足（weak）",
+        "季节性支撑偏弱（weak）",
+        "AIGC 适配需人工复核（weak）"
+      ],
+      "reasons": [
+        "There are more than 10 related influencers.",
+        "Commission rate is at least 8%.",
+        "Rating and review count show basic buyer validation."
+      ],
+      "dimension_scores": {
+        "profit_window": {
+          "score": 56,
+          "level": "medium",
+          "reason": "Commission is attractive for content investment.",
+          "reasons": [
+            "Commission is attractive for content investment."
+          ],
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "strong related_video_count signal"
+          ],
+          "suggested_action": "Push now if content angle is differentiated; otherwise run small controlled test."
+        },
+        "demand_pain": {
+          "score": 47,
+          "level": "weak",
+          "reason": "Rating and review count provide buyer validation.",
+          "reasons": [
+            "Rating and review count provide buyer validation."
+          ],
+          "missing_evidence": [
+            "negative review clusters"
+          ],
+          "suggested_action": "Extract review language before scaling; turn repeated pain into hooks."
+        },
+        "external_trend": {
+          "score": 35,
+          "level": "weak",
+          "reason": "Insufficient local evidence for a stronger rule-based conclusion.",
+          "reasons": [],
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ],
+          "suggested_action": "Validate with Trends and hashtag search before assigning heavy volume."
+        },
+        "seasonality": {
+          "score": 45,
+          "level": "weak",
+          "reason": "Current month is 6; market=de.",
+          "reasons": [
+            "Current month is 6; market=de."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Use season-specific copy only when market timing supports it."
+        },
+        "competition": {
+          "score": 61,
+          "level": "medium",
+          "reason": "Creator activity is healthy without clearly proving saturation.",
+          "reasons": [
+            "Creator activity is healthy without clearly proving saturation."
+          ],
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ],
+          "suggested_action": "Use a differentiated hook before scaling into crowded categories."
+        },
+        "merchant_quality": {
+          "score": 75,
+          "level": "strong",
+          "reason": "Product rating is strong.",
+          "reasons": [
+            "Product rating is strong.",
+            "Review count gives basic trust evidence."
+          ],
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating"
+          ],
+          "suggested_action": "Proceed when rating and fulfillment evidence are acceptable."
+        },
+        "aigc_fit": {
+          "score": 50,
+          "level": "weak",
+          "reason": "At least three hook routes are available.",
+          "reasons": [
+            "At least three hook routes are available.",
+            "Medium or high risk requires human claim review."
+          ],
+          "missing_evidence": [],
+          "suggested_action": "Generate photo first unless demo motion is central; keep Product Fact Sheet constraints."
+        },
+        "final_test_decision": {
+          "decision": "hold",
+          "score": 53,
+          "level": "weak",
+          "reason": "profit_window: medium (56)",
+          "reasons": [
+            "profit_window: medium (56)",
+            "demand_pain: weak (47)",
+            "seasonality: weak (45)",
+            "competition: medium (61)",
+            "merchant_quality: strong (75)",
+            "aigc_fit: weak (50)"
+          ],
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ],
+          "next_action": "暂缓，不进今日主推池，补齐证据后再测",
+          "suggested_daily_posts": 1,
+          "suggested_accounts": [
+            "male_functional",
+            "home/lifestyle"
+          ],
+          "suggested_formats": [
+            "photo"
+          ],
+          "review_after_48h_metrics": [
+            "CTR",
+            "CVR",
+            "add-to-cart rate",
+            "comment objections",
+            "refund or quality complaints"
+          ]
+        }
+      },
+      "dimension_summary": "profit_window:medium/56; demand_pain:weak/47; external_trend:weak/35; seasonality:weak/45; competition:medium/61; merchant_quality:strong/75; aigc_fit:weak/50; final:hold/53",
+      "strongest_dimensions": "merchant_quality(75), competition(61), profit_window(56)",
+      "weakest_dimensions": "external_trend(35), seasonality(45), demand_pain(47)",
+      "missing_evidence_count": 13,
+      "main_push_reason": "判断依据：profit_window: medium (56)；demand_pain: weak (47)；seasonality: weak (45)",
+      "next_action": "暂缓，不进今日主推池，补齐证据后再测",
+      "manager_instruction": "暂缓进入今日生产，可继续观察数据",
+      "routing": {
+        "photo": true,
+        "video": true,
+        "de": true,
+        "fr": false,
+        "account_type": "male_functional"
+      }
+    }
+  ],
+  "llm_summary": {
+    "mode": "rule_based",
+    "summary_text": "运营摘要：\n市场：de\n本批次输入商品数：3\n决策分布：main_push 0 / small_test 2 / hold 1 / reject 0\n\nTop 5 商品：\n- 1. 62 / small_test / KaLoData Travel Cup / 形式:photo / hooks:problem_solution, daily_usefulness, shelf_value_deal\n- 2. 62 / small_test / KaLoData Makeup Bag / 形式:photo / hooks:before_after, daily_usefulness, gift_for_her\n- 3. 47 / hold / KaLoData Phone Stand / 形式:photo,video / hooks:is_it_worth_it, not_an_iq_tax, daily_usefulness\n\n今天优先主推商品：\n- 暂无明确主推商品，建议先从 small_test 商品做小样本验证。\n\n建议小测商品：\n- KaLoData Travel Cup：先发1-2条，观察CTR/CVR/评论阻力。\n- KaLoData Makeup Bag：先发1-2条，观察CTR/CVR/评论阻力。\n\n暂缓 / 放弃商品：\n- KaLoData Phone Stand：hold，补证据或不进今日生产池。\n\n主推理由摘要：\n- 主推理由不足，请优先补充增长、佣金、评论与竞品证据。\n\n主要缺失证据：\n- profit_window: growth_7d（3）\n- profit_window: growth_30d（3）\n- profit_window: strong related_video_count signal（3）\n- demand_pain: negative review clusters（3）\n- external_trend: Google Trends signal（3）\n\n下一步动作：\n- main_push 商品进入今日账号分发表，优先生成图文素材。\n- small_test 商品先做1-2条，48小时后看 CTR、CVR、加购率、评论异议和质量投诉。\n- hold/reject 商品不要占用今日主推产能，先补齐缺失证据。",
+    "llm_prompt": "你是 OpenClaw 商品运营分析助手。请基于下面 Product Intel v1.2 的结构化结果，输出适合运营团队直接阅读的中文选品建议。\n\n硬性规则：\n- 只做解释和归纳，不允许修改已有 score、decision、dimension_scores。\n- 不允许虚构外部数据，不允许假装已经查过 Google Trends、TikTok、Instagram、YouTube Shorts 或 Reels。\n- 如果缺数据，必须写“缺失证据”，不能编造。\n- 输出必须中文。\n- 输出必须适合发给运营团队，清晰、短句、可执行。\n- 市场：de\n\n请输出以下 9 个部分：\n1）本批次整体结论\n2）今天优先主推商品\n3）建议小测商品\n4）暂缓 / 放弃商品\n5）每个 main_push 商品的核心理由\n6）每个商品适合图文还是视频\n7）适合的内容角度 / hook 方向\n8）主要缺失证据\n9）48小时后复盘指标\n\nProduct Intel 结构化结果：\n{\n  \"meta\": {\n    \"source\": \"auto\",\n    \"market\": \"de\",\n    \"generated_at\": \"2026-06-02T04:44:30.950416+00:00\",\n    \"total_products\": 3,\n    \"main_push_count\": 0,\n    \"small_test_count\": 2,\n    \"hold_count\": 1,\n    \"reject_count\": 0\n  },\n  \"summary\": {\n    \"top_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"kalo-1\",\n        \"product_name\": \"KaLoData Travel Cup\",\n        \"opportunity_score\": 62,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"kalo-3\",\n        \"product_name\": \"KaLoData Makeup Bag\",\n        \"opportunity_score\": 62,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"kalo-2\",\n        \"product_name\": \"KaLoData Phone Stand\",\n        \"opportunity_score\": 47,\n        \"decision\": \"hold\"\n      }\n    ],\n    \"main_push_products\": [],\n    \"small_test_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"kalo-1\",\n        \"product_name\": \"KaLoData Travel Cup\",\n        \"opportunity_score\": 62,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"kalo-3\",\n        \"product_name\": \"KaLoData Makeup Bag\",\n        \"opportunity_score\": 62,\n        \"decision\": \"small_test\"\n      }\n    ],\n    \"risk_heavy_products\": [\n      {\n        \"rank\": 1,\n        \"product_id\": \"kalo-1\",\n        \"product_name\": \"KaLoData Travel Cup\",\n        \"opportunity_score\": 62,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 2,\n        \"product_id\": \"kalo-3\",\n        \"product_name\": \"KaLoData Makeup Bag\",\n        \"opportunity_score\": 62,\n        \"decision\": \"small_test\"\n      },\n      {\n        \"rank\": 3,\n        \"product_id\": \"kalo-2\",\n        \"product_name\": \"KaLoData Phone Stand\",\n        \"opportunity_score\": 47,\n        \"decision\": \"hold\"\n      }\n    ],\n    \"dimension_distribution\": {\n      \"profit_window\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"demand_pain\": {\n        \"strong\": 0,\n        \"medium\": 2,\n        \"weak\": 1,\n        \"unknown\": 0\n      },\n      \"external_trend\": {\n        \"strong\": 0,\n        \"medium\": 0,\n        \"weak\": 3,\n        \"unknown\": 0\n      },\n      \"seasonality\": {\n        \"strong\": 0,\n        \"medium\": 1,\n        \"weak\": 2,\n        \"unknown\": 0\n      },\n      \"competition\": {\n        \"strong\": 0,\n        \"medium\": 3,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"merchant_quality\": {\n        \"strong\": 3,\n        \"medium\": 0,\n        \"weak\": 0,\n        \"unknown\": 0\n      },\n      \"aigc_fit\": {\n        \"strong\": 2,\n        \"medium\": 0,\n        \"weak\": 1,\n        \"unknown\": 0\n      }\n    },\n    \"main_push_reasons_summary\": [],\n    \"common_missing_evidence\": [\n      {\n        \"evidence\": \"profit_window: growth_7d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"profit_window: growth_30d\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"profit_window: strong related_video_count signal\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"demand_pain: negative review clusters\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Google Trends signal\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: TikTok hashtag volume\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: Instagram/Reels context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"external_trend: YouTube Shorts context\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: same SKU count\",\n        \"count\": 3\n      },\n      {\n        \"evidence\": \"competition: price range by competitor\",\n        \"count\": 3\n      }\n    ]\n  },\n  \"products\": [\n    {\n      \"rank\": 1,\n      \"product_id\": \"kalo-1\",\n      \"product_name\": \"KaLoData Travel Cup\",\n      \"category\": \"Kitchen\",\n      \"opportunity_score\": 62,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"problem_solution\",\n        \"daily_usefulness\",\n        \"shelf_value_deal\"\n      ],\n      \"content_angle_summary\": \"Start with problem_solution, daily_usefulness, shelf_value_deal; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"外部趋势证据不足（weak）\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\",\n            \"strong related_video_count signal\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Rating and review count provide buyer validation.\",\n          \"reasons\": [\n            \"Rating and review count provide buyer validation.\",\n            \"Home organisation products can show before/after pain clearly.\"\n          ],\n          \"missing_evidence\": [\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 35,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 59,\n          \"level\": \"medium\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\",\n            \"Home organisation is evergreen with cleaning/reset moments.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 67,\n          \"level\": \"medium\",\n          \"reason\": \"Creator activity is healthy without clearly proving saturation.\",\n          \"reasons\": [\n            \"Creator activity is healthy without clearly proving saturation.\",\n            \"Category still allows differentiated demo or scene framing.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 75,\n          \"level\": \"strong\",\n          \"reason\": \"Product rating is strong.\",\n          \"reasons\": [\n            \"Product rating is strong.\",\n            \"Review count gives basic trust evidence.\"\n          ],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 96,\n          \"level\": \"strong\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product can be shown in concrete daily-use scenes.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 67,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: medium (56)\",\n          \"reasons\": [\n            \"profit_window: medium (56)\",\n            \"demand_pain: medium (61)\",\n            \"seasonality: medium (59)\",\n            \"competition: medium (67)\",\n            \"merchant_quality: strong (75)\",\n            \"aigc_fit: strong (96)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"strong related_video_count signal\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"pet/home/lifestyle\",\n            \"mature_female_home\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 13,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 2,\n      \"product_id\": \"kalo-3\",\n      \"product_name\": \"KaLoData Makeup Bag\",\n      \"category\": \"Beauty\",\n      \"opportunity_score\": 62,\n      \"decision\": \"small_test\",\n      \"recommended_formats\": [\n        \"photo\"\n      ],\n      \"recommended_hooks\": [\n        \"before_after\",\n        \"daily_usefulness\",\n        \"gift_for_her\"\n      ],\n      \"content_angle_summary\": \"Start with before_after, daily_usefulness, gift_for_her; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"利润窗口偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"季节性支撑偏弱（weak）\",\n        \"功效表达需谨慎，避免缺少证据的效果承诺\",\n        \"缺少外部趋势证据，建议先小样本测试\",\n        \"建议先小样本验证\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 40,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\",\n            \"strong related_video_count signal\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 57,\n          \"level\": \"medium\",\n          \"reason\": \"Rating and review count provide buyer validation.\",\n          \"reasons\": [\n            \"Rating and review count provide buyer validation.\",\n            \"Beauty products have routine-based content angles but claims need restraint.\"\n          ],\n          \"missing_evidence\": [\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 47,\n          \"level\": \"weak\",\n          \"reason\": \"Category has social content context, but external trend data is still needed.\",\n          \"reasons\": [\n            \"Category has social content context, but external trend data is still needed.\"\n          ],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Creator activity is healthy without clearly proving saturation.\",\n          \"reasons\": [\n            \"Creator activity is healthy without clearly proving saturation.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 75,\n          \"level\": \"strong\",\n          \"reason\": \"Product rating is strong.\",\n          \"reasons\": [\n            \"Product rating is strong.\",\n            \"Review count gives basic trust evidence.\"\n          ],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 86,\n          \"level\": \"strong\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Product supports lifestyle content but needs stricter claim control.\",\n            \"Low rule risk is suitable for AIGC image/video tests.\",\n            \"Opportunity layer recommends video as an available format.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"small_test\",\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"profit_window: weak (40)\",\n          \"reasons\": [\n            \"profit_window: weak (40)\",\n            \"demand_pain: medium (57)\",\n            \"seasonality: weak (45)\",\n            \"competition: medium (61)\",\n            \"merchant_quality: strong (75)\",\n            \"aigc_fit: strong (86)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"strong related_video_count signal\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\",\n          \"suggested_daily_posts\": 2,\n          \"suggested_accounts\": [\n            \"young_female_lifestyle\"\n          ],\n          \"suggested_formats\": [\n            \"photo\",\n            \"video\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 13,\n      \"next_action\": \"小样本测试，先发1-2条验证CTR/转化\"\n    },\n    {\n      \"rank\": 3,\n      \"product_id\": \"kalo-2\",\n      \"product_name\": \"KaLoData Phone Stand\",\n      \"category\": \"Electronics\",\n      \"opportunity_score\": 47,\n      \"decision\": \"hold\",\n      \"recommended_formats\": [\n        \"photo\",\n        \"video\"\n      ],\n      \"recommended_hooks\": [\n        \"is_it_worth_it\",\n        \"not_an_iq_tax\",\n        \"daily_usefulness\"\n      ],\n      \"content_angle_summary\": \"Start with is_it_worth_it, not_an_iq_tax, daily_usefulness; keep claims grounded in the Product Fact Sheet.\",\n      \"risk_flags\": [\n        \"Medium product risk level.\",\n        \"Human review is required.\",\n        \"需求痛点证据偏弱（weak）\",\n        \"外部趋势证据不足（weak）\",\n        \"季节性支撑偏弱（weak）\",\n        \"AIGC 适配需人工复核（weak）\"\n      ],\n      \"dimension_scores\": {\n        \"profit_window\": {\n          \"score\": 56,\n          \"level\": \"medium\",\n          \"reason\": \"Commission is attractive for content investment.\",\n          \"reasons\": [\n            \"Commission is attractive for content investment.\"\n          ],\n          \"missing_evidence\": [\n            \"growth_7d\",\n            \"growth_30d\",\n            \"strong related_video_count signal\"\n          ],\n          \"suggested_action\": \"Push now if content angle is differentiated; otherwise run small controlled test.\"\n        },\n        \"demand_pain\": {\n          \"score\": 47,\n          \"level\": \"weak\",\n          \"reason\": \"Rating and review count provide buyer validation.\",\n          \"reasons\": [\n            \"Rating and review count provide buyer validation.\"\n          ],\n          \"missing_evidence\": [\n            \"negative review clusters\"\n          ],\n          \"suggested_action\": \"Extract review language before scaling; turn repeated pain into hooks.\"\n        },\n        \"external_trend\": {\n          \"score\": 35,\n          \"level\": \"weak\",\n          \"reason\": \"Insufficient local evidence for a stronger rule-based conclusion.\",\n          \"reasons\": [],\n          \"missing_evidence\": [\n            \"Google Trends signal\",\n            \"TikTok hashtag volume\",\n            \"Instagram/Reels context\",\n            \"YouTube Shorts context\"\n          ],\n          \"suggested_action\": \"Validate with Trends and hashtag search before assigning heavy volume.\"\n        },\n        \"seasonality\": {\n          \"score\": 45,\n          \"level\": \"weak\",\n          \"reason\": \"Current month is 6; market=de.\",\n          \"reasons\": [\n            \"Current month is 6; market=de.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Use season-specific copy only when market timing supports it.\"\n        },\n        \"competition\": {\n          \"score\": 61,\n          \"level\": \"medium\",\n          \"reason\": \"Creator activity is healthy without clearly proving saturation.\",\n          \"reasons\": [\n            \"Creator activity is healthy without clearly proving saturation.\"\n          ],\n          \"missing_evidence\": [\n            \"same SKU count\",\n            \"price range by competitor\",\n            \"top creative monopoly check\"\n          ],\n          \"suggested_action\": \"Use a differentiated hook before scaling into crowded categories.\"\n        },\n        \"merchant_quality\": {\n          \"score\": 75,\n          \"level\": \"strong\",\n          \"reason\": \"Product rating is strong.\",\n          \"reasons\": [\n            \"Product rating is strong.\",\n            \"Review count gives basic trust evidence.\"\n          ],\n          \"missing_evidence\": [\n            \"merchant_name\",\n            \"shop_rating\"\n          ],\n          \"suggested_action\": \"Proceed when rating and fulfillment evidence are acceptable.\"\n        },\n        \"aigc_fit\": {\n          \"score\": 50,\n          \"level\": \"weak\",\n          \"reason\": \"At least three hook routes are available.\",\n          \"reasons\": [\n            \"At least three hook routes are available.\",\n            \"Medium or high risk requires human claim review.\"\n          ],\n          \"missing_evidence\": [],\n          \"suggested_action\": \"Generate photo first unless demo motion is central; keep Product Fact Sheet constraints.\"\n        },\n        \"final_test_decision\": {\n          \"decision\": \"hold\",\n          \"score\": 53,\n          \"level\": \"weak\",\n          \"reason\": \"profit_window: medium (56)\",\n          \"reasons\": [\n            \"profit_window: medium (56)\",\n            \"demand_pain: weak (47)\",\n            \"seasonality: weak (45)\",\n            \"competition: medium (61)\",\n            \"merchant_quality: strong (75)\",\n            \"aigc_fit: weak (50)\"\n          ],\n          \"missing_evidence\": [\n            \"growth_30d\",\n            \"growth_7d\",\n            \"merchant_name\",\n            \"negative review clusters\",\n            \"price range by competitor\",\n            \"same SKU count\",\n            \"shop_rating\",\n            \"strong related_video_count signal\",\n            \"top creative monopoly check\"\n          ],\n          \"next_action\": \"暂缓，不进今日主推池，补齐证据后再测\",\n          \"suggested_daily_posts\": 1,\n          \"suggested_accounts\": [\n            \"male_functional\",\n            \"home/lifestyle\"\n          ],\n          \"suggested_formats\": [\n            \"photo\"\n          ],\n          \"review_after_48h_metrics\": [\n            \"CTR\",\n            \"CVR\",\n            \"add-to-cart rate\",\n            \"comment objections\",\n            \"refund or quality complaints\"\n          ]\n        }\n      },\n      \"missing_evidence_count\": 13,\n      \"next_action\": \"暂缓，不进今日主推池，补齐证据后再测\"\n    }\n  ]\n}\n"
+  }
+}
