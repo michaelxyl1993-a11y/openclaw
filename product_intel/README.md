@@ -911,6 +911,27 @@ Run the exporter regression test:
 python3 -m product_intel.test_final_ops_decision_exporter
 ```
 
+## v1.12 Feishu Ops Handoff Pack
+
+v1.12 adds a local-only Feishu operations handoff pack.
+
+- It does not send messages or files to Feishu.
+- It does not modify the Feishu callback, PM2, Cloudflare Tunnel, or `job_queue`.
+- It reads v1.11 final operations outputs and generates files that can be copied, uploaded, and checked by the operations team.
+
+```bash
+python3 -m product_intel.feishu_ops_handoff_pack \
+  --final-table product_intel/output_next_round/final_ops_decision_table.csv \
+  --summary product_intel/output_next_round/final_ops_action_summary.json \
+  --output-dir product_intel/output_next_round
+```
+
+Run the handoff pack regression test:
+
+```bash
+python3 -m product_intel.test_feishu_ops_handoff_pack
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

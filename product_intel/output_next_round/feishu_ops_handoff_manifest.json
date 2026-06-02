@@ -1,0 +1,28 @@
+{
+  "version": "product_intel_feishu_ops_handoff_v1.12",
+  "source_files": [
+    "product_intel/output_next_round/final_ops_decision_table.csv",
+    "product_intel/output_next_round/final_ops_action_summary.json"
+  ],
+  "output_files": [
+    "product_intel/output_next_round/feishu_ops_handoff_message.md",
+    "product_intel/output_next_round/feishu_ops_handoff_manifest.json",
+    "product_intel/output_next_round/feishu_ops_handoff_brief.json",
+    "product_intel/output_next_round/feishu_ops_handoff_checklist.md"
+  ],
+  "total_products": 12,
+  "ready_for_feishu_upload": true,
+  "requires_manual_review": true,
+  "manual_review_products": [
+    {
+      "product_id": "manual-3",
+      "product_name": "手工桌面风扇",
+      "source_platform": "manual",
+      "rule_decision": "main_push",
+      "llm_review_result": "challenge",
+      "final_ops_action": "human_review_first",
+      "final_ops_priority": "P0_review",
+      "final_ops_reason": "LLM Judge challenge，人工复核后再执行规则建议"
+    }
+  ]
+}

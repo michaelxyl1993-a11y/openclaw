@@ -1,0 +1,142 @@
+{
+  "total_products": 12,
+  "today_executable_count": 8,
+  "human_review_first_count": 1,
+  "hold_count": 3,
+  "challenge_count": 1,
+  "main_push_products": [],
+  "small_test_products": [
+    {
+      "product_id": "echo-1",
+      "product_name": "Echo Pet Brush",
+      "source_platform": "echotik",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "echo-2",
+      "product_name": "Echo Storage Bag",
+      "source_platform": "echotik",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "echo-3",
+      "product_name": "Echo Mini Fan",
+      "source_platform": "echotik",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "fm-1",
+      "product_name": "FastMoss Cat Bowl",
+      "source_platform": "fastmoss",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "fm-2",
+      "product_name": "FastMoss Desk Lamp",
+      "source_platform": "fastmoss",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "kalo-1",
+      "product_name": "KaLoData Travel Cup",
+      "source_platform": "kalodata",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "kalo-3",
+      "product_name": "KaLoData Makeup Bag",
+      "source_platform": "kalodata",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    },
+    {
+      "product_id": "manual-1",
+      "product_name": "手工收纳盒",
+      "source_platform": "manual",
+      "rule_decision": "small_test",
+      "llm_review_result": "agree",
+      "final_ops_action": "small_test",
+      "final_ops_priority": "P1_small_test",
+      "final_ops_reason": "规则建议小样本测试且 LLM Judge 同意"
+    }
+  ],
+  "human_review_products": [
+    {
+      "product_id": "manual-3",
+      "product_name": "手工桌面风扇",
+      "source_platform": "manual",
+      "rule_decision": "main_push",
+      "llm_review_result": "challenge",
+      "final_ops_action": "human_review_first",
+      "final_ops_priority": "P0_review",
+      "final_ops_reason": "LLM Judge challenge，人工复核后再执行规则建议"
+    }
+  ],
+  "hold_products": [
+    {
+      "product_id": "fm-3",
+      "product_name": "FastMoss Cable Set",
+      "source_platform": "fastmoss",
+      "rule_decision": "hold",
+      "llm_review_result": "agree",
+      "final_ops_action": "hold_for_evidence",
+      "final_ops_priority": "P2_hold",
+      "final_ops_reason": "规则建议暂缓，保留观察并补充证据"
+    },
+    {
+      "product_id": "kalo-2",
+      "product_name": "KaLoData Phone Stand",
+      "source_platform": "kalodata",
+      "rule_decision": "hold",
+      "llm_review_result": "agree",
+      "final_ops_action": "hold_for_evidence",
+      "final_ops_priority": "P2_hold",
+      "final_ops_reason": "规则建议暂缓，保留观察并补充证据"
+    },
+    {
+      "product_id": "manual-2",
+      "product_name": "手工宠物碗",
+      "source_platform": "manual",
+      "rule_decision": "hold",
+      "llm_review_result": "agree",
+      "final_ops_action": "hold_for_evidence",
+      "final_ops_priority": "P2_hold",
+      "final_ops_reason": "规则建议暂缓，保留观察并补充证据"
+    }
+  ],
+  "attachment_paths": [
+    "product_intel/output_next_round/final_ops_decision_table.csv",
+    "product_intel/output_next_round/final_ops_decision_table.md",
+    "product_intel/output_next_round/final_ops_action_summary.json",
+    "product_intel/output_next_round/final_ops_action_summary.md",
+    "product_intel/output_next_round/final_challenge_products.csv",
+    "product_intel/output_next_round/final_review_note.md"
+  ]
+}
