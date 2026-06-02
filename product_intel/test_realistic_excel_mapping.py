@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -20,6 +21,7 @@ EXPECTED = {
 
 
 def main() -> None:
+    decision_counts: Counter[str] = Counter()
     for filename, expected_source in EXPECTED.items():
         path = PACKAGE_DIR / filename
         rows, metadata = load_raw_product_rows(path)
@@ -49,6 +51,22 @@ def main() -> None:
             payload = run_pipeline(path, source="auto", output_dir=output_dir)["payload"]
         if any(product.get("source_platform") != expected_source for product in payload["products"]):
             raise AssertionError(f"{filename}: manager payload source_platform fallback missing: {payload}")
+        for product in payload["products"]:
+            flags = product.get("risk_flags", [])
+            if any(flag in {"Medium product risk level.", "Human review is required."} for flag in flags):
+                raise AssertionError(f"{filename}: untranslated risk flag: {product}")
+            if len([flag for flag in flags if "外部趋势证据" in flag]) > 1:
+                raise AssertionError(f"{filename}: duplicate trend risk flag: {product}")
+            if len([flag for flag in flags if "商家质量证据" in flag]) > 1:
+                raise AssertionError(f"{filename}: duplicate merchant risk flag: {product}")
+            if len([flag for flag in flags if "小样本" in flag]) > 1:
+                raise AssertionError(f"{filename}: duplicate small-test risk flag: {product}")
+            if not product.get("ops_risk_note"):
+                raise AssertionError(f"{filename}: missing ops_risk_note: {product}")
+            decision_counts[product["decision"]] += 1
+    expected_counts = {"main_push": 1, "small_test": 8, "hold": 3}
+    if dict(decision_counts) != expected_counts:
+        raise AssertionError(f"realistic output decision distribution changed: expected {expected_counts}, got {dict(decision_counts)}")
     print("Realistic Excel mapping tests passed.")
 
 

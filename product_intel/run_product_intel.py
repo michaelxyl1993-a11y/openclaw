@@ -100,6 +100,7 @@ def run_pipeline(
         results,
         meta={
             "source": source,
+            "source_detected": profile.get("source_detected", source),
             "market": payload_market,
             "input_path": str(path),
         },

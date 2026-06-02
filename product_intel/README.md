@@ -752,6 +752,31 @@ python3 -m product_intel.test_llm_judge_contract
 python3 -m product_intel.test_llm_judge_prompt
 ```
 
+## v1.8.1 OpenAI LLM Judge Adapter
+
+v1.8.1 adds an opt-in OpenAI Responses API adapter for GPT-5.5 review.
+
+- Local workflows continue to use the mock Judge by default.
+- The real GPT-5.5 Judge is disabled unless `PRODUCT_INTEL_REAL_LLM_ENABLED=true`.
+- The adapter accepts one product evidence item at a time and sends the existing evidence-bounded Judge prompt.
+- The adapter uses Structured Outputs JSON schema validation and validates the response against the v1.8 Judge contract.
+- A Judge result is review advice only. It cannot override rule scoring, `decision`, `opportunity_score`, or `next_action`.
+- Aggregate `all_evidence.json` remains an export artifact. Do not pass it to `run_product_intel`.
+
+Enable the real Judge explicitly:
+
+```bash
+export OPENAI_API_KEY="..."
+export OPENAI_MODEL="gpt-5.5"
+export PRODUCT_INTEL_REAL_LLM_ENABLED=true
+```
+
+Run the adapter regression test:
+
+```bash
+python3 -m product_intel.test_openai_llm_judge
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
