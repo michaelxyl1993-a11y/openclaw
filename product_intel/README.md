@@ -975,6 +975,31 @@ Run the mock adapter regression test:
 python3 -m product_intel.test_feishu_upload_adapter_mock
 ```
 
+## v1.15 Real Feishu Upload Adapter
+
+v1.15 adds an opt-in real Feishu upload adapter for a single-file trial.
+
+- Real upload is disabled by default.
+- Only one attachment can be uploaded per command.
+- The adapter uploads the file only. It does not send a Feishu message.
+- Real upload requires `PRODUCT_INTEL_REAL_FEISHU_UPLOAD_ENABLED=true`, `FEISHU_APP_ID`, and `FEISHU_APP_SECRET`.
+- A future v1.16 can consider real message sending, but it must also remain disabled by default.
+
+Disabled-by-default check:
+
+```bash
+python3 -m product_intel.feishu_upload_adapter_real \
+  --dry-run-plan product_intel/output_next_round/feishu_upload_dry_run_plan.json \
+  --attachment-index 0 \
+  --output-dir product_intel/output_next_round
+```
+
+Run the real adapter regression test:
+
+```bash
+python3 -m product_intel.test_feishu_upload_adapter_real
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

@@ -1,0 +1,13 @@
+{
+  "mode": "feishu_upload_adapter_real_v1.15",
+  "real_upload_enabled": true,
+  "real_feishu_api_called": true,
+  "real_message_sent": false,
+  "attachment_index": 0,
+  "filename": "final_ops_decision_table.csv",
+  "path": "product_intel/output_next_round/final_ops_decision_table.csv",
+  "size_bytes": 11475,
+  "upload_status": "uploaded",
+  "file_token": "REDACTED_FILE_TOKEN",
+  "error": null
+}
