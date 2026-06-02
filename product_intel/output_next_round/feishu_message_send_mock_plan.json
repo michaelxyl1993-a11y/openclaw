@@ -1,0 +1,51 @@
+{
+  "mode": "feishu_message_send_adapter_mock_v1.16",
+  "message_ready": true,
+  "attachment_ready": true,
+  "real_file_token_available": false,
+  "using_mock_tokens_for_preview": true,
+  "real_message_send_enabled": false,
+  "real_feishu_message_api_called": false,
+  "real_message_sent": false,
+  "send_status": "mock_only",
+  "target_type": "unset",
+  "target_id": null,
+  "attachment_tokens": [
+    {
+      "filename": "final_ops_decision_table.csv",
+      "path": "product_intel/output_next_round/final_ops_decision_table.csv",
+      "file_token": "mock_file_token_e5feb3f55d4c169c7eee",
+      "token_source": "mock_token_fallback"
+    },
+    {
+      "filename": "final_ops_action_summary.json",
+      "path": "product_intel/output_next_round/final_ops_action_summary.json",
+      "file_token": "mock_file_token_9a46991eeeeec170c6a2",
+      "token_source": "mock_token_fallback"
+    },
+    {
+      "filename": "feishu_ops_handoff_message.md",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_message.md",
+      "file_token": "mock_file_token_d62b6ae3132239bd3e95",
+      "token_source": "mock_token_fallback"
+    },
+    {
+      "filename": "feishu_ops_handoff_manifest.json",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_manifest.json",
+      "file_token": "mock_file_token_db554dbcd97cd3a9ec0c",
+      "token_source": "mock_token_fallback"
+    },
+    {
+      "filename": "feishu_ops_handoff_brief.json",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_brief.json",
+      "file_token": "mock_file_token_79566b4f945840876b94",
+      "token_source": "mock_token_fallback"
+    },
+    {
+      "filename": "feishu_ops_handoff_checklist.md",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_checklist.md",
+      "file_token": "mock_file_token_97d14ff421b86f3a0ac8",
+      "token_source": "mock_token_fallback"
+    }
+  ]
+}

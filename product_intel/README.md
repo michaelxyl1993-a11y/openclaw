@@ -1000,6 +1000,29 @@ Run the real adapter regression test:
 python3 -m product_intel.test_feishu_upload_adapter_real
 ```
 
+## v1.16 Feishu Message Send Adapter Mock / Disabled Real Send
+
+v1.16 adds a local-only message send preview adapter.
+
+- It does not send real Feishu messages.
+- It does not call the real Feishu message API.
+- It can use a real upload receipt token when available or fall back to v1.14 mock tokens for preview.
+- A future v1.17 can trial real message sending, but it must remain disabled by default and require an explicit test `chat_id`.
+
+```bash
+python3 -m product_intel.feishu_message_send_adapter_mock \
+  --handoff-message product_intel/output_next_round/feishu_ops_handoff_message.md \
+  --upload-receipt product_intel/output_next_round/feishu_real_upload_single_receipt.json \
+  --mock-token-csv product_intel/output_next_round/feishu_upload_mock_attachment_tokens.csv \
+  --output-dir product_intel/output_next_round
+```
+
+Run the message send mock regression test:
+
+```bash
+python3 -m product_intel.test_feishu_message_send_adapter_mock
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
