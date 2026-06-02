@@ -1,0 +1,65 @@
+{
+  "mode": "feishu_upload_adapter_mock_v1.14",
+  "ready_for_mock_send": true,
+  "real_feishu_api_called": false,
+  "real_message_sent": false,
+  "total_attachments": 6,
+  "mock_uploaded_count": 6,
+  "attachment_tokens": [
+    {
+      "filename": "final_ops_decision_table.csv",
+      "path": "product_intel/output_next_round/final_ops_decision_table.csv",
+      "size_bytes": 11475,
+      "file_type": "csv",
+      "mock_file_token": "mock_file_token_e5feb3f55d4c169c7eee",
+      "upload_status": "mock_uploaded",
+      "real_upload_called": false
+    },
+    {
+      "filename": "final_ops_action_summary.json",
+      "path": "product_intel/output_next_round/final_ops_action_summary.json",
+      "size_bytes": 4967,
+      "file_type": "json",
+      "mock_file_token": "mock_file_token_9a46991eeeeec170c6a2",
+      "upload_status": "mock_uploaded",
+      "real_upload_called": false
+    },
+    {
+      "filename": "feishu_ops_handoff_message.md",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_message.md",
+      "size_bytes": 1476,
+      "file_type": "md",
+      "mock_file_token": "mock_file_token_d62b6ae3132239bd3e95",
+      "upload_status": "mock_uploaded",
+      "real_upload_called": false
+    },
+    {
+      "filename": "feishu_ops_handoff_manifest.json",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_manifest.json",
+      "size_bytes": 1027,
+      "file_type": "json",
+      "mock_file_token": "mock_file_token_db554dbcd97cd3a9ec0c",
+      "upload_status": "mock_uploaded",
+      "real_upload_called": false
+    },
+    {
+      "filename": "feishu_ops_handoff_brief.json",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_brief.json",
+      "size_bytes": 4957,
+      "file_type": "json",
+      "mock_file_token": "mock_file_token_79566b4f945840876b94",
+      "upload_status": "mock_uploaded",
+      "real_upload_called": false
+    },
+    {
+      "filename": "feishu_ops_handoff_checklist.md",
+      "path": "product_intel/output_next_round/feishu_ops_handoff_checklist.md",
+      "size_bytes": 346,
+      "file_type": "md",
+      "mock_file_token": "mock_file_token_97d14ff421b86f3a0ac8",
+      "upload_status": "mock_uploaded",
+      "real_upload_called": false
+    }
+  ],
+  "message_preview_path": "product_intel/output_next_round/feishu_upload_mock_message_preview.md"
+}

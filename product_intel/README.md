@@ -953,6 +953,28 @@ Run the upload dry-run regression test:
 python3 -m product_intel.test_feishu_upload_dry_run
 ```
 
+## v1.14 Feishu Upload Adapter Mock / Sandbox
+
+v1.14 adds a local-only mock adapter for the Feishu upload flow.
+
+- It does not upload real attachments.
+- It does not send Feishu messages.
+- It generates stable mock file tokens, a sandbox receipt, and a message preview.
+- A future v1.15 can design a real upload adapter, but real upload must remain disabled by default.
+
+```bash
+python3 -m product_intel.feishu_upload_adapter_mock \
+  --dry-run-plan product_intel/output_next_round/feishu_upload_dry_run_plan.json \
+  --message product_intel/output_next_round/feishu_ops_handoff_message.md \
+  --output-dir product_intel/output_next_round
+```
+
+Run the mock adapter regression test:
+
+```bash
+python3 -m product_intel.test_feishu_upload_adapter_mock
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
