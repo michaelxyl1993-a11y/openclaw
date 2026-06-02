@@ -6,22 +6,22 @@
     "small_test": 8
   },
   "llm_review_result_counts": {
-    "agree": 8,
-    "not_reviewed": 4
+    "agree": 9,
+    "not_reviewed": 3
   },
   "llm_confidence_counts": {
-    "high": 1,
+    "high": 2,
     "medium": 7,
-    "missing": 4
+    "missing": 3
   },
   "final_human_review_priority_counts": {
-    "low": 1,
-    "medium": 11
+    "low": 2,
+    "medium": 10
   },
   "challenge_count": 0,
   "insufficient_evidence_count": 0,
   "high_priority_count": 0,
   "high_priority_products": [],
   "main_push_challenged_products": [],
-  "missing_judge_result_count": 4
+  "missing_judge_result_count": 3
 }

@@ -4,7 +4,7 @@
   "real_llm_enabled": true,
   "model": "gpt-5.5",
   "product_count": 12,
-  "real_llm_called_count": 8,
+  "real_llm_called_count": 9,
   "results": [
     {
       "product_id": "echo-1",
@@ -830,6 +830,107 @@
         }
       },
       "recommended_human_action": "当前判断仅支持小样本测试，不建议直接放量。创意表达应避免无证据的功效承诺，优先验证CTR、CVR、评论反馈和退货/差评风险。",
+      "real_llm_called": true,
+      "runner_status": "success",
+      "runner_error": ""
+    },
+    {
+      "product_id": "kalo-2",
+      "product_name": "KaLoData Phone Stand",
+      "rule_decision": "hold",
+      "review_result": "agree",
+      "confidence": "high",
+      "challenge_reason": "不提出 challenge。rule_decision=hold 与当前证据一致：整体证据覆盖为 weak，缺失证据总数为 28，外部趋势证据弱，利润窗口和竞争仅中等，且存在多项人工复核风险标记。",
+      "missing_evidence": [
+        "growth_7d",
+        "growth_30d",
+        "related_video_count",
+        "Google Trends signal",
+        "TikTok hashtag volume",
+        "same SKU count",
+        "price range by competitor",
+        "top creative monopoly check",
+        "negative review clusters",
+        "product_url",
+        "shop_rating"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格、佣金率、销量、GMV、相关达人数量，足以形成基础利润/销售窗口判断；但缺少7日/30日增长和相关视频数量等动量信号，无法确认短期放量窗口。",
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "strong related_video_count signal",
+            "related_video_count"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有类目、销量、评分和评论数，能支持基础需求存在判断；但缺少差评聚类，无法验证具体痛点是否强烈。",
+          "missing_evidence": [
+            "negative review clusters"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有相关达人数量，缺少外部趋势、平台话题量、短视频上下文和增长数据，无法证明趋势正在上升。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_7d",
+            "growth_30d",
+            "related_video_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有类目和市场字段，evidence_pack 标记覆盖度为 strong，且未列出缺失项。",
+          "missing_evidence": []
+        },
+        "competition": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格和相关达人数量，可做初步竞争判断；但缺少同款数量、竞品价格区间、头部创意垄断和相关视频数量，无法确认竞争强度与差异化空间。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_video_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有店铺名、评分和评论数，能支持基础商家/商品质量判断；但仍缺少部分标准化商家字段和商品链接。",
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating",
+            "product_url"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有类目、推荐 hooks、推荐内容格式和风险标记，可支持初步 AIGC 适配判断；同时风险标记显示仍需人工复核。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "strong",
+          "reason": "最终证据中已有机会分、规则决策和下一步动作；overall_evidence_coverage 为 weak，missing_evidence_total 为 28，且外部趋势、增长、竞争等关键证据缺失，支持 rule_decision=hold。",
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "recommended_human_action": "基于 evidence_pack，当前不应覆盖或升级 rule_decision。建议维持 hold，补齐增长、外部趋势、竞争格局和差评痛点证据后再复核。",
       "real_llm_called": true,
       "runner_status": "success",
       "runner_error": ""

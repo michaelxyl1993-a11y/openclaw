@@ -15,33 +15,22 @@
     "agree": 1
   },
   "confidence_counts": {
-    "medium": 1
+    "high": 1
   },
   "error_products": [],
-  "existing_result_count": 7,
+  "existing_result_count": 8,
   "appended_result_count": 1,
   "updated_result_count": 0,
   "protected_success_count": 0,
   "force_overwrite_success": false,
   "newly_successful_product_ids": [
-    "kalo-3"
+    "kalo-2"
   ],
   "attempted_product_ids": [
-    "kalo-3"
+    "kalo-2"
   ],
-  "resumed_skipped_count": 7,
+  "resumed_skipped_count": 8,
   "resumed_skipped_product_ids": [
-    "echo-1",
-    "echo-2",
-    "echo-3",
-    "fm-1",
-    "fm-2",
-    "fm-3",
-    "kalo-1"
-  ],
-  "cumulative_result_count": 8,
-  "cumulative_real_success_count": 8,
-  "successful_product_ids": [
     "echo-1",
     "echo-2",
     "echo-3",
@@ -51,8 +40,20 @@
     "kalo-1",
     "kalo-3"
   ],
+  "cumulative_result_count": 9,
+  "cumulative_real_success_count": 9,
+  "successful_product_ids": [
+    "echo-1",
+    "echo-2",
+    "echo-3",
+    "fm-1",
+    "fm-2",
+    "fm-3",
+    "kalo-1",
+    "kalo-3",
+    "kalo-2"
+  ],
   "not_reviewed_product_ids": [
-    "kalo-2",
     "manual-3",
     "manual-1",
     "manual-2"
