@@ -1,0 +1,79 @@
+{
+  "mode": "product_intel_multi_file_batch_v1.19",
+  "input_count": 4,
+  "inputs": [
+    {
+      "input_path": "product_intel/mock_echotik_products.xlsx",
+      "input_filename": "mock_echotik_products.xlsx",
+      "output_dir": "product_intel/output_multi_file/per_file/mock_echotik_products",
+      "source_requested": "auto",
+      "source_detected": "echotik",
+      "mapping_confidence": "high",
+      "field_quality_score": 76,
+      "product_count": 3,
+      "decision_counts": {
+        "main_push": 0,
+        "small_test": 3,
+        "hold": 0,
+        "reject": 0
+      }
+    },
+    {
+      "input_path": "product_intel/mock_fastmoss_products.xlsx",
+      "input_filename": "mock_fastmoss_products.xlsx",
+      "output_dir": "product_intel/output_multi_file/per_file/mock_fastmoss_products",
+      "source_requested": "auto",
+      "source_detected": "fastmoss",
+      "mapping_confidence": "high",
+      "field_quality_score": 79,
+      "product_count": 3,
+      "decision_counts": {
+        "main_push": 0,
+        "small_test": 2,
+        "hold": 1,
+        "reject": 0
+      }
+    },
+    {
+      "input_path": "product_intel/mock_kalodata_products.xlsx",
+      "input_filename": "mock_kalodata_products.xlsx",
+      "output_dir": "product_intel/output_multi_file/per_file/mock_kalodata_products",
+      "source_requested": "auto",
+      "source_detected": "kalodata",
+      "mapping_confidence": "high",
+      "field_quality_score": 83,
+      "product_count": 3,
+      "decision_counts": {
+        "main_push": 0,
+        "small_test": 2,
+        "hold": 1,
+        "reject": 0
+      }
+    },
+    {
+      "input_path": "product_intel/mock_manual_products.xlsx",
+      "input_filename": "mock_manual_products.xlsx",
+      "output_dir": "product_intel/output_multi_file/per_file/mock_manual_products",
+      "source_requested": "auto",
+      "source_detected": "manual",
+      "mapping_confidence": "high",
+      "field_quality_score": 100,
+      "product_count": 3,
+      "decision_counts": {
+        "main_push": 1,
+        "small_test": 1,
+        "hold": 1,
+        "reject": 0
+      }
+    }
+  ],
+  "combined_outputs": {
+    "manifest_json": "product_intel/output_multi_file/multi_file_batch_manifest.json",
+    "summary_json": "product_intel/output_multi_file/multi_file_batch_summary.json",
+    "summary_md": "product_intel/output_multi_file/multi_file_batch_summary.md",
+    "combined_manager_payload_json": "product_intel/output_multi_file/multi_file_combined_manager_payload.json",
+    "combined_decision_table_csv": "product_intel/output_multi_file/multi_file_combined_decision_table.csv",
+    "combined_decision_table_md": "product_intel/output_multi_file/multi_file_combined_decision_table.md",
+    "all_evidence_json": "product_intel/output_multi_file/multi_file_all_evidence.json"
+  }
+}

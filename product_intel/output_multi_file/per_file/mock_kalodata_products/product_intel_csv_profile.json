@@ -1,0 +1,77 @@
+{
+  "detected_file_type": "xlsx",
+  "detected_sheet_name": "KaLoData Export",
+  "source_detected": "kalodata",
+  "source_platform_value": "kalodata",
+  "source_platform_source": "inferred",
+  "row_count": 3,
+  "mapped_fields": {
+    "product_id": "KaLoData Product ID",
+    "product_name": "product_title",
+    "category": "category",
+    "price": "price",
+    "sold_count": "30日销量",
+    "gmv": "30日GMV",
+    "commission_rate": "commission_rate",
+    "product_url": "",
+    "shop_name": "merchant_name",
+    "source_platform": "",
+    "growth_7d": "",
+    "growth_30d": "",
+    "related_video_count": "",
+    "related_influencer_count": "相关达人数",
+    "rating": "score",
+    "review_count": "reviews"
+  },
+  "missing_required_fields": [],
+  "missing_optional_fields": [
+    "product_url",
+    "growth_7d",
+    "growth_30d",
+    "related_video_count"
+  ],
+  "unmapped_columns": [],
+  "duplicate_columns": [],
+  "warnings": [
+    "缺少 product_url：不影响初筛，但后续无法直接跳转商品链接",
+    "缺少 growth_30d / related_video_count / related_influencer_count：趋势/内容热度证据不足"
+  ],
+  "field_quality_score": 83,
+  "mapping_confidence": "high",
+  "input_columns": [
+    "KaLoData Product ID",
+    "product_title",
+    "category",
+    "price",
+    "30日销量",
+    "30日GMV",
+    "commission_rate",
+    "merchant_name",
+    "相关达人数",
+    "score",
+    "reviews"
+  ],
+  "missing_fields": [
+    "product_url",
+    "growth_7d",
+    "growth_30d",
+    "related_video_count"
+  ],
+  "sample_values": {
+    "product_name": [
+      "KaLoData Travel Cup",
+      "KaLoData Phone Stand",
+      "KaLoData Makeup Bag"
+    ],
+    "price": [
+      "10.9",
+      "7.9",
+      "9.9"
+    ],
+    "sold_count": [
+      "680",
+      "760",
+      "440"
+    ]
+  }
+}

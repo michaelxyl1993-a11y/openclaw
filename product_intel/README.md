@@ -1058,7 +1058,7 @@ v1.18 generates a clean operations message for real text send.
 - It does not send attachments.
 - It does not call OpenAI or the Feishu API.
 - Use the v1.17 real sender to send the clean preview to an explicit test `chat_id`.
-- A future v1.19 can consider real attachment messages.
+- A future version can consider real attachment messages.
 
 ```bash
 python3 -m product_intel.feishu_clean_message_pack \
@@ -1072,6 +1072,48 @@ Run the clean message pack regression test:
 
 ```bash
 python3 -m product_intel.test_feishu_clean_message_pack
+```
+
+## v1.19 Multi-file Batch Input Runner
+
+v1.19 adds a local-only multi-file batch runner for CSV and Excel inputs.
+
+- It processes multiple CSV, XLSX, or XLS files in one command.
+- Each file runs independently through source auto detection.
+- It preserves per-file outputs and merges manager payload, decision table, and `all_evidence`.
+- It does not call OpenAI or the Feishu API.
+- It does not change the existing single-file `run_product_intel` semantics.
+- A future v1.20 can add a Feishu multi-attachment download dry run.
+
+Explicit input files:
+
+```bash
+python3 -m product_intel.multi_file_batch_runner \
+  --inputs \
+    product_intel/mock_echotik_products.xlsx \
+    product_intel/mock_fastmoss_products.xlsx \
+    product_intel/mock_kalodata_products.xlsx \
+    product_intel/mock_manual_products.xlsx \
+  --source auto \
+  --market de \
+  --output-dir product_intel/output_multi_file
+```
+
+Input directory and pattern:
+
+```bash
+python3 -m product_intel.multi_file_batch_runner \
+  --input-dir product_intel \
+  --pattern "mock_*_products.xlsx" \
+  --source auto \
+  --market de \
+  --output-dir product_intel/output_multi_file
+```
+
+Run the batch runner regression test:
+
+```bash
+python3 -m product_intel.test_multi_file_batch_runner
 ```
 
 ## Run

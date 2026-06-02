@@ -1,0 +1,19 @@
+{
+  "total_input_files": 4,
+  "total_products": 12,
+  "source_detected_counts": {
+    "echotik": 1,
+    "fastmoss": 1,
+    "kalodata": 1,
+    "manual": 1
+  },
+  "decision_counts": {
+    "main_push": 1,
+    "small_test": 8,
+    "hold": 3,
+    "reject": 0
+  },
+  "next_action_conflicts": 0,
+  "duplicate_product_id_count": 0,
+  "error_count": 0
+}
