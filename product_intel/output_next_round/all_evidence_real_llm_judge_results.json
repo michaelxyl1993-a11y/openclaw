@@ -4,7 +4,7 @@
   "real_llm_enabled": true,
   "model": "gpt-5.5",
   "product_count": 12,
-  "real_llm_called_count": 11,
+  "real_llm_called_count": 12,
   "results": [
     {
       "product_id": "echo-1",
@@ -1123,6 +1123,106 @@
         }
       },
       "recommended_human_action": "同意 small_test。建议先按 evidence_pack 中的 next_action 执行1-2条内容测试，重点验证CTR、转化和评论反馈；在补齐趋势、竞争和痛点证据前，不建议扩大投放。",
+      "real_llm_called": true,
+      "runner_status": "success",
+      "runner_error": ""
+    },
+    {
+      "product_id": "manual-2",
+      "product_name": "手工宠物碗",
+      "rule_decision": "hold",
+      "review_result": "agree",
+      "confidence": "medium",
+      "challenge_reason": "不提出 challenge。rule_decision 为 hold，rule_score 为 55，且 evidence_pack 中仍存在需求痛点、外部趋势、竞争、商家质量等关键缺失证据；虽然部分 coverage 标为 strong，但缺失项足以支持暂缓补证。",
+      "missing_evidence": [
+        "补充 review text themes 与 negative review clusters，用于验证真实需求痛点和差评风险。",
+        "补充 same SKU count、competitor price range、top creative monopoly check，用于判断竞争密度和素材进入空间。",
+        "补充 merchant_name、shop_rating 及店铺级履约指标，用于验证商家质量。",
+        "补充 Google Trends signal、TikTok hashtag volume、Instagram/Reels context、YouTube Shorts context，用于验证外部趋势。",
+        "补充成本、履约费用、退货率和净利润率，用于验证利润窗口。",
+        "补充德国市场相关的季节性或月度销售趋势证据。"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "evidence_pack 提供了 price、commission_rate、sold_count、gmv、growth_7d、growth_30d、related_video_count、related_influencer_count，可支持对基础销售和增长窗口做初步判断；但 rule 风险标记为“利润窗口偏弱”，当前证据中未看到可直接验证净利润空间的成本、履约、广告或退货相关字段，因此不足以强挑战 hold。",
+          "missing_evidence": [
+            "COGS or purchase cost",
+            "fulfillment/shipping cost",
+            "refund/return rate",
+            "estimated net margin",
+            "ad cost or creator commission beyond listed commission_rate"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有 category、sold_count、rating、review_count，能说明有一定销量和评分基础；但缺少 review text themes 与 negative review clusters，无法验证真实痛点、复购动机或差评集中问题，因此需求痛点证据仍不足以支持进入主推。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有 growth_7d、growth_30d、related_video_count、related_influencer_count，可证明站内或关联内容层面的初步增长信号；但缺少 Google Trends、TikTok hashtag、Instagram/Reels、YouTube Shorts 等外部趋势上下文，无法确认外部趋势强度。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "weak",
+          "reason": "seasonality 仅提供 category 和 market，虽然 coverage 标为 strong 且 missing 为空，但没有节日、月份、历史季节波动或德国市场宠物类季节性销售证据；因此季节性支撑偏弱的风险标记无法被排除。",
+          "missing_evidence": [
+            "seasonal demand history",
+            "holiday/event relevance for market de",
+            "monthly sales trend",
+            "category seasonality benchmark"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有 price、related_video_count、related_influencer_count，无法判断同款密度、竞品价格带或头部素材垄断程度。evidence_pack 已明确缺少 same SKU count、price range by competitor、top creative monopoly check。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有 shop_name、rating、review_count、product_url，可做基础商家/商品可信度判断；但缺少 merchant_name 与 shop_rating，无法充分判断店铺级质量与履约稳定性。",
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有 category、recommended_hooks、recommended_formats，并列出适合的 problem_solution、daily_usefulness、shelf_value_deal 方向及 photo/video 格式，足以支持初步 AIGC 素材适配判断。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "medium",
+          "reason": "final 给出了 opportunity_score 55、decision hold、next_action 暂缓补证；结合多个关键缺口仍存在，尤其是评价文本、竞品价格带、同款数量、店铺评分和外部趋势上下文，hold 决策与证据状态基本一致。",
+          "missing_evidence": [
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "review text themes",
+            "same SKU count",
+            "shop_rating",
+            "top creative monopoly check",
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ]
+        }
+      },
+      "recommended_human_action": "当前不建议覆盖或挑战 rule_decision。建议按缺失证据优先级补证后再评估是否从 hold 调整为 test 或 push。",
       "real_llm_called": true,
       "runner_status": "success",
       "runner_error": ""

@@ -6,14 +6,12 @@
     "small_test": 8
   },
   "llm_review_result_counts": {
-    "agree": 10,
-    "challenge": 1,
-    "not_reviewed": 1
+    "agree": 11,
+    "challenge": 1
   },
   "llm_confidence_counts": {
     "high": 3,
-    "medium": 8,
-    "missing": 1
+    "medium": 9
   },
   "final_human_review_priority_counts": {
     "high": 1,
@@ -39,5 +37,5 @@
       "reason": "规则建议主推，但 LLM Judge 提出挑战，需人工复核"
     }
   ],
-  "missing_judge_result_count": 1
+  "missing_judge_result_count": 0
 }

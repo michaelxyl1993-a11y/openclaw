@@ -18,33 +18,19 @@
     "medium": 1
   },
   "error_products": [],
-  "existing_result_count": 10,
+  "existing_result_count": 11,
   "appended_result_count": 1,
   "updated_result_count": 0,
   "protected_success_count": 0,
   "force_overwrite_success": false,
   "newly_successful_product_ids": [
-    "manual-1"
+    "manual-2"
   ],
   "attempted_product_ids": [
-    "manual-1"
+    "manual-2"
   ],
-  "resumed_skipped_count": 10,
+  "resumed_skipped_count": 11,
   "resumed_skipped_product_ids": [
-    "echo-1",
-    "echo-2",
-    "echo-3",
-    "fm-1",
-    "fm-2",
-    "fm-3",
-    "kalo-1",
-    "kalo-3",
-    "kalo-2",
-    "manual-3"
-  ],
-  "cumulative_result_count": 11,
-  "cumulative_real_success_count": 11,
-  "successful_product_ids": [
     "echo-1",
     "echo-2",
     "echo-3",
@@ -57,9 +43,23 @@
     "manual-3",
     "manual-1"
   ],
-  "not_reviewed_product_ids": [
+  "cumulative_result_count": 12,
+  "cumulative_real_success_count": 12,
+  "successful_product_ids": [
+    "echo-1",
+    "echo-2",
+    "echo-3",
+    "fm-1",
+    "fm-2",
+    "fm-3",
+    "kalo-1",
+    "kalo-3",
+    "kalo-2",
+    "manual-3",
+    "manual-1",
     "manual-2"
   ],
+  "not_reviewed_product_ids": [],
   "output_files": {
     "judge_results": "product_intel/output_next_round/all_evidence_real_llm_judge_results.json",
     "prompt_samples": "product_intel/output_next_round/all_evidence_real_llm_judge_prompt_samples.json",
