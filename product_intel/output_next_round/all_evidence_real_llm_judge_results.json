@@ -4,7 +4,7 @@
   "real_llm_enabled": true,
   "model": "gpt-5.5",
   "product_count": 12,
-  "real_llm_called_count": 9,
+  "real_llm_called_count": 10,
   "results": [
     {
       "product_id": "echo-1",
@@ -931,6 +931,104 @@
         }
       },
       "recommended_human_action": "基于 evidence_pack，当前不应覆盖或升级 rule_decision。建议维持 hold，补齐增长、外部趋势、竞争格局和差评痛点证据后再复核。",
+      "real_llm_called": true,
+      "runner_status": "success",
+      "runner_error": ""
+    },
+    {
+      "product_id": "manual-3",
+      "product_name": "手工桌面风扇",
+      "rule_decision": "main_push",
+      "review_result": "challenge",
+      "confidence": "high",
+      "challenge_reason": "rule_decision为main_push且rule_score为100，但evidence_pack显示总缺失证据16项，并且risk_flags已标记需求痛点、外部趋势、季节性支撑偏弱。尤其外部趋势缺少Google Trends、TikTok hashtag、Instagram/Reels、YouTube Shorts等信号；竞争缺少同款SKU数量、竞品价格区间和头部素材垄断检查；季节性仅有类目和市场字段。当前证据更适合谨慎主推或补证后确认，不足以支撑满分主推判断。",
+      "missing_evidence": [
+        "补充negative review clusters，验证具体需求痛点和高频抱怨场景",
+        "补充Google Trends signal或其他市场趋势信号",
+        "补充TikTok hashtag volume及相关内容增长数据",
+        "补充Instagram/Reels context和YouTube Shorts context",
+        "补充德国市场季节性需求曲线或历史季节销量数据",
+        "补充same SKU count，判断同款拥挤度",
+        "补充price range by competitor，判断价格竞争力",
+        "补充top creative monopoly check，判断是否被头部素材垄断",
+        "补充merchant_name和shop_rating，完善商家质量判断"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "strong",
+          "reason": "证据包含价格、佣金率、销量、GMV、7日/30日增长、相关视频数和达人数量，可支持利润窗口与短期销售动能判断。",
+          "missing_evidence": []
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "证据包含类目、销量、评分和评论数，可说明已有购买与基础满意度；但缺少负面评论聚类，无法确认具体痛点是否强烈、是否可被内容放大。",
+          "missing_evidence": [
+            "negative review clusters"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据仅有站内或商品相关增长、视频数和达人数，缺少明确外部趋势信号；因此不足以支撑强外部趋势判断。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据仅包含类目和市场，没有提供时间、季节需求曲线、历史季节销量或天气/节日相关信号，无法充分证明季节性支撑。",
+          "missing_evidence": [
+            "seasonal demand signal",
+            "historical seasonal sales trend",
+            "time-period context for market de"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据包含价格、相关视频数和达人数量，但缺少同款SKU数量、竞品价格区间和头部素材垄断检查，无法判断竞争强度与进入空间。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "medium",
+          "reason": "证据包含店铺名、商品评分、评论数和商品URL，可进行基础可信度判断；但缺少merchant_name和shop_rating，无法完整评估商家质量。",
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "medium",
+          "reason": "证据提供类目、推荐hooks和推荐内容格式，说明具备一定AIGC内容生成方向；但其内部risk_flags提示需求痛点、外部趋势和季节性偏弱，会影响内容确定性。",
+          "missing_evidence": [
+            "validated creative examples",
+            "content performance benchmark"
+          ]
+        },
+        "final": {
+          "evidence_sufficiency": "medium",
+          "reason": "最终结果给出opportunity_score 100和main_push，但多个关键维度仍有缺失，且risk_flags明确提示需求痛点、外部趋势和季节性支撑偏弱；因此证据不足以无保留支持100分主推。",
+          "missing_evidence": [
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "top creative monopoly check",
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "seasonal demand signal"
+          ]
+        }
+      },
+      "recommended_human_action": "建议运营不要仅依据100分直接放量主推；可先进行小规模内容测试，同时优先补齐外部趋势、竞争格局、季节性和商家质量证据。",
       "real_llm_called": true,
       "runner_status": "success",
       "runner_error": ""

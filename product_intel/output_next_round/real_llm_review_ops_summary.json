@@ -7,21 +7,37 @@
   },
   "llm_review_result_counts": {
     "agree": 9,
-    "not_reviewed": 3
+    "challenge": 1,
+    "not_reviewed": 2
   },
   "llm_confidence_counts": {
-    "high": 2,
+    "high": 3,
     "medium": 7,
-    "missing": 3
+    "missing": 2
   },
   "final_human_review_priority_counts": {
+    "high": 1,
     "low": 2,
-    "medium": 10
+    "medium": 9
   },
-  "challenge_count": 0,
+  "challenge_count": 1,
   "insufficient_evidence_count": 0,
-  "high_priority_count": 0,
-  "high_priority_products": [],
-  "main_push_challenged_products": [],
-  "missing_judge_result_count": 3
+  "high_priority_count": 1,
+  "high_priority_products": [
+    {
+      "product_id": "manual-3",
+      "product_name": "手工桌面风扇",
+      "rule_decision": "main_push",
+      "llm_review_result": "challenge",
+      "reason": "规则建议主推，但 LLM Judge 提出挑战，需人工复核"
+    }
+  ],
+  "main_push_challenged_products": [
+    {
+      "product_id": "manual-3",
+      "product_name": "手工桌面风扇",
+      "reason": "规则建议主推，但 LLM Judge 提出挑战，需人工复核"
+    }
+  ],
+  "missing_judge_result_count": 2
 }
