@@ -1,0 +1,61 @@
+# Product Intel CSV Profile
+
+## Source Detection
+
+- source_detected: manual_or_unknown
+- source_platform_value: (missing)
+- source_platform_source: missing
+- detected_file_type: csv
+- detected_sheet_name: (none)
+- row_count: 12
+- field_quality_score: 18
+- mapping_confidence: low
+
+## Input Columns
+
+product_name, dimensions, overall_coverage, missing_total
+
+## Field Mapping
+
+| internal field | input column |
+| --- | --- |
+| product_id | (missing) |
+| product_name | product_name |
+| category | (missing) |
+| price | (missing) |
+| sold_count | (missing) |
+| gmv | (missing) |
+| commission_rate | (missing) |
+| product_url | (missing) |
+| shop_name | (missing) |
+| source_platform | (missing) |
+| growth_7d | (missing) |
+| growth_30d | (missing) |
+| related_video_count | (missing) |
+| related_influencer_count | (missing) |
+| rating | (missing) |
+| review_count | (missing) |
+
+## Missing Fields
+
+- missing_fields: product_id, category, price, sold_count, gmv, commission_rate, product_url, shop_name, source_platform, growth_7d, growth_30d, related_video_count, related_influencer_count, rating, review_count
+- required: product_id, category
+- optional: price, sold_count, gmv, commission_rate, product_url, shop_name, source_platform, growth_7d, growth_30d, related_video_count, related_influencer_count, rating, review_count
+- unmapped_columns: dimensions, overall_coverage, missing_total
+- duplicate_columns: (none)
+
+## Sample Values
+
+- product_name: Echo Pet Brush, Echo Storage Bag, Echo Mini Fan
+- price: (none)
+- sold_count: (none)
+
+## Warnings
+
+- 缺少必填字段 product_id：请补充该字段后再进行完整判断
+- 缺少必填字段 category：请补充该字段后再进行完整判断
+- 缺少 commission_rate：利润窗口判断可信度下降
+- 缺少 product_url：不影响初筛，但后续无法直接跳转商品链接
+- 缺少 shop_name：无法判断商家维度，merchant_quality 会降权
+- 缺少 rating/review_count：商家质量和用户反馈证据不足
+- 缺少 growth_30d / related_video_count / related_influencer_count：趋势/内容热度证据不足

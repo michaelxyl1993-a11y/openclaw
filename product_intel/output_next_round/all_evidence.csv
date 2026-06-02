@@ -1,0 +1,13 @@
+product_name,dimensions,overall_coverage,missing_total
+Echo Pet Brush,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,38
+Echo Storage Bag,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,36
+Echo Mini Fan,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,36
+FastMoss Cat Bowl,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,35
+FastMoss Desk Lamp,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,33
+FastMoss Cable Set,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,33
+KaLoData Travel Cup,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,28
+KaLoData Makeup Bag,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,28
+KaLoData Phone Stand,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,weak,28
+手工桌面风扇,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,strong,16
+手工收纳盒,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,strong,16
+手工宠物碗,profit_window;demand_pain;external_trend;seasonality;competition;merchant_quality;aigc_fit;final,strong,18

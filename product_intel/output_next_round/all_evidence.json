@@ -1,4 +1,7 @@
 {
+  "mode": "merged_evidence_pack",
+  "real_llm_called": false,
+  "product_count": 12,
   "products": [
     {
       "rank": 1,
