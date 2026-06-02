@@ -1023,6 +1023,33 @@ Run the message send mock regression test:
 python3 -m product_intel.test_feishu_message_send_adapter_mock
 ```
 
+## v1.17 Real Feishu Message Send Adapter
+
+v1.17 adds an opt-in single text-message Feishu send adapter.
+
+- Real message send is disabled by default.
+- Real send requires `PRODUCT_INTEL_REAL_FEISHU_MESSAGE_SEND_ENABLED=true`.
+- A test `chat_id` must be passed explicitly or set through `PRODUCT_INTEL_FEISHU_TEST_CHAT_ID`.
+- v1.17 sends one text message only. It does not upload or send attachments.
+- It does not modify the Feishu callback or batch-send messages.
+- A future v1.18 can consider real attachment messages or multi-attachment send.
+
+Disabled-by-default check:
+
+```bash
+python3 -m product_intel.feishu_message_send_adapter_real \
+  --message-preview product_intel/output_next_round/feishu_message_send_mock_preview.md \
+  --mock-plan product_intel/output_next_round/feishu_message_send_mock_plan.json \
+  --chat-id "TEST_CHAT_ID_NOT_REAL" \
+  --output-dir product_intel/output_next_round
+```
+
+Run the real message adapter regression test:
+
+```bash
+python3 -m product_intel.test_feishu_message_send_adapter_real
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
