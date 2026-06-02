@@ -4657,15 +4657,95 @@
       "rule_decision": "small_test",
       "overall_evidence_coverage": "strong",
       "missing_evidence_total": 16,
-      "llm_review_result": "not_reviewed",
-      "llm_confidence": "missing",
-      "llm_challenge_reason": "",
-      "llm_missing_evidence": [],
-      "llm_dimension_reviews": {},
-      "llm_recommended_human_action": "尚未执行 LLM Judge 复核，建议按运营优先级安排人工检查。",
-      "llm_real_called": false,
+      "llm_review_result": "agree",
+      "llm_confidence": "medium",
+      "llm_challenge_reason": "不提出 challenge。基于 evidence_pack，现有证据能支持小样本测试，但不足以支持更激进决策；rule_decision=small_test 与风险提示和证据缺口一致。",
+      "llm_missing_evidence": [
+        "补充 negative review clusters，用于验证真实需求痛点",
+        "补充 same SKU count 和竞品价格区间，用于判断竞争强度",
+        "补充 top creative monopoly check，用于判断内容侧是否被头部创意垄断",
+        "补充 Google Trends、TikTok hashtag volume、Instagram/Reels、YouTube Shorts 等外部趋势信号",
+        "补充德国市场按月份或节日场景的销量/搜索趋势，用于验证季节性",
+        "补充 shop_rating 和 merchant_name，用于提升商家质量判断可信度"
+      ],
+      "llm_dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "strong",
+          "reason": "证据包含价格、佣金率、销量、GMV、7日/30日增长、相关视频数和达人数量，可支持基础利润窗口与短期动销判断。",
+          "missing_evidence": []
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据仅包含类目、销量、评分和评论数，可间接说明有一定需求，但缺少直接痛点证据；risk_flags 也标记需求痛点证据偏弱。",
+          "missing_evidence": [
+            "negative review clusters",
+            "用户具体使用场景痛点",
+            "高频正/负面评论主题"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据包含7日/30日增长、相关视频数和达人数量，但缺少外部趋势来源信号；risk_flags 标记外部趋势证据不足。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据仅包含类目和市场，无法证明该产品在德国市场存在明确季节性窗口；risk_flags 标记季节性支撑偏弱。",
+          "missing_evidence": [
+            "按月份/季节的销量变化",
+            "节日或场景相关销售峰值",
+            "德国市场季节性搜索或内容趋势"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "证据只有价格、相关视频数和达人数量，无法判断同款密度、竞品价格带或头部创意垄断情况。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "medium",
+          "reason": "证据包含店铺名、评分、评论数和商品链接，可做初步质量判断，但缺少明确商家名称和店铺评分字段。",
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "证据包含类目、推荐 hooks、推荐内容形式和风险提示，可支持初步判断其适合用图片/视频做问题解决、日常实用和货架价值类内容测试。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "medium",
+          "reason": "最终字段包含机会分、决策和下一步动作，且 rule_decision 为 small_test；考虑到需求痛点、外部趋势、季节性和竞争证据仍有缺口，小样本测试是与现有证据相匹配的保守决策。",
+          "missing_evidence": [
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "top creative monopoly check",
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "按月份/季节的销量变化"
+          ]
+        }
+      },
+      "llm_recommended_human_action": "同意 small_test。建议先按 evidence_pack 中的 next_action 执行1-2条内容测试，重点验证CTR、转化和评论反馈；在补齐趋势、竞争和痛点证据前，不建议扩大投放。",
+      "llm_real_called": true,
       "final_human_review_priority": "medium",
-      "final_human_review_reason": "尚未执行 LLM Judge 复核，建议安排常规人工检查"
+      "final_human_review_reason": "LLM Judge 同意规则结果，但置信度有限，建议常规人工抽查"
     },
     {
       "rank": 3,

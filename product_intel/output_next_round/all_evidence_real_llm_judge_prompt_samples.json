@@ -4,10 +4,10 @@
   "product_count": 1,
   "samples": [
     {
-      "product_id": "manual-3",
-      "product_name": "手工桌面风扇",
+      "product_id": "manual-1",
+      "product_name": "手工收纳盒",
       "model": "gpt-5.5",
-      "prompt_preview": "你是 Product Intel LLM Judge。\n只能基于 evidence_pack 中的 JSON 证据判断。\n不允许脑补，不允许使用外部知识，不允许使用外部实时信息。\n证据不足时必须明确输出 missing_evidence。\n不允许直接修改或覆盖 rule_decision，只能通过 challenge_rule_decision 提出 challenge。\n输出必须是严格 JSON，不要输出 Markdown，不要输出 JSON 之外的解释。\n\nLLM Judge 输入 JSON：\n{\n  \"contract_version\": \"product_intel_llm_judge_v1\",\n  \"product_id\": \"manual-3\",\n  \"product_name\": \"手工桌面风扇\",\n  \"market\": \"de\",\n  \"source_platform\": \"manual\",\n  \"rule_decision\": \"main_push\",\n  \"rule_score\": 100,\n  \"risk_flags\": [\n    \"需求痛点证据偏弱（weak）\",\n    \"外部趋势证据不足（weak）\",\n    \"季节性支撑偏弱（weak）\"\n  ],\n  \"ops_risk_note\": \"运营提醒：需求痛点证据偏弱（weak）；外部趋势证据不足（weak）；季节性支撑偏弱（weak）\",\n  \"evidence_pack\": {\n    \"product_id\": \"manual-3\",\n    \"product_name\": \"手工桌面风扇\",\n    \"source_platform\": \"manual\",\n    \"source_detected\": \"manual\",\n    \"market\": \"de\",\n    \"eviden"
+      "prompt_preview": "你是 Product Intel LLM Judge。\n只能基于 evidence_pack 中的 JSON 证据判断。\n不允许脑补，不允许使用外部知识，不允许使用外部实时信息。\n证据不足时必须明确输出 missing_evidence。\n不允许直接修改或覆盖 rule_decision，只能通过 challenge_rule_decision 提出 challenge。\n输出必须是严格 JSON，不要输出 Markdown，不要输出 JSON 之外的解释。\n\nLLM Judge 输入 JSON：\n{\n  \"contract_version\": \"product_intel_llm_judge_v1\",\n  \"product_id\": \"manual-1\",\n  \"product_name\": \"手工收纳盒\",\n  \"market\": \"de\",\n  \"source_platform\": \"manual\",\n  \"rule_decision\": \"small_test\",\n  \"rule_score\": 62,\n  \"risk_flags\": [\n    \"需求痛点证据偏弱（weak）\",\n    \"外部趋势证据不足（weak）\",\n    \"季节性支撑偏弱（weak）\",\n    \"建议先小样本验证\"\n  ],\n  \"ops_risk_note\": \"运营提醒：需求痛点证据偏弱（weak）；外部趋势证据不足（weak）；季节性支撑偏弱（weak）；建议先小样本验证\",\n  \"evidence_pack\": {\n    \"product_id\": \"manual-1\",\n    \"product_name\": \"手工收纳盒\",\n    \"source_platform\": \"manual\",\n    \"source_detected\": \"manual\",\n    \"mar"
     }
   ]
 }
