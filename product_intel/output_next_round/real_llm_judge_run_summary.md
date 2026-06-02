@@ -12,21 +12,21 @@
 - success：1
 - disabled：0
 - error：0
-- 已有结果数：5
+- 已有结果数：6
 - 本次新增结果数：1
 - 本次更新结果数：0
 - 受保护真实成功结果数：0
 - 强制覆盖真实成功：false
-- 本次新增真实成功商品：["fm-3"]
-- 本次尝试商品：["fm-3"]
-- resume 跳过成功商品数：5
-- resume 跳过成功商品：["echo-1", "echo-2", "echo-3", "fm-1", "fm-2"]
-- 累计结果数：6
-- 累计真实成功商品数：6
-- 已真实成功商品：["echo-1", "echo-2", "echo-3", "fm-1", "fm-2", "fm-3"]
-- 尚未真实成功商品：["kalo-1", "kalo-3", "kalo-2", "manual-3", "manual-1", "manual-2"]
+- 本次新增真实成功商品：["kalo-1"]
+- 本次尝试商品：["kalo-1"]
+- resume 跳过成功商品数：6
+- resume 跳过成功商品：["echo-1", "echo-2", "echo-3", "fm-1", "fm-2", "fm-3"]
+- 累计结果数：7
+- 累计真实成功商品数：7
+- 已真实成功商品：["echo-1", "echo-2", "echo-3", "fm-1", "fm-2", "fm-3", "kalo-1"]
+- 尚未真实成功商品：["kalo-3", "kalo-2", "manual-3", "manual-1", "manual-2"]
 - review 分布：{"agree": 1}
-- confidence 分布：{"high": 1}
+- confidence 分布：{"medium": 1}
 
 ## 输出文件
 
