@@ -4,7 +4,7 @@
   "real_llm_enabled": true,
   "model": "gpt-5.5",
   "product_count": 12,
-  "real_llm_called_count": 4,
+  "real_llm_called_count": 5,
   "results": [
     {
       "product_id": "echo-1",
@@ -420,6 +420,109 @@
         }
       },
       "recommended_human_action": "当前证据不足以支持放量，但rule_decision为small_test，属于谨慎决策；建议按1-2条内容小样本测试CTR和转化，同时优先补齐商家质量、增长和竞争证据。",
+      "real_llm_called": true,
+      "runner_status": "success",
+      "runner_error": ""
+    },
+    {
+      "product_id": "fm-2",
+      "product_name": "FastMoss Desk Lamp",
+      "rule_decision": "small_test",
+      "review_result": "agree",
+      "confidence": "medium",
+      "challenge_reason": "rule_decision 为 small_test，与 rule_score 55、overall_evidence_coverage weak 以及利润窗口、需求痛点、外部趋势、商家质量等风险提示一致。现有证据不足以支持放量，但足以支持谨慎的小样本验证，因此不提出 challenge。",
+      "missing_evidence": [
+        "补充 growth_7d 与 growth_30d，验证近期增长趋势",
+        "补充 review text themes、negative review clusters、rating、review_count，验证真实需求痛点",
+        "补充 same SKU count、price range by competitor、top creative monopoly check，判断竞争强度",
+        "补充 shop_rating、merchant_name、review_count，评估商家质量",
+        "补充 TikTok hashtag volume、Google Trends signal、related_influencer_count，验证外部趋势与内容扩散潜力",
+        "小样本发布1-2条素材后回收 CTR、CVR、CPA、GMV 或加购数据"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "有价格、佣金率、销量、GMV、相关视频数，可支持初步判断；但缺少增长与达人相关数据，且未提供更完整的利润/成本结构，因此不足以支持放量判断。",
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "related_influencer_count",
+            "cost or margin data",
+            "shipping or fulfillment cost"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "仅有品类和销量，可说明存在一定销售事实，但缺少评论文本、差评聚类、评分和评论数，无法充分验证具体用户痛点。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters",
+            "rating",
+            "review_count"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有相关视频数27，缺少站外趋势、社媒热度、增长周期和达人数量等趋势证据，无法确认外部趋势强度。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_7d",
+            "growth_30d",
+            "related_influencer_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "strong",
+          "reason": "evidence_pack 标记该维度 coverage 为 strong，且 missing 为空；当前仅能基于已给出的品类和市场字段接受其季节性证据充分性。",
+          "missing_evidence": []
+        },
+        "competition": {
+          "evidence_sufficiency": "medium",
+          "reason": "有价格和相关视频数，可做初步竞争观察；但缺少同款SKU数量、竞品价格区间、头部素材垄断检查和达人数量，无法判断竞争拥挤度与可切入空间。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_influencer_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "medium",
+          "reason": "有店铺名和商品链接，但缺少商家名称、评分、评论数、店铺评分等关键质量指标，无法充分评估履约与可信度。",
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "有品类、推荐 hooks、推荐 formats 和风险标记，足以支持以图片形式做问题解决、日常实用、性价比类小样本素材测试。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "strong",
+          "reason": "最终字段给出 opportunity_score 55、decision small_test 和 next_action，且该结论与多项证据不足和风险提示一致；但整体证据覆盖仍为 weak，因此只支持小样本测试，不支持更激进决策。",
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "recommended_human_action": "建议维持 small_test：先用 problem_solution、daily_usefulness、shelf_value_deal 方向做1-2条图片素材测试，重点观察CTR和转化；在补齐趋势、评论、竞品和商家质量证据前，不建议扩大投放。",
       "real_llm_called": true,
       "runner_status": "success",
       "runner_error": ""
