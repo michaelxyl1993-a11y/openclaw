@@ -1,0 +1,27 @@
+{
+  "total_products": 12,
+  "attempted_products": 2,
+  "real_llm_requested": false,
+  "real_llm_enabled": false,
+  "model": "gpt-5.5",
+  "limit": 2,
+  "start_index": 0,
+  "real_llm_called_count": 0,
+  "skipped_count": 10,
+  "success_count": 0,
+  "disabled_count": 2,
+  "error_count": 0,
+  "review_result_counts": {
+    "insufficient_evidence": 2
+  },
+  "confidence_counts": {
+    "low": 2
+  },
+  "error_products": [],
+  "output_files": {
+    "judge_results": "product_intel/output_next_round/all_evidence_real_llm_judge_results.json",
+    "prompt_samples": "product_intel/output_next_round/all_evidence_real_llm_judge_prompt_samples.json",
+    "run_summary_json": "product_intel/output_next_round/real_llm_judge_run_summary.json",
+    "run_summary_md": "product_intel/output_next_round/real_llm_judge_run_summary.md"
+  }
+}

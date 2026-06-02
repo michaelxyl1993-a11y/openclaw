@@ -799,6 +799,46 @@ Run the merger regression test:
 python3 -m product_intel.test_llm_judge_merger
 ```
 
+## v1.10 Real LLM Judge Batch Runner
+
+v1.10 adds a batch runner for opt-in real GPT-5.5 Judge reviews.
+
+- The runner defaults to dry-run mode and does not call the OpenAI API.
+- Real calls require `--real-llm`, `PRODUCT_INTEL_REAL_LLM_ENABLED=true`, and `OPENAI_API_KEY`.
+- Use `--limit 1` for the first real call.
+- The runner only generates review results. It does not modify rule scoring, `decision`, `opportunity_score`, or `next_action`.
+- Pass `--merge` to generate separate operations outputs through the v1.9 merger without overwriting mock merger files.
+
+Dry-run:
+
+```bash
+python3 -m product_intel.real_llm_judge_runner \
+  --evidence product_intel/output_next_round/all_evidence.json \
+  --output-dir product_intel/output_next_round \
+  --limit 2
+```
+
+First real single-product review:
+
+```bash
+export OPENAI_API_KEY="..."
+export OPENAI_MODEL="gpt-5.5"
+export PRODUCT_INTEL_REAL_LLM_ENABLED=true
+
+python3 -m product_intel.real_llm_judge_runner \
+  --evidence product_intel/output_next_round/all_evidence.json \
+  --output-dir product_intel/output_next_round \
+  --real-llm \
+  --limit 1 \
+  --merge
+```
+
+Run the batch runner regression test:
+
+```bash
+python3 -m product_intel.test_real_llm_judge_runner
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

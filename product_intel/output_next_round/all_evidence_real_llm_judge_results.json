@@ -1,0 +1,246 @@
+{
+  "mode": "real_llm_judge_runner_v1.10",
+  "real_llm_requested": false,
+  "real_llm_enabled": false,
+  "model": "gpt-5.5",
+  "product_count": 12,
+  "real_llm_called_count": 0,
+  "results": [
+    {
+      "product_id": "echo-1",
+      "product_name": "Echo Pet Brush",
+      "rule_decision": "small_test",
+      "review_result": "insufficient_evidence",
+      "confidence": "low",
+      "challenge_reason": "",
+      "missing_evidence": [
+        "Google Trends signal",
+        "Instagram/Reels context",
+        "TikTok hashtag volume",
+        "YouTube Shorts context",
+        "growth_30d",
+        "market-specific pet season signal",
+        "merchant_name",
+        "negative review clusters",
+        "price range by competitor",
+        "product_url",
+        "rating",
+        "related_influencer_count",
+        "related_video_count",
+        "review text themes",
+        "review_count",
+        "same SKU count",
+        "shop_rating",
+        "strong related_video_count signal",
+        "top creative monopoly check"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "growth_30d",
+            "strong related_video_count signal",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters",
+            "rating",
+            "review_count"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_30d",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "strong",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "market-specific pet season signal"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "weak",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating",
+            "product_url"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "strong",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "growth_30d",
+            "market-specific pet season signal",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "recommended_human_action": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+      "real_llm_called": false,
+      "runner_status": "disabled",
+      "runner_error": ""
+    },
+    {
+      "product_id": "echo-2",
+      "product_name": "Echo Storage Bag",
+      "rule_decision": "small_test",
+      "review_result": "insufficient_evidence",
+      "confidence": "low",
+      "challenge_reason": "",
+      "missing_evidence": [
+        "Google Trends signal",
+        "Instagram/Reels context",
+        "TikTok hashtag volume",
+        "YouTube Shorts context",
+        "growth_30d",
+        "merchant_name",
+        "negative review clusters",
+        "price range by competitor",
+        "product_url",
+        "rating",
+        "related_influencer_count",
+        "related_video_count",
+        "review text themes",
+        "review_count",
+        "same SKU count",
+        "shop_rating",
+        "strong related_video_count signal",
+        "top creative monopoly check"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "growth_30d",
+            "strong related_video_count signal",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters",
+            "rating",
+            "review_count"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_30d",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "strong",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": []
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_video_count",
+            "related_influencer_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "weak",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating",
+            "product_url"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "strong",
+          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "missing_evidence": [
+            "growth_30d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "recommended_human_action": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+      "real_llm_called": false,
+      "runner_status": "disabled",
+      "runner_error": ""
+    }
+  ]
+}
