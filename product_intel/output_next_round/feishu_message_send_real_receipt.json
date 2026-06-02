@@ -6,7 +6,7 @@
   "send_status": "sent",
   "target_type": "chat_id",
   "chat_id_provided": true,
-  "chat_id_redacted": "oc_9e...881",
+  "chat_id_redacted": "REDACTED_CHAT_ID",
   "message_preview_path": "product_intel/output_next_round/feishu_message_send_mock_preview.md",
   "message_length": 1958,
   "attachment_send_enabled": false,
