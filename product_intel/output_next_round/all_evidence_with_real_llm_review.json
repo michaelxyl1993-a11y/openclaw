@@ -1219,33 +1219,20 @@
       "rule_decision": "small_test",
       "overall_evidence_coverage": "weak",
       "missing_evidence_total": 36,
-      "llm_review_result": "insufficient_evidence",
-      "llm_confidence": "low",
-      "llm_challenge_reason": "",
+      "llm_review_result": "agree",
+      "llm_confidence": "medium",
+      "llm_challenge_reason": "不提出 challenge。rule_decision 为 small_test，和当前证据中的 opportunity_score 45、整体证据覆盖 weak、商家质量 weak 以及多项人工复核/小样本验证风险提示一致。现有证据不足以支持放量或直接发布，但足以支持谨慎小样本测试并人工复核。",
       "llm_missing_evidence": [
-        "Google Trends signal",
-        "Instagram/Reels context",
-        "TikTok hashtag volume",
-        "YouTube Shorts context",
-        "growth_30d",
-        "merchant_name",
-        "negative review clusters",
-        "price range by competitor",
-        "product_url",
-        "rating",
-        "related_influencer_count",
-        "related_video_count",
-        "review text themes",
-        "review_count",
-        "same SKU count",
-        "shop_rating",
-        "strong related_video_count signal",
-        "top creative monopoly check"
+        "补充 growth_30d 以验证增长持续性",
+        "补充 related_video_count 和 related_influencer_count 以验证内容传播强度",
+        "补充 rating、review_count、review text themes、negative review clusters 以验证需求痛点和质量风险",
+        "补充 same SKU count、price range by competitor、top creative monopoly check 以判断竞争强度",
+        "补充 merchant_name、shop_rating、product_url 等商家质量证据"
       ],
       "llm_dimension_reviews": {
         "profit_window": {
           "evidence_sufficiency": "medium",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有价格、佣金率、销量、GMV、7日增长等字段，可支持初步判断存在一定成交与短期增长信号；但缺少30日增长、相关视频数和达人数量等验证热度持续性与内容分发强度的证据。",
           "missing_evidence": [
             "growth_30d",
             "strong related_video_count signal",
@@ -1255,7 +1242,7 @@
         },
         "demand_pain": {
           "evidence_sufficiency": "medium",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有品类和销量，可证明商品有一定销售表现；但缺少评分、评论数、评论文本主题和差评聚类，无法充分判断用户痛点是否明确、是否存在质量或体验问题。",
           "missing_evidence": [
             "review text themes",
             "negative review clusters",
@@ -1265,7 +1252,7 @@
         },
         "external_trend": {
           "evidence_sufficiency": "weak",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "仅有7日增长31%的短期增长信号，缺少站外趋势、平台话题热度、30日增长和内容/达人传播数据，无法确认趋势是否真实、持续或具备外部放大空间。",
           "missing_evidence": [
             "Google Trends signal",
             "TikTok hashtag volume",
@@ -1278,12 +1265,12 @@
         },
         "seasonality": {
           "evidence_sufficiency": "strong",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "evidence_pack 标记该维度 coverage 为 strong，且 missing 为空；现有字段包含品类和市场，可按当前证据包视为该维度无明确缺口。",
           "missing_evidence": []
         },
         "competition": {
           "evidence_sufficiency": "weak",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "仅有价格字段，缺少同款数量、竞品价格区间、头部素材垄断检查以及相关视频/达人数据，无法判断竞争拥挤度、价格优势或素材竞争压力。",
           "missing_evidence": [
             "same SKU count",
             "price range by competitor",
@@ -1294,7 +1281,7 @@
         },
         "merchant_quality": {
           "evidence_sufficiency": "weak",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "仅有店铺名称，缺少商家名称、评分、评论数、店铺评分和商品链接等关键质量验证字段；该维度证据不足，且风险标记已提示商家质量证据不足。",
           "missing_evidence": [
             "merchant_name",
             "rating",
@@ -1305,12 +1292,12 @@
         },
         "aigc_fit": {
           "evidence_sufficiency": "strong",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "reason": "已有品类、推荐 hooks、推荐内容形式以及风险标记，可支持判断该商品具备一定 AIGC 素材切入点，并适合先用图片/视频进行小样本内容验证。",
           "missing_evidence": []
         },
         "final": {
-          "evidence_sufficiency": "strong",
-          "reason": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
+          "evidence_sufficiency": "weak",
+          "reason": "最终字段给出 opportunity_score 45、decision small_test 和下一步动作，且与中风险、需人工复核、小样本验证等风险提示一致；但整体证据覆盖为 weak，missing_evidence_total 为36，多个关键维度仍缺少趋势、竞争、评论和商家质量证据，因此只能支持谨慎小测，不能支持更激进决策。",
           "missing_evidence": [
             "growth_30d",
             "merchant_name",
@@ -1326,10 +1313,10 @@
           ]
         }
       },
-      "llm_recommended_human_action": "dry-run：未传入 --real-llm，未调用真实 OpenAI API。",
-      "llm_real_called": false,
-      "final_human_review_priority": "high",
-      "final_human_review_reason": "LLM Judge 判断证据不足，且整体证据覆盖较弱，需优先补证"
+      "llm_recommended_human_action": "建议维持 small_test：先人工复核商家质量与商品链接，再发1-2条内容验证 CTR/转化；在补齐趋势、评论和竞争证据前，不建议升级为更高置信度决策。",
+      "llm_real_called": true,
+      "final_human_review_priority": "medium",
+      "final_human_review_reason": "LLM Judge 同意规则结果，但置信度有限，建议常规人工抽查"
     },
     {
       "rank": 1,

@@ -1,29 +1,31 @@
 {
   "total_products": 12,
   "attempted_products": 1,
-  "real_llm_requested": false,
+  "real_llm_requested": true,
   "real_llm_enabled": true,
   "model": "gpt-5.5",
   "limit": 1,
   "start_index": 0,
-  "real_llm_called_count": 0,
+  "real_llm_called_count": 1,
   "skipped_count": 11,
-  "success_count": 0,
-  "disabled_count": 1,
+  "success_count": 1,
+  "disabled_count": 0,
   "error_count": 0,
   "review_result_counts": {
-    "insufficient_evidence": 1
+    "agree": 1
   },
   "confidence_counts": {
-    "low": 1
+    "medium": 1
   },
   "error_products": [],
-  "existing_result_count": 2,
-  "appended_result_count": 1,
-  "updated_result_count": 0,
+  "existing_result_count": 3,
+  "appended_result_count": 0,
+  "updated_result_count": 1,
   "protected_success_count": 0,
   "force_overwrite_success": false,
-  "newly_successful_product_ids": [],
+  "newly_successful_product_ids": [
+    "echo-3"
+  ],
   "attempted_product_ids": [
     "echo-3"
   ],
@@ -33,13 +35,13 @@
     "echo-2"
   ],
   "cumulative_result_count": 3,
-  "cumulative_real_success_count": 2,
+  "cumulative_real_success_count": 3,
   "successful_product_ids": [
     "echo-1",
-    "echo-2"
+    "echo-2",
+    "echo-3"
   ],
   "not_reviewed_product_ids": [
-    "echo-3",
     "fm-1",
     "fm-2",
     "fm-3",
