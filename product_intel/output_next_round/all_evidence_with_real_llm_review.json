@@ -3391,15 +3391,104 @@
       "rule_decision": "small_test",
       "overall_evidence_coverage": "weak",
       "missing_evidence_total": 28,
-      "llm_review_result": "not_reviewed",
-      "llm_confidence": "missing",
-      "llm_challenge_reason": "",
-      "llm_missing_evidence": [],
-      "llm_dimension_reviews": {},
-      "llm_recommended_human_action": "尚未执行 LLM Judge 复核，建议按运营优先级安排人工检查。",
-      "llm_real_called": false,
+      "llm_review_result": "agree",
+      "llm_confidence": "medium",
+      "llm_challenge_reason": "不提出challenge。基于现有证据，rule_decision=small_test是谨慎决策，与rule_score 62、overall_evidence_coverage weak以及风险标记一致；证据不足以支持放量，但足以支持小样本验证。",
+      "llm_missing_evidence": [
+        "补充7日和30日销量/GMV增长数据",
+        "补充related_video_count及视频互动数据",
+        "补充TikTok hashtag volume和外部趋势信号",
+        "补充同款SKU数量与竞品价格带",
+        "补充头部素材垄断检查",
+        "补充负面评论聚类以验证真实痛点",
+        "补充shop_rating、merchant_name和product_url",
+        "补充德国市场季节性事件或历史季节性销售数据"
+      ],
+      "llm_dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格、佣金率、销量、GMV和关联达人数量，可初步判断存在一定成交与变现基础；但缺少7日/30日增长、关联视频数等动销趋势证据，因此利润窗口不能判为强。",
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "related_video_count",
+            "strong related_video_count signal"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有Beauty类目、销量440、评分4.8、评论188，能支持基础需求存在；但缺少负面评论聚类，无法确认具体痛点强度。",
+          "missing_evidence": [
+            "negative review clusters"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有相关达人数量14，缺少Google Trends、TikTok话题量、Instagram/Reels、YouTube Shorts、增长率和视频数等外部趋势信号，无法充分证明趋势热度。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_7d",
+            "growth_30d",
+            "related_video_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有类目和市场字段，未提供节日、月份、近期季节事件或历史季节性销售数据；虽然coverage标为strong，但证据字段不足以支撑强季节性判断。",
+          "missing_evidence": [
+            "seasonal event mapping",
+            "monthly sales trend",
+            "holiday demand signal",
+            "historical seasonality data for market"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格和关联达人数量，可做非常初步的竞争判断；但缺少同款SKU数量、竞品价格带、头部素材垄断检查和关联视频数，无法确认竞争拥挤度。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_video_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有店铺名、评分4.8和评论188，可初步判断商品/店铺反馈较好；但缺少merchant_name、shop_rating和product_url，商家质量验证仍不完整。",
+          "missing_evidence": [
+            "merchant_name",
+            "shop_rating",
+            "product_url"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有类目、推荐hooks、推荐素材格式和风险提示，能支持AIGC内容测试方向；同时风险中已提示功效表达需谨慎。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "medium",
+          "reason": "rule_decision为small_test，且next_action建议先发1-2条验证CTR/转化，与当前证据不足和多个风险标记相匹配；但overall_evidence_coverage为weak，且缺少增长、竞品、商家和评论痛点等关键证据，因此只能支持小样本测试，不能支持更激进决策。",
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "same SKU count",
+            "shop_rating",
+            "strong related_video_count signal",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "llm_recommended_human_action": "当前判断仅支持小样本测试，不建议直接放量。创意表达应避免无证据的功效承诺，优先验证CTR、CVR、评论反馈和退货/差评风险。",
+      "llm_real_called": true,
       "final_human_review_priority": "medium",
-      "final_human_review_reason": "尚未执行 LLM Judge 复核，建议安排常规人工检查"
+      "final_human_review_reason": "LLM Judge 同意规则结果，但置信度有限，建议常规人工抽查"
     },
     {
       "rank": 3,

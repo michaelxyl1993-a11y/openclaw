@@ -4,10 +4,10 @@
   "product_count": 1,
   "samples": [
     {
-      "product_id": "kalo-1",
-      "product_name": "KaLoData Travel Cup",
+      "product_id": "kalo-3",
+      "product_name": "KaLoData Makeup Bag",
       "model": "gpt-5.5",
-      "prompt_preview": "你是 Product Intel LLM Judge。\n只能基于 evidence_pack 中的 JSON 证据判断。\n不允许脑补，不允许使用外部知识，不允许使用外部实时信息。\n证据不足时必须明确输出 missing_evidence。\n不允许直接修改或覆盖 rule_decision，只能通过 challenge_rule_decision 提出 challenge。\n输出必须是严格 JSON，不要输出 Markdown，不要输出 JSON 之外的解释。\n\nLLM Judge 输入 JSON：\n{\n  \"contract_version\": \"product_intel_llm_judge_v1\",\n  \"product_id\": \"kalo-1\",\n  \"product_name\": \"KaLoData Travel Cup\",\n  \"market\": \"de\",\n  \"source_platform\": \"kalodata\",\n  \"rule_decision\": \"small_test\",\n  \"rule_score\": 62,\n  \"risk_flags\": [\n    \"外部趋势证据不足（weak）\",\n    \"建议先小样本验证\"\n  ],\n  \"ops_risk_note\": \"运营提醒：外部趋势证据不足（weak）；建议先小样本验证\",\n  \"evidence_pack\": {\n    \"product_id\": \"kalo-1\",\n    \"product_name\": \"KaLoData Travel Cup\",\n    \"source_platform\": \"kalodata\",\n    \"source_detected\": \"kalodata\",\n    \"market\": \"de\",\n    \"evidence\": {\n      \"profi"
+      "prompt_preview": "你是 Product Intel LLM Judge。\n只能基于 evidence_pack 中的 JSON 证据判断。\n不允许脑补，不允许使用外部知识，不允许使用外部实时信息。\n证据不足时必须明确输出 missing_evidence。\n不允许直接修改或覆盖 rule_decision，只能通过 challenge_rule_decision 提出 challenge。\n输出必须是严格 JSON，不要输出 Markdown，不要输出 JSON 之外的解释。\n\nLLM Judge 输入 JSON：\n{\n  \"contract_version\": \"product_intel_llm_judge_v1\",\n  \"product_id\": \"kalo-3\",\n  \"product_name\": \"KaLoData Makeup Bag\",\n  \"market\": \"de\",\n  \"source_platform\": \"kalodata\",\n  \"rule_decision\": \"small_test\",\n  \"rule_score\": 62,\n  \"risk_flags\": [\n    \"利润窗口偏弱（weak）\",\n    \"外部趋势证据不足（weak）\",\n    \"季节性支撑偏弱（weak）\",\n    \"功效表达需谨慎，避免缺少证据的效果承诺\",\n    \"建议先小样本验证\"\n  ],\n  \"ops_risk_note\": \"必须人工复核：利润窗口偏弱（weak）；外部趋势证据不足（weak）；季节性支撑偏弱（weak）；功效表达需谨慎，避免缺少证据的效果承诺；建议先小样本验证\",\n  \"evidence_pack\": {\n    \"product_id\": \"kalo-3\",\n    \"product_name\": \"KaLoData Makeup Bag\",\n   "
     }
   ]
 }

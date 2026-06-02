@@ -6,13 +6,13 @@
     "small_test": 8
   },
   "llm_review_result_counts": {
-    "agree": 7,
-    "not_reviewed": 5
+    "agree": 8,
+    "not_reviewed": 4
   },
   "llm_confidence_counts": {
     "high": 1,
-    "medium": 6,
-    "missing": 5
+    "medium": 7,
+    "missing": 4
   },
   "final_human_review_priority_counts": {
     "low": 1,
@@ -23,5 +23,5 @@
   "high_priority_count": 0,
   "high_priority_products": [],
   "main_push_challenged_products": [],
-  "missing_judge_result_count": 5
+  "missing_judge_result_count": 4
 }
