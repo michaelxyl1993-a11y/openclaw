@@ -1127,7 +1127,7 @@ v1.20 adds a local-only dry-run layer for Feishu message attachments.
 - It generates `planned_input_files` for the v1.19 multi-file batch runner after a future real download.
 - It does not call the Feishu API or OpenAI.
 - It does not download attachments or run Product Intel analysis.
-- A future v1.21 can implement opt-in real attachment download.
+- A future version can orchestrate message parsing, real download, and multi-file analysis.
 
 ```bash
 python3 -m product_intel.feishu_multi_attachment_dry_run \
@@ -1139,6 +1139,43 @@ Run the multi-attachment dry-run regression test:
 
 ```bash
 python3 -m product_intel.test_feishu_multi_attachment_dry_run
+```
+
+## v1.21 Real Feishu Multi-attachment Download Adapter
+
+v1.21 adds an opt-in real downloader for supported attachments from the v1.20 plan.
+
+- Real download is disabled by default.
+- It downloads attachments only. It does not analyze files, upload attachments, or send messages.
+- Real download requires `PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true`, `FEISHU_APP_ID`, and `FEISHU_APP_SECRET`.
+- The v1.20 plan stores token hashes only. Real download also requires `--token-source-json` so tokens and `message_id` can be matched in memory without writing them to outputs.
+- Successful `downloaded_input_files` can be passed to the v1.19 multi-file batch runner.
+- A future v1.22 can orchestrate message parsing, dry run, real download, and multi-file analysis.
+
+Disabled-by-default check:
+
+```bash
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
+Opt-in real download:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --token-source-json product_intel/path/to/runtime_feishu_attachment_event.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
+Run the real multi-attachment download regression test:
+
+```bash
+python3 -m product_intel.test_feishu_multi_attachment_download_real
 ```
 
 ## Run

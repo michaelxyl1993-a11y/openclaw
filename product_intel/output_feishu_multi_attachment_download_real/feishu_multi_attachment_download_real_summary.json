@@ -1,0 +1,16 @@
+{
+  "mode": "feishu_multi_attachment_download_real_v1.21",
+  "real_download_enabled": false,
+  "real_feishu_api_called": false,
+  "real_download_performed": false,
+  "download_status": "disabled",
+  "download_task_count": 4,
+  "attempted_download_count": 0,
+  "success_count": 0,
+  "disabled_count": 4,
+  "error_count": 0,
+  "ready_for_multi_file_batch_runner": false,
+  "downloaded_input_files": [],
+  "next_command": "",
+  "error": null
+}
