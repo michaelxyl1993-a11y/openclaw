@@ -25,6 +25,7 @@ DECISION_CSV_FIELDS = [
     "content_angle_summary",
     "reasons",
     "risk_flags",
+    "ops_risk_note",
     "dimension_summary",
     "strongest_dimensions",
     "weakest_dimensions",
@@ -66,6 +67,7 @@ def save_decision_markdown(rows: list[dict[str, Any]], path: str | Path) -> Path
         "弱维度",
         "主推/判断依据",
         "风险",
+        "运营风险说明",
         "下一步动作",
     ]
     lines = [
@@ -87,6 +89,7 @@ def save_decision_markdown(rows: list[dict[str, Any]], path: str | Path) -> Path
             row.get("weakest_dimensions", ""),
             row.get("main_push_reason", ""),
             row.get("risk_flags", ""),
+            row.get("ops_risk_note", ""),
             row.get("next_action", ""),
         ]
         lines.append("| " + " | ".join(markdown_escape(value) for value in values) + " |")

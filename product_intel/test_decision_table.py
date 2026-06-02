@@ -6,7 +6,7 @@ from pathlib import Path
 
 from .batch_fact_sheet import build_batch_fact_sheets
 from .csv_loader import load_products_from_csv
-from .decision_table import build_decision_rows
+from .decision_table import build_decision_rows, normalize_risk_flags, ops_risk_note
 from .export_decision_table import save_decision_csv, save_decision_markdown
 
 
@@ -36,6 +36,7 @@ def validate_rows(rows: list[dict]) -> None:
             "weakest_dimensions",
             "main_push_reason",
             "next_action",
+            "ops_risk_note",
         ]:
             if row.get(field) in ("", None):
                 raise AssertionError(f"row {index} missing {field}: {row}")
@@ -69,6 +70,21 @@ def main() -> None:
     cat_bowl = rows_by_name["Raised Double Cat Bowl"]
     if cat_bowl["risk_flags"]:
         raise AssertionError(f"main-push cat bowl should not be over-flagged: {cat_bowl}")
+    normalized = normalize_risk_flags([
+        "Medium product risk level.",
+        "Human review is required.",
+        "外部趋势证据不足（weak）",
+        "缺少外部趋势证据，建议先小样本测试",
+        "建议先小样本验证",
+    ])
+    if "Medium product risk level." in normalized or "Human review is required." in normalized:
+        raise AssertionError(f"English risk flags should be translated: {normalized}")
+    if len([flag for flag in normalized if "外部趋势证据" in flag]) != 1:
+        raise AssertionError(f"trend risk flags should be deduplicated: {normalized}")
+    if len([flag for flag in normalized if "小样本" in flag]) != 1:
+        raise AssertionError(f"small-test risk flags should be deduplicated: {normalized}")
+    if not ops_risk_note(normalized, "small_test").startswith("必须人工复核："):
+        raise AssertionError(f"human review note should be blocking: {normalized}")
 
     csv_path = save_decision_csv(rows, OUTPUT_DIR / "mock_decision_table.csv")
     md_path = save_decision_markdown(rows, OUTPUT_DIR / "mock_decision_table.md")

@@ -41,6 +41,7 @@ CSV_FIELDS = [
     "distribution_priority",
     "risk_level",
     "risk_flags",
+    "ops_risk_note",
     "strongest_dimensions",
     "weakest_dimensions",
     "missing_evidence_count",
@@ -67,7 +68,7 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 def risk_level(product: dict[str, Any]) -> str:
     flags = product.get("risk_flags", [])
     joined = " ".join(str(flag) for flag in flags)
-    if "Human review is required" in joined or "需人工复核" in joined or "表达需谨慎" in joined:
+    if "需要人工复核后再发布" in joined or "需人工复核" in joined or "表达需谨慎" in joined:
         return "high_review"
     if flags:
         return "attention"
@@ -128,6 +129,7 @@ def load_source(source: str) -> tuple[dict[str, Any], list[dict[str, str]], list
             "distribution_priority": distribution_priority(decision),
             "risk_level": risk_level(product),
             "risk_flags": join_values(product.get("risk_flags", [])),
+            "ops_risk_note": product.get("ops_risk_note", ""),
             "strongest_dimensions": product.get("strongest_dimensions", ""),
             "weakest_dimensions": product.get("weakest_dimensions", ""),
             "missing_evidence_count": product.get("missing_evidence_count", 0),
@@ -195,9 +197,9 @@ def build_markdown(source_payloads: dict[str, dict[str, Any]], operating_rows: l
     lines.extend(["## 风险商品", ""])
     risk_rows = [row for row in operating_rows if row["risk_level"] != "low"]
     lines.extend(markdown_table(
-        ["来源", "商品", "决策", "风险等级", "风险标记", "强维度", "弱维度"],
+        ["来源", "商品", "决策", "风险等级", "运营风险说明", "强维度", "弱维度"],
         [[row["source_platform"], row["product_name"], row["decision"], row["risk_level"],
-          row["risk_flags"], row["strongest_dimensions"], row["weakest_dimensions"]] for row in risk_rows],
+          row["ops_risk_note"], row["strongest_dimensions"], row["weakest_dimensions"]] for row in risk_rows],
     ))
 
     lines.extend(["", "## 运营分发表", ""])

@@ -127,6 +127,7 @@ def build_product_payload(item: dict[str, Any], row: dict[str, Any], meta: dict[
         "content_angle_summary": row["content_angle_summary"],
         "suggested_daily_posts": daily_posts(row["suggested_daily_posts"]),
         "risk_flags": row.get("risk_flags_list", opportunity.get("risk_flags", [])),
+        "ops_risk_note": row.get("ops_risk_note", ""),
         "reasons": opportunity.get("reasons", []),
         "dimension_scores": dimension_scores,
         "dimension_summary": row.get("dimension_summary", ""),

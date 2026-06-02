@@ -124,9 +124,9 @@
 
 - `high_review` 商品共 4 个：KaLoData Makeup Bag、Echo Mini Fan、KaLoData Phone Stand、FastMoss Cable Set。标记合理，分别对应功效表达、电子类产品风险或 AIGC 表达复核。
 - `attention` 商品共 8 个。数量偏多但符合当前 mock 数据：多数真实来源缺少趋势、评分评论或商家质量证据。该状态应理解为补证提醒，不是阻断。
-- 风险文案存在轻度重复。例如 KaLoData Makeup Bag 同时出现“外部趋势证据不足”和“缺少外部趋势证据，建议先小样本测试”。
-- 英文风险文案混入中文：`Medium product risk level.`、`Human review is required.` 出现在 Echo Mini Fan、KaLoData Phone Stand、FastMoss Cable Set。
-- v1.6.1 可优化项：统一风险文案语言；合并重复风险提示；区分“运营提醒”和“必须人工阻断”的展示层级。
+- v1.6.1 已统一风险文案语言，英文风险提示已转换为中文。
+- v1.6.1 已合并同类趋势证据、商家质量和小样本建议提示。
+- v1.6.1 已通过 `ops_risk_note` 区分“运营提醒”“必须人工复核”“暂缓补证”。
 
 ## 8. 运营执行建议
 
@@ -142,7 +142,7 @@
 
 - 结论：可以提交。
 - 理由：四类来源识别正确，字段映射置信度符合目标；运营汇总文件非空；12 个商品全部通过 `decision` 与 `next_action` 一致性检查；风险字段不存在结构异常；完整测试通过。
-- 已知轻微问题不阻塞 v1.6：CSV UTF-8 BOM；少量英文风险文案；风险提示轻度重复。建议纳入 v1.6.1。
+- 已知轻微问题不阻塞 v1.6.1：CSV 使用 UTF-8 BOM 以兼容 Excel。
 - 建议 commit message：
 
 ```text

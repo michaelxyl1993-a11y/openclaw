@@ -138,6 +138,47 @@ DIMENSION_RISK_LABELS = {
     "aigc_fit": "AIGC 适配需人工复核",
 }
 
+RISK_FLAG_TRANSLATIONS = {
+    "Medium product risk level.": "中风险商品，建议人工复核",
+    "Human review is required.": "需要人工复核后再发布",
+}
+
+
+def risk_flag_category(flag: str) -> str:
+    if "外部趋势证据" in flag:
+        return "external_trend"
+    if "商家质量证据" in flag:
+        return "merchant_quality"
+    if "小样本" in flag:
+        return "small_test"
+    return flag
+
+
+def normalize_risk_flags(flags: list[Any]) -> list[str]:
+    normalized: list[str] = []
+    seen_categories: set[str] = set()
+    for flag in flags:
+        text = RISK_FLAG_TRANSLATIONS.get(str(flag).strip(), str(flag).strip())
+        if not text:
+            continue
+        category = risk_flag_category(text)
+        if category in seen_categories:
+            continue
+        seen_categories.add(category)
+        normalized.append(text)
+    return normalized
+
+
+def ops_risk_note(flags: list[str], decision: str) -> str:
+    if not flags:
+        return "无额外风险提醒"
+    details = "；".join(flags)
+    if any("需要人工复核后再发布" in flag or "功效表达需谨慎" in flag for flag in flags):
+        return f"必须人工复核：{details}"
+    if decision in {"hold", "reject"}:
+        return f"暂缓补证：{details}"
+    return f"运营提醒：{details}"
+
 
 def build_risk_flags(
     product: dict[str, Any],
@@ -181,8 +222,7 @@ def build_risk_flags(
     if decision == "small_test":
         flags.append("建议先小样本验证")
 
-    seen = set()
-    return [flag for flag in flags if flag and not (flag in seen or seen.add(flag))]
+    return normalize_risk_flags(flags)
 
 
 def main_push_reason(
@@ -218,6 +258,7 @@ def build_decision_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
         decision = final_public_decision(opportunity, dimensions)
         product_name = str(product.get("product_name") or fact_sheet.get("product_name") or "")
         risk_flags = build_risk_flags(product, fact_sheet, opportunity, dimensions, decision)
+        risk_note = ops_risk_note(risk_flags, decision)
         row = {
             "rank": rank,
             "product_id": str(product.get("product_id") or fact_sheet.get("product_id") or ""),
@@ -237,6 +278,7 @@ def build_decision_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "reasons": text_join(opportunity.get("reasons", []) if isinstance(opportunity.get("reasons", []), list) else []),
             "risk_flags": text_join(risk_flags),
             "risk_flags_list": risk_flags,
+            "ops_risk_note": risk_note,
             "dimension_summary": dimension_summary(dimensions),
             "strongest_dimensions": strongest_dimensions(dimensions),
             "weakest_dimensions": weakest_dimensions(dimensions),
