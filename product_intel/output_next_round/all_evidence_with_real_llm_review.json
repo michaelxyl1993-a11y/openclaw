@@ -2532,15 +2532,107 @@
       "rule_decision": "hold",
       "overall_evidence_coverage": "weak",
       "missing_evidence_total": 33,
-      "llm_review_result": "not_reviewed",
-      "llm_confidence": "missing",
-      "llm_challenge_reason": "",
-      "llm_missing_evidence": [],
-      "llm_dimension_reviews": {},
-      "llm_recommended_human_action": "尚未执行 LLM Judge 复核，建议按运营优先级安排人工检查。",
-      "llm_real_called": false,
-      "final_human_review_priority": "medium",
-      "final_human_review_reason": "尚未执行 LLM Judge 复核，建议安排常规人工检查"
+      "llm_review_result": "agree",
+      "llm_confidence": "high",
+      "llm_challenge_reason": "不提出challenge。rule_decision为hold，与证据包中的overall_evidence_coverage=weak、missing_evidence_total=33、多项维度证据偏弱以及final.next_action=暂缓一致。当前证据不足以支持放行或进入主推池。",
+      "llm_missing_evidence": [
+        "补充7日和30日销量/GMV增长数据",
+        "补充评论文本主题、差评聚类、评分和评论数",
+        "补充Google Trends、TikTok hashtag量、Instagram/Reels和YouTube Shorts趋势证据",
+        "补充同款SKU数量、竞品价格区间和头部素材垄断检查",
+        "补充商家名称、店铺评分、商品评分和评论数",
+        "补充德国市场下该品类或该商品的季节性销量/搜索趋势"
+      ],
+      "llm_dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "有价格、佣金率、销量、GMV、相关视频数，可初步判断商业窗口；但缺少7日/30日增长和相关达人数量，无法判断近期动能和分发质量。",
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "related_influencer_count"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有品类和销量，无法证明具体用户痛点、购买动机或差评集中问题。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters",
+            "rating",
+            "review_count"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有相关视频数65，缺少外部趋势平台、社媒声量和增长数据，无法确认趋势正在放大。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_7d",
+            "growth_30d",
+            "related_influencer_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "weak",
+          "reason": "可用字段只有品类和市场，缺少直接季节性销量或搜索趋势证据；虽然该维度标注coverage为strong，但现有字段不足以支撑季节性判断。",
+          "missing_evidence": [
+            "seasonal sales history",
+            "monthly demand trend",
+            "weekly demand trend",
+            "market-level seasonal search trend"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有价格和相关视频数，无法判断同款供给密度、竞品价格带或素材垄断情况。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_influencer_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有店铺名和商品链接，缺少商家评分、商品评分、评论数等基础可信度数据。",
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "有品类、推荐hooks、推荐内容形式和风险标记，可判断具备一定AIGC内容生成适配性，但风险标记提示仍需人工复核。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "strong",
+          "reason": "final字段给出opportunity_score为40、decision为hold、next_action为暂缓，且overall_evidence_coverage为weak、missing_evidence_total为33，足以支持暂缓决策。",
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "llm_recommended_human_action": "建议维持hold，并进入人工复核或证据补齐流程；重点补齐需求痛点、外部趋势、竞争格局和商家质量证据后再重新评估。",
+      "llm_real_called": true,
+      "final_human_review_priority": "low",
+      "final_human_review_reason": "LLM Judge 高置信同意规则结果"
     },
     {
       "rank": 1,
