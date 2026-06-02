@@ -724,12 +724,32 @@ v1.7 adds a local-only Evidence Pack layer before a future LLM Judge integration
 - Evidence Pack generation is read-only. It does not change scoring, `decision`, `next_action`, `risk_flags`, or `ops_risk_note`.
 - v1.7 does not call external APIs.
 - v1.7 does not call OpenAI or GPT-5.5.
-- A future v1.8 can pass this evidence layer to GPT-5.5 for evidence-bounded review without allowing unsupported assumptions.
+- A future Judge integration can pass this evidence layer to GPT-5.5 for evidence-bounded review without allowing unsupported assumptions.
 
 Run the Evidence Pack regression test:
 
 ```bash
 python3 -m product_intel.test_evidence_pack
+```
+
+## v1.8 LLM Judge Contract
+
+v1.8 adds a local-only LLM Judge contract layer for future GPT-5.5 review.
+
+- `llm_judge_contract.py` builds and validates strict Judge input and output JSON contracts.
+- `llm_judge_prompt.py` builds an evidence-bounded prompt that requires strict JSON output.
+- `mock_llm_judge.py` provides a deterministic local mock for contract tests.
+- Manager payload products expose `llm_judge_ready` and a lightweight `llm_judge_input_ref`. Full prompts are not embedded in each product.
+- The Judge can only review and challenge a rule result. It cannot override rule scoring, `decision`, or `next_action`.
+- v1.8 does not call external APIs.
+- v1.8 does not call OpenAI or GPT-5.5.
+- GPT-5.5 can be integrated in v1.9 or v1.8.1 after the contract is approved.
+
+Run the Judge contract regression tests:
+
+```bash
+python3 -m product_intel.test_llm_judge_contract
+python3 -m product_intel.test_llm_judge_prompt
 ```
 
 ## Run

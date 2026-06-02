@@ -7,6 +7,7 @@ from typing import Any
 
 from .decision_table import build_decision_rows, category_text, hook_types, suggested_format
 from .evidence_pack import build_evidence_coverage_summary, build_evidence_pack
+from .llm_judge_contract import CONTRACT_VERSION, build_llm_judge_input
 from .llm_summary import attach_summary_to_payload
 
 
@@ -148,6 +149,13 @@ def build_product_payload(item: dict[str, Any], row: dict[str, Any], meta: dict[
     )
     payload_product["evidence_pack"] = evidence_pack
     payload_product["evidence_coverage_summary"] = build_evidence_coverage_summary(evidence_pack)
+    build_llm_judge_input(payload_product)
+    payload_product["llm_judge_ready"] = True
+    payload_product["llm_judge_input_ref"] = {
+        "contract_version": CONTRACT_VERSION,
+        "product_id": payload_product["product_id"],
+        "evidence_pack_field": "evidence_pack",
+    }
     return payload_product
 
 

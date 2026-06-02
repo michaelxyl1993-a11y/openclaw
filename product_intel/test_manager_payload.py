@@ -49,6 +49,8 @@ def validate_payload(payload: dict) -> None:
             "ops_risk_note",
             "evidence_pack",
             "evidence_coverage_summary",
+            "llm_judge_ready",
+            "llm_judge_input_ref",
         ]:
             if product.get(field) in ("", None):
                 raise AssertionError(f"product {index} missing {field}: {product}")
