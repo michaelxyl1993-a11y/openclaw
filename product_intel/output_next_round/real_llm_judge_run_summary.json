@@ -19,30 +19,31 @@
   },
   "error_products": [],
   "existing_result_count": 3,
-  "appended_result_count": 0,
-  "updated_result_count": 1,
+  "appended_result_count": 1,
+  "updated_result_count": 0,
   "protected_success_count": 0,
   "force_overwrite_success": false,
   "newly_successful_product_ids": [
-    "echo-3"
+    "fm-1"
   ],
   "attempted_product_ids": [
-    "echo-3"
+    "fm-1"
   ],
-  "resumed_skipped_count": 2,
+  "resumed_skipped_count": 3,
   "resumed_skipped_product_ids": [
-    "echo-1",
-    "echo-2"
-  ],
-  "cumulative_result_count": 3,
-  "cumulative_real_success_count": 3,
-  "successful_product_ids": [
     "echo-1",
     "echo-2",
     "echo-3"
   ],
+  "cumulative_result_count": 4,
+  "cumulative_real_success_count": 4,
+  "successful_product_ids": [
+    "echo-1",
+    "echo-2",
+    "echo-3",
+    "fm-1"
+  ],
   "not_reviewed_product_ids": [
-    "fm-1",
     "fm-2",
     "fm-3",
     "kalo-1",

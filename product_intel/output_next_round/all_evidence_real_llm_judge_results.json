@@ -4,7 +4,7 @@
   "real_llm_enabled": true,
   "model": "gpt-5.5",
   "product_count": 12,
-  "real_llm_called_count": 3,
+  "real_llm_called_count": 4,
   "results": [
     {
       "product_id": "echo-1",
@@ -316,6 +316,110 @@
         }
       },
       "recommended_human_action": "建议维持 small_test：先人工复核商家质量与商品链接，再发1-2条内容验证 CTR/转化；在补齐趋势、评论和竞争证据前，不建议升级为更高置信度决策。",
+      "real_llm_called": true,
+      "runner_status": "success",
+      "runner_error": ""
+    },
+    {
+      "product_id": "fm-1",
+      "product_name": "FastMoss Cat Bowl",
+      "rule_decision": "small_test",
+      "review_result": "agree",
+      "confidence": "medium",
+      "challenge_reason": "",
+      "missing_evidence": [
+        "补充growth_7d和growth_30d以验证增长趋势",
+        "补充rating、review_count、shop_rating以验证商家和商品质量",
+        "抓取review text themes和negative review clusters以确认真实需求痛点",
+        "补充same SKU count和price range by competitor以评估竞争强度",
+        "补充top creative monopoly check和related_influencer_count以判断内容分发空间",
+        "补充market-specific pet season signal以验证德国市场季节性影响"
+      ],
+      "dimension_reviews": {
+        "profit_window": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格、佣金率、销量、GMV和相关视频数，可初步判断商业化窗口；但缺少7日/30日增长、达人数量等增长与分发验证指标。",
+          "missing_evidence": [
+            "growth_7d",
+            "growth_30d",
+            "related_influencer_count"
+          ]
+        },
+        "demand_pain": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有品类和销量，能说明存在一定成交，但无法证明具体需求痛点、评价反馈或用户不满点。",
+          "missing_evidence": [
+            "review text themes",
+            "negative review clusters",
+            "rating",
+            "review_count"
+          ]
+        },
+        "external_trend": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有相关视频数，缺少站外趋势、短视频平台话题量、增长率和达人参与度，无法充分判断外部趋势。",
+          "missing_evidence": [
+            "Google Trends signal",
+            "TikTok hashtag volume",
+            "Instagram/Reels context",
+            "YouTube Shorts context",
+            "growth_7d",
+            "growth_30d",
+            "related_influencer_count"
+          ]
+        },
+        "seasonality": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有品类和市场信息，但缺少德国市场宠物用品相关的具体季节性信号，因此只能做有限判断。",
+          "missing_evidence": [
+            "market-specific pet season signal"
+          ]
+        },
+        "competition": {
+          "evidence_sufficiency": "medium",
+          "reason": "已有价格和相关视频数，可粗略观察竞争环境；但缺少同款SKU数量、竞品价格区间、头部创意垄断和达人数量，无法充分评估竞争强度。",
+          "missing_evidence": [
+            "same SKU count",
+            "price range by competitor",
+            "top creative monopoly check",
+            "related_influencer_count"
+          ]
+        },
+        "merchant_quality": {
+          "evidence_sufficiency": "weak",
+          "reason": "仅有店铺名和商品URL，缺少商家评分、商品评分、评论数等质量验证信息，商家可靠性证据不足。",
+          "missing_evidence": [
+            "merchant_name",
+            "rating",
+            "review_count",
+            "shop_rating"
+          ]
+        },
+        "aigc_fit": {
+          "evidence_sufficiency": "strong",
+          "reason": "已有品类、推荐hook、推荐内容形式和风险提示，足以支持初步AIGC内容测试方向。",
+          "missing_evidence": []
+        },
+        "final": {
+          "evidence_sufficiency": "medium",
+          "reason": "最终结论给出55分和small_test，并建议小样本验证；该决策与当前整体证据不足和风险提示相匹配，但总体证据覆盖为weak且缺失35项，不能支持更激进决策。",
+          "missing_evidence": [
+            "growth_30d",
+            "growth_7d",
+            "market-specific pet season signal",
+            "merchant_name",
+            "negative review clusters",
+            "price range by competitor",
+            "rating",
+            "review text themes",
+            "review_count",
+            "same SKU count",
+            "shop_rating",
+            "top creative monopoly check"
+          ]
+        }
+      },
+      "recommended_human_action": "当前证据不足以支持放量，但rule_decision为small_test，属于谨慎决策；建议按1-2条内容小样本测试CTR和转化，同时优先补齐商家质量、增长和竞争证据。",
       "real_llm_called": true,
       "runner_status": "success",
       "runner_error": ""

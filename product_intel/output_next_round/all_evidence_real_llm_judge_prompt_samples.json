@@ -4,10 +4,10 @@
   "product_count": 1,
   "samples": [
     {
-      "product_id": "echo-3",
-      "product_name": "Echo Mini Fan",
+      "product_id": "fm-1",
+      "product_name": "FastMoss Cat Bowl",
       "model": "gpt-5.5",
-      "prompt_preview": "你是 Product Intel LLM Judge。\n只能基于 evidence_pack 中的 JSON 证据判断。\n不允许脑补，不允许使用外部知识，不允许使用外部实时信息。\n证据不足时必须明确输出 missing_evidence。\n不允许直接修改或覆盖 rule_decision，只能通过 challenge_rule_decision 提出 challenge。\n输出必须是严格 JSON，不要输出 Markdown，不要输出 JSON 之外的解释。\n\nLLM Judge 输入 JSON：\n{\n  \"contract_version\": \"product_intel_llm_judge_v1\",\n  \"product_id\": \"echo-3\",\n  \"product_name\": \"Echo Mini Fan\",\n  \"market\": \"de\",\n  \"source_platform\": \"echotik\",\n  \"rule_decision\": \"small_test\",\n  \"rule_score\": 45,\n  \"risk_flags\": [\n    \"中风险商品，建议人工复核\",\n    \"需要人工复核后再发布\",\n    \"商家质量证据不足（weak）\",\n    \"建议先小样本验证\"\n  ],\n  \"ops_risk_note\": \"必须人工复核：中风险商品，建议人工复核；需要人工复核后再发布；商家质量证据不足（weak）；建议先小样本验证\",\n  \"evidence_pack\": {\n    \"product_id\": \"echo-3\",\n    \"product_name\": \"Echo Mini Fan\",\n    \"source_platform\": \"echotik\",\n    \"source_detected\": \"echotik\",\n "
+      "prompt_preview": "你是 Product Intel LLM Judge。\n只能基于 evidence_pack 中的 JSON 证据判断。\n不允许脑补，不允许使用外部知识，不允许使用外部实时信息。\n证据不足时必须明确输出 missing_evidence。\n不允许直接修改或覆盖 rule_decision，只能通过 challenge_rule_decision 提出 challenge。\n输出必须是严格 JSON，不要输出 Markdown，不要输出 JSON 之外的解释。\n\nLLM Judge 输入 JSON：\n{\n  \"contract_version\": \"product_intel_llm_judge_v1\",\n  \"product_id\": \"fm-1\",\n  \"product_name\": \"FastMoss Cat Bowl\",\n  \"market\": \"de\",\n  \"source_platform\": \"fastmoss\",\n  \"rule_decision\": \"small_test\",\n  \"rule_score\": 55,\n  \"risk_flags\": [\n    \"商家质量证据不足（weak）\",\n    \"建议先小样本验证\"\n  ],\n  \"ops_risk_note\": \"运营提醒：商家质量证据不足（weak）；建议先小样本验证\",\n  \"evidence_pack\": {\n    \"product_id\": \"fm-1\",\n    \"product_name\": \"FastMoss Cat Bowl\",\n    \"source_platform\": \"fastmoss\",\n    \"source_detected\": \"fastmoss\",\n    \"market\": \"de\",\n    \"evidence\": {\n      \"profit_window"
     }
   ]
 }

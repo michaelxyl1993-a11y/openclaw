@@ -4,11 +4,11 @@
 
 - 商品总数：12
 - 规则决策分布：{"hold": 3, "main_push": 1, "small_test": 8}
-- LLM 复核分布：{"agree": 3, "not_reviewed": 9}
+- LLM 复核分布：{"agree": 4, "not_reviewed": 8}
 - 人工复核优先级：{"medium": 12}
 - LLM challenge 数量：0
 - 证据不足数量：0
-- 未复核数量：9
+- 未复核数量：8
 
 ## 高优先级人工复核商品
 
