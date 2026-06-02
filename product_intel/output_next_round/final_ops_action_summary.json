@@ -1,0 +1,133 @@
+{
+  "total_products": 12,
+  "final_ops_action_counts": {
+    "hold_for_evidence": 3,
+    "human_review_first": 1,
+    "small_test": 8
+  },
+  "final_ops_priority_counts": {
+    "P0_review": 1,
+    "P1_small_test": 8,
+    "P2_hold": 3
+  },
+  "main_push_count": 0,
+  "small_test_count": 8,
+  "hold_count": 3,
+  "human_review_first_count": 1,
+  "challenge_products": [
+    {
+      "product_id": "manual-3",
+      "product_name": "手工桌面风扇",
+      "rule_decision": "main_push",
+      "final_ops_action": "human_review_first",
+      "final_ops_priority": "P0_review",
+      "reason": "LLM Judge challenge，人工复核后再执行规则建议",
+      "llm_challenge_reason": "rule_decision为main_push且rule_score为100，但evidence_pack显示总缺失证据16项，并且risk_flags已标记需求痛点、外部趋势、季节性支撑偏弱。尤其外部趋势缺少Google Trends、TikTok hashtag、Instagram/Reels、YouTube Shorts等信号；竞争缺少同款SKU数量、竞品价格区间和头部素材垄断检查；季节性仅有类目和市场字段。当前证据更适合谨慎主推或补证后确认，不足以支撑满分主推判断。"
+    }
+  ],
+  "recommended_today_plan": {
+    "today_executable_products": [
+      {
+        "product_id": "echo-1",
+        "product_name": "Echo Pet Brush",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "echo-2",
+        "product_name": "Echo Storage Bag",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "echo-3",
+        "product_name": "Echo Mini Fan",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "fm-1",
+        "product_name": "FastMoss Cat Bowl",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "fm-2",
+        "product_name": "FastMoss Desk Lamp",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "kalo-1",
+        "product_name": "KaLoData Travel Cup",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "kalo-3",
+        "product_name": "KaLoData Makeup Bag",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "manual-1",
+        "product_name": "手工收纳盒",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      }
+    ],
+    "human_review_first_products": [
+      {
+        "product_id": "manual-3",
+        "product_name": "手工桌面风扇",
+        "rule_decision": "main_push",
+        "final_ops_action": "human_review_first",
+        "final_ops_priority": "P0_review",
+        "reason": "LLM Judge challenge，人工复核后再执行规则建议"
+      }
+    ],
+    "hold_for_evidence_products": [
+      {
+        "product_id": "fm-3",
+        "product_name": "FastMoss Cable Set",
+        "rule_decision": "hold",
+        "final_ops_action": "hold_for_evidence",
+        "final_ops_priority": "P2_hold",
+        "reason": "规则建议暂缓，保留观察并补充证据"
+      },
+      {
+        "product_id": "kalo-2",
+        "product_name": "KaLoData Phone Stand",
+        "rule_decision": "hold",
+        "final_ops_action": "hold_for_evidence",
+        "final_ops_priority": "P2_hold",
+        "reason": "规则建议暂缓，保留观察并补充证据"
+      },
+      {
+        "product_id": "manual-2",
+        "product_name": "手工宠物碗",
+        "rule_decision": "hold",
+        "final_ops_action": "hold_for_evidence",
+        "final_ops_priority": "P2_hold",
+        "reason": "规则建议暂缓，保留观察并补充证据"
+      }
+    ],
+    "manual_3_note": "manual-3｜手工桌面风扇：规则建议 main_push，但 LLM Judge challenge，不能直接放大，必须先人工复核。"
+  }
+}

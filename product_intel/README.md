@@ -890,6 +890,27 @@ python3 -m product_intel.real_llm_judge_runner \
   --merge
 ```
 
+## v1.11 Final Ops Decision Exporter
+
+v1.11 adds the final operations decision export layer.
+
+- The exporter does not call an LLM or any external API.
+- It reads the v1.10.2 real Judge merged CSV and preserves rule `decision`, `opportunity_score`, and `next_action`.
+- LLM challenges become `human_review_first`; agreed rule results become direct operations actions.
+- The exported final decision table is ready for operations distribution.
+
+```bash
+python3 -m product_intel.final_ops_decision_exporter \
+  --input product_intel/output_next_round/all_evidence_with_real_llm_review.csv \
+  --output-dir product_intel/output_next_round
+```
+
+Run the exporter regression test:
+
+```bash
+python3 -m product_intel.test_final_ops_decision_exporter
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
