@@ -777,6 +777,28 @@ Run the adapter regression test:
 python3 -m product_intel.test_openai_llm_judge
 ```
 
+## v1.9 LLM Judge Result Merger
+
+v1.9 adds an operations-facing merger for rule results and optional LLM Judge reviews.
+
+- The merger preserves rule `decision`, `opportunity_score`, and `next_action`.
+- Judge results only add review fields and human-review priorities.
+- Current mock Judge exports and future real adapter results are both supported.
+- The merger is a separate CLI. Its `--judge-results` option does not belong to `run_product_intel`.
+
+```bash
+python3 -m product_intel.llm_judge_merger \
+  --evidence product_intel/output_next_round/all_evidence.json \
+  --judge-results product_intel/output_next_round/all_evidence_mock_llm_judge_results.json \
+  --output-dir product_intel/output_next_round
+```
+
+Run the merger regression test:
+
+```bash
+python3 -m product_intel.test_llm_judge_merger
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
