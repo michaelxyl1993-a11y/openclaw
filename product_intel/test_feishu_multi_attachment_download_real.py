@@ -13,6 +13,7 @@ from .feishu_multi_attachment_download_real import (
     build_summary,
     load_download_plan,
     load_runtime_token_context,
+    main,
     run_multi_download,
     write_outputs,
 )
@@ -126,6 +127,27 @@ class FeishuMultiAttachmentDownloadRealTests(unittest.TestCase):
         self.assertFalse(receipt["real_feishu_api_called"])
         self.assertIn("runtime token source", receipt["error"])
 
+    def test_runtime_token_source_can_be_hash_mapping(self) -> None:
+        event = json.loads(TOKEN_SOURCE.read_text(encoding="utf-8"))
+        mapping = {
+            sha256(item["file_token"].encode("utf-8")).hexdigest(): item["file_token"]
+            for item in event["attachments"]
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            source = Path(temp_dir) / "runtime-token-source.json"
+            source.write_text(
+                json.dumps(
+                    {
+                        "message_id": event["message_id"],
+                        "file_tokens": mapping,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            context = load_runtime_token_context(source)
+        self.assertEqual(context["message_id"], event["message_id"])
+        self.assertEqual(context["tokens_by_hash"], mapping)
+
     def test_fake_client_downloads_multiple_files(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             plan = self._plan_for_temp(temp_dir)
@@ -143,6 +165,23 @@ class FeishuMultiAttachmentDownloadRealTests(unittest.TestCase):
             self.assertTrue(receipt["real_download_performed"])
             self.assertTrue(all(Path(path).stat().st_size > 0 for path in receipt["downloaded_input_files"]))
             self.assertTrue(build_downloaded_inputs(receipt)["ready_for_multi_file_batch_runner"])
+
+    def test_token_hash_mismatch_marks_file_error_without_stopping_batch(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            plan = self._plan_for_temp(temp_dir)
+            context = json.loads(json.dumps(self.token_context))
+            missing_hash = plan["download_tasks"][0]["file_token_hash"]
+            context["tokens_by_hash"].pop(missing_hash)
+            receipt = run_multi_download(
+                plan,
+                environ=self._enabled_env(),
+                token_context=context,
+                client=FakeDownloadClient(),
+            )
+            self.assertEqual(receipt["success_count"], 3)
+            self.assertEqual(receipt["error_count"], 1)
+            self.assertEqual(len(receipt["downloaded_input_files"]), 3)
+            self.assertIn("unavailable", receipt["download_results"][0]["error"])
 
     def test_single_failure_does_not_stop_batch(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -162,6 +201,33 @@ class FeishuMultiAttachmentDownloadRealTests(unittest.TestCase):
             rendered = json.dumps(receipt)
             self.assertNotIn("mock_file_token_fastmoss", rendered)
             self.assertNotIn("fake-app-secret", rendered)
+
+    def test_success_outputs_do_not_leak_runtime_tokens(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            plan = self._plan_for_temp(str(Path(temp_dir) / "downloads"))
+            receipt = run_multi_download(
+                plan,
+                environ=self._enabled_env(),
+                token_context=self.token_context,
+                client=FakeDownloadClient(),
+            )
+            output_dir = Path(temp_dir) / "outputs"
+            paths = write_outputs(receipt, output_dir)
+            rendered = "\n".join(
+                path.read_text(encoding="utf-8-sig") for path in paths.values()
+            )
+        fixture = json.loads(TOKEN_SOURCE.read_text(encoding="utf-8"))
+        for item in fixture["attachments"]:
+            self.assertNotIn(item["file_token"], rendered)
+        for forbidden in [
+            "FEISHU_APP_ID",
+            "FEISHU_APP_SECRET",
+            "chat_id",
+            "oc_",
+            "file_v3_",
+            "mock_file_token",
+        ]:
+            self.assertNotIn(forbidden, rendered)
 
     def test_missing_plan_is_clear_error(self) -> None:
         with self.assertRaisesRegex(ValueError, "does not exist"):
@@ -204,6 +270,7 @@ class FeishuMultiAttachmentDownloadRealTests(unittest.TestCase):
             "chat_id",
             "oc_",
             "file_v3_",
+            "mock_file_token",
         ]:
             self.assertNotIn(forbidden, rendered)
 
@@ -232,6 +299,25 @@ class FeishuMultiAttachmentDownloadRealTests(unittest.TestCase):
         self.assertNotIn("run_multi_file_batch(", source)
         self.assertNotIn("/im/v1/messages", source.split("class FeishuMultiAttachmentDownloadClient")[0])
         self.assertNotIn("requests.post(", source.split("class FeishuMultiAttachmentDownloadClient")[0])
+
+    def test_disabled_cli_does_not_require_runtime_token_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            exit_code = main(
+                [
+                    "--download-plan",
+                    str(PLAN),
+                    "--output-dir",
+                    temp_dir,
+                ]
+            )
+            receipt = json.loads(
+                (Path(temp_dir) / "feishu_multi_attachment_download_real_receipt.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(receipt["download_status"], "disabled")
+        self.assertFalse(receipt["real_feishu_api_called"])
 
     def test_protected_sources_are_not_modified(self) -> None:
         for path, expected in self.protected_digests.items():

@@ -81,6 +81,34 @@ def _attachment_list(payload: Any) -> list[dict[str, Any]]:
     return attachments
 
 
+def _hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def _token_context_from_mapping(payload: dict[str, Any]) -> dict[str, str]:
+    tokens_by_hash: dict[str, str] = {}
+    for field in ("tokens_by_hash", "file_tokens"):
+        mapping = payload.get(field)
+        if isinstance(mapping, dict):
+            for token_hash, token in mapping.items():
+                token_text = str(token).strip()
+                if token_hash and token_text:
+                    tokens_by_hash[str(token_hash)] = token_text
+
+    token_items = payload.get("tokens")
+    if isinstance(token_items, list):
+        for item in token_items:
+            if not isinstance(item, dict):
+                continue
+            token = str(_first_non_empty(item, ("file_token", "token"))).strip()
+            token_hash = str(item.get("file_token_hash", "")).strip()
+            if token and not token_hash:
+                token_hash = _hash_token(token)
+            if token and token_hash:
+                tokens_by_hash[token_hash] = token
+    return tokens_by_hash
+
+
 def load_runtime_token_context(path: str | Path) -> dict[str, Any]:
     """Load sensitive tokens into memory only; callers must never serialize this."""
     source_path = Path(path)
@@ -94,11 +122,12 @@ def load_runtime_token_context(path: str | Path) -> dict[str, Any]:
         raise ValueError(
             "Feishu multi-download blocked: token source message_id is required."
         )
-    tokens_by_hash: dict[str, str] = {}
-    for attachment in _attachment_list(payload):
-        token = str(_first_non_empty(attachment, ("file_token", "token"))).strip()
-        if token:
-            tokens_by_hash[hashlib.sha256(token.encode("utf-8")).hexdigest()] = token
+    tokens_by_hash = _token_context_from_mapping(payload) if isinstance(payload, dict) else {}
+    if not tokens_by_hash:
+        for attachment in _attachment_list(payload):
+            token = str(_first_non_empty(attachment, ("file_token", "token"))).strip()
+            if token:
+                tokens_by_hash[_hash_token(token)] = token
     if not tokens_by_hash:
         raise ValueError(
             "Feishu multi-download blocked: token source has no attachment tokens."
@@ -447,8 +476,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--download-plan", required=True)
     parser.add_argument(
+        "--runtime-token-source",
+        help="Sensitive runtime token source JSON. Required only when real download is enabled.",
+    )
+    parser.add_argument(
+        "--attachments-json",
+        help="Raw Feishu attachment event JSON used as runtime token source.",
+    )
+    parser.add_argument(
         "--token-source-json",
-        help="Sensitive runtime event JSON. Required only when real download is enabled.",
+        help="Deprecated alias for --runtime-token-source.",
     )
     parser.add_argument("--output-dir", required=True)
     return parser
@@ -459,8 +496,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     env = os.environ
     token_context = None
     if is_real_download_enabled(env):
-        if args.token_source_json:
-            token_context = load_runtime_token_context(args.token_source_json)
+        source_path = (
+            args.runtime_token_source
+            or args.attachments_json
+            or args.token_source_json
+        )
+        if source_path:
+            token_context = load_runtime_token_context(source_path)
     receipt = run_multi_download(
         load_download_plan(args.download_plan),
         environ=env,

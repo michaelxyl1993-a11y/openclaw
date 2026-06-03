@@ -1148,7 +1148,7 @@ v1.21 adds an opt-in real downloader for supported attachments from the v1.20 pl
 - Real download is disabled by default.
 - It downloads attachments only. It does not analyze files, upload attachments, or send messages.
 - Real download requires `PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true`, `FEISHU_APP_ID`, and `FEISHU_APP_SECRET`.
-- The v1.20 plan stores token hashes only. Real download also requires `--token-source-json` so tokens and `message_id` can be matched in memory without writing them to outputs.
+- The v1.20 plan stores token hashes only. Real download also requires `--runtime-token-source` or `--attachments-json` so tokens and `message_id` can be matched in memory without writing them to outputs.
 - Successful `downloaded_input_files` can be passed to the v1.19 multi-file batch runner.
 - A future v1.22 can orchestrate message parsing, dry run, real download, and multi-file analysis.
 
@@ -1168,7 +1168,7 @@ FEISHU_APP_ID="$FEISHU_APP_ID" \
 FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
 python3 -m product_intel.feishu_multi_attachment_download_real \
   --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
-  --token-source-json product_intel/path/to/runtime_feishu_attachment_event.json \
+  --runtime-token-source product_intel/path/to/runtime_feishu_attachment_event.json \
   --output-dir product_intel/output_feishu_multi_attachment_download_real
 ```
 
