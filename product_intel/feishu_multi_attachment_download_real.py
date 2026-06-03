@@ -120,7 +120,7 @@ def load_runtime_token_context(path: str | Path) -> dict[str, Any]:
     message_id = str(payload.get("message_id", "")).strip() if isinstance(payload, dict) else ""
     if not message_id:
         raise ValueError(
-            "Feishu multi-download blocked: token source message_id is required."
+            "Feishu multi-download blocked: runtime source must contain top-level message_id and tokens_by_hash."
         )
     tokens_by_hash = _token_context_from_mapping(payload) if isinstance(payload, dict) else {}
     if not tokens_by_hash:

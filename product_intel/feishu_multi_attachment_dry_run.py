@@ -270,6 +270,7 @@ def build_download_plan(manifest: dict[str, Any]) -> dict[str, Any]:
                 "file_token_hash": item["file_token_hash"],
                 "target_path": item["planned_download_path"],
                 "supported": item["supported"],
+                "size_bytes_expected": item["size_bytes"],
             }
             for item in manifest["attachments"]
             if item["supported"]

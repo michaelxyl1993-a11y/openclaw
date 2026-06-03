@@ -21,6 +21,7 @@ from typing import Any
 import requests
 from flask import Flask, jsonify, request
 
+from .feishu_private_event_capture import capture_private_attachment_event
 from .job_queue import enqueue_job, start_worker
 from .service_handler import run_product_intel_job
 
@@ -223,6 +224,19 @@ def response_body_preview(result: dict[str, Any]) -> str:
     if data:
         return json.dumps(data, ensure_ascii=False)[:300]
     return ""
+
+
+def log_private_attachment_capture(summary: dict[str, Any]) -> None:
+    if not summary:
+        return
+    print(
+        "[product-intel-feishu] private_attachment_event_capture "
+        f"status={summary.get('status', '')} "
+        f"attachment_count={summary.get('attachment_count', 0)} "
+        f"message_id_hash={str(summary.get('message_id_hash', ''))[:16]} "
+        f"file_token_hashes={','.join(str(value)[:16] for value in summary.get('file_token_hashes', []))} "
+        f"errors={';'.join(str(value) for value in summary.get('errors', []))}"
+    )
 
 
 def log_event_decision(
@@ -750,6 +764,12 @@ def feishu_events() -> Any:
         return jsonify({"challenge": payload.get("challenge")})
 
     info = extract_event_info(payload)
+    try:
+        capture_summary = capture_private_attachment_event(payload)
+        if capture_summary.get("status") != "no_attachments":
+            log_private_attachment_capture(capture_summary)
+    except Exception as exc:
+        print(f"[product-intel-feishu] private_attachment_event_capture_failed error={str(exc)[:200]!r}")
     dedupe_key = dedupe_key_for(info)
     dedupe_result = dedupe_result_for(dedupe_key)
     print(

@@ -1178,6 +1178,80 @@ Run the real multi-attachment download regression test:
 python3 -m product_intel.test_feishu_multi_attachment_download_real
 ```
 
+## v1.21.2 Runtime Token Source Builder
+
+v1.21.2 adds a private runtime token source builder for real Feishu attachment downloads.
+
+- Runtime token source files are local private sensitive files.
+- They are written only under `product_intel/private_runtime/`.
+- `product_intel/private_runtime/` is ignored by Git and must not be committed.
+- The redacted v1.20 download plan cannot recover real file tokens.
+- The builder must run from a real Feishu callback event JSON that still contains `message_id` and real attachment `file_token` values.
+- If the input contains `REDACTED_FILE_TOKEN`, missing `message_id`, or missing tokens, the builder fails.
+
+Build the private runtime source:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json /path/to/real_feishu_attachment_event.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+```
+
+Real download flow:
+
+1. Save the real Feishu callback event JSON locally.
+2. Build `product_intel/private_runtime/feishu_runtime_token_source.json`.
+3. Run `feishu_multi_attachment_download_real` with `--runtime-token-source`.
+4. Pass downloaded files to the v1.19 multi-file batch runner.
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --runtime-token-source product_intel/private_runtime/feishu_runtime_token_source.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
+Run the runtime token source builder regression test:
+
+```bash
+python3 -m product_intel.test_feishu_runtime_token_source_builder
+```
+
+## v1.21.3 Callback Private Attachment Event Capture
+
+v1.21.3 lets the Product Intel Feishu callback capture attachment events for later real multi-download.
+
+- When the callback receives a message with `attachments` or `files`, it writes a private local event file.
+- Latest event path: `product_intel/private_runtime/feishu_latest_attachment_event.json`.
+- Archive path: `product_intel/private_runtime/feishu_events/<timestamp>_<message_id_hash>_event.json`.
+- Private event files may contain real `file_token` values and are only written under the gitignored `private_runtime` directory.
+- Callback logs print only status, counts, message hash, token hashes, and errors.
+- Missing `message_id` or missing `file_token` writes `status=blocked` instead of crashing the webhook.
+- Empty attachment events write `status=no_attachments`.
+
+The v1.21.2 builder can consume the latest private event:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_event.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+```
+
+Then run v1.21 real download with:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --runtime-token-source product_intel/private_runtime/feishu_runtime_token_source.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

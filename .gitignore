@@ -45,6 +45,7 @@ group_scheduler_*.log
 product_intel/__pycache__/
 product_intel/output/
 product_intel/*.pyc
+product_intel/private_runtime/
 
 # Local/runtime junk
 .DS_Store
