@@ -1535,6 +1535,50 @@ python3 -m product_intel.feishu_multi_attachment_download_real \
   --output-dir product_intel/output_feishu_multi_attachment_download_real
 ```
 
+## v1.25 Final Feishu Attachments
+
+v1.25 prepares and uploads final operations attachments after the clean handoff text has been sent.
+
+- The pack step is a local dry-run plan and never calls Feishu.
+- Real upload is disabled unless `PRODUCT_INTEL_REAL_FEISHU_UPLOAD_ENABLED=true`.
+- Upload receipts redact file tokens and only store token hashes.
+- The message step can use the existing real text sender to send an attachment explanation message.
+
+Build the final attachment pack:
+
+```bash
+python3 -m product_intel.feishu_final_attachment_pack \
+  --output-dir product_intel/output_feishu_llm_ops \
+  --attachment product_intel/output_feishu_llm_ops/final_ops_decision_table.csv \
+  --attachment product_intel/output_feishu_llm_ops/final_ops_action_summary.md \
+  --attachment product_intel/output_feishu_llm_ops/final_challenge_products.csv \
+  --attachment product_intel/output_feishu_llm_ops/final_review_note.md
+```
+
+Upload the four attachments after explicitly enabling real upload:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_UPLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_final_attachment_upload_real \
+  --upload-plan product_intel/output_feishu_llm_ops/feishu_final_attachment_upload_plan.json \
+  --output-dir product_intel/output_feishu_llm_ops
+```
+
+Send the attachment explanation text message:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MESSAGE_SEND_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_message_send_adapter_real \
+  --message-preview product_intel/output_feishu_llm_ops/feishu_final_attachment_message_preview.md \
+  --mock-plan product_intel/output_feishu_llm_ops/feishu_final_attachment_upload_plan.json \
+  --chat-id "$PRODUCT_INTEL_FEISHU_TEST_CHAT_ID" \
+  --output-dir product_intel/output_feishu_llm_ops
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:

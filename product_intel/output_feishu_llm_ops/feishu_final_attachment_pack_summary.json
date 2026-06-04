@@ -1,0 +1,21 @@
+{
+  "mode": "feishu_final_attachment_pack_v1.25",
+  "attachment_count": 4,
+  "existing_attachment_count": 4,
+  "missing_attachment_count": 0,
+  "total_size_bytes": 8471,
+  "filenames": [
+    "final_ops_decision_table.csv",
+    "final_ops_action_summary.md",
+    "final_challenge_products.csv",
+    "final_review_note.md"
+  ],
+  "ready_for_upload": true,
+  "output_files": {
+    "upload_plan": "product_intel/output_feishu_llm_ops/feishu_final_attachment_upload_plan.json",
+    "message_preview": "product_intel/output_feishu_llm_ops/feishu_final_attachment_message_preview.md",
+    "summary_json": "product_intel/output_feishu_llm_ops/feishu_final_attachment_pack_summary.json",
+    "summary_md": "product_intel/output_feishu_llm_ops/feishu_final_attachment_pack_summary.md"
+  },
+  "next_command": "python3 -m product_intel.feishu_final_attachment_upload_real --upload-plan product_intel/output_feishu_llm_ops/feishu_final_attachment_upload_plan.json --output-dir product_intel/output_feishu_llm_ops"
+}

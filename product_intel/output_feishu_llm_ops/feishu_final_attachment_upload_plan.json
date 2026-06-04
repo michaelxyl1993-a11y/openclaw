@@ -1,0 +1,56 @@
+{
+  "mode": "feishu_final_attachment_pack_v1.25",
+  "ready_for_upload": true,
+  "real_feishu_api_called": false,
+  "real_message_sent": false,
+  "attachment_count": 4,
+  "existing_attachment_count": 4,
+  "missing_attachment_count": 0,
+  "total_size_bytes": 8471,
+  "attachment_items": [
+    {
+      "attachment_index": 0,
+      "path": "product_intel/output_feishu_llm_ops/final_ops_decision_table.csv",
+      "filename": "final_ops_decision_table.csv",
+      "file_type": "stream",
+      "size_bytes": 7400,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "pending"
+    },
+    {
+      "attachment_index": 1,
+      "path": "product_intel/output_feishu_llm_ops/final_ops_action_summary.md",
+      "filename": "final_ops_action_summary.md",
+      "file_type": "stream",
+      "size_bytes": 819,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "pending"
+    },
+    {
+      "attachment_index": 2,
+      "path": "product_intel/output_feishu_llm_ops/final_challenge_products.csv",
+      "filename": "final_challenge_products.csv",
+      "file_type": "stream",
+      "size_bytes": 165,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "pending"
+    },
+    {
+      "attachment_index": 3,
+      "path": "product_intel/output_feishu_llm_ops/final_review_note.md",
+      "filename": "final_review_note.md",
+      "file_type": "stream",
+      "size_bytes": 87,
+      "exists": true,
+      "non_empty": true,
+      "upload_required": true,
+      "upload_status": "pending"
+    }
+  ]
+}

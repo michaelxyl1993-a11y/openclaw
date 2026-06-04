@@ -1,0 +1,13 @@
+{
+  "mode": "feishu_final_attachment_upload_real_v1.25",
+  "real_upload_enabled": true,
+  "real_feishu_api_called": true,
+  "upload_status": "uploaded",
+  "attachment_count": 4,
+  "attempted_upload_count": 4,
+  "success_count": 4,
+  "error_count": 0,
+  "ready_for_attachment_message": true,
+  "next_command": "python3 -m product_intel.feishu_message_send_adapter_real --message-preview product_intel/output_feishu_llm_ops/feishu_final_attachment_message_preview.md --mock-plan product_intel/output_feishu_llm_ops/feishu_final_attachment_upload_plan.json --chat-id \"$PRODUCT_INTEL_FEISHU_TEST_CHAT_ID\" --output-dir product_intel/output_feishu_llm_ops",
+  "error": null
+}
