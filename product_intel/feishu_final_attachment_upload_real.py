@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from .feishu_product_intel_bot import infer_feishu_file_type
+from .feishu_runtime_token_source_builder import PRIVATE_RUNTIME_DIR
 from .feishu_upload_adapter_real import (
     APP_ID_ENV,
     APP_SECRET_ENV,
@@ -22,6 +23,7 @@ from .feishu_upload_adapter_real import (
 MODE = "feishu_final_attachment_upload_real_v1.25"
 RECEIPT_FILENAME = "feishu_final_attachment_upload_receipt.json"
 SUMMARY_FILENAME = "feishu_final_attachment_upload_summary.json"
+SECURE_RECEIPT_FILENAME = "feishu_final_attachment_upload_secure_receipt.json"
 
 
 class FeishuFinalAttachmentUploadError(ValueError):
@@ -83,6 +85,18 @@ def run_final_attachment_upload(
     environ: Mapping[str, str] | None = None,
     client: Any | None = None,
 ) -> dict[str, Any]:
+    receipt, _ = run_final_attachment_upload_with_secure(
+        plan, environ=environ, client=client
+    )
+    return receipt
+
+
+def run_final_attachment_upload_with_secure(
+    plan: dict[str, Any],
+    *,
+    environ: Mapping[str, str] | None = None,
+    client: Any | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     import os
 
     env = environ if environ is not None else os.environ
@@ -103,11 +117,15 @@ def run_final_attachment_upload(
         "next_command": "",
         "error": None,
     }
+    secure_receipt = {
+        "mode": "feishu_final_attachment_upload_secure_receipt_v1.26",
+        "uploaded_files": [],
+    }
     if not attachments:
         receipt.update({"upload_status": "error", "error_count": 0, "error": "no attachments"})
-        return receipt
+        return receipt, secure_receipt
     if not enabled:
-        return receipt
+        return receipt, secure_receipt
 
     app_id = env.get(APP_ID_ENV, "").strip()
     app_secret = env.get(APP_SECRET_ENV, "").strip()
@@ -120,10 +138,11 @@ def run_final_attachment_upload(
                 "error": f"{APP_ID_ENV} and {APP_SECRET_ENV} are required for real upload.",
             }
         )
-        return receipt
+        return receipt, secure_receipt
 
     uploader = client or FeishuSingleFileUploadClient()
     results: list[dict[str, Any]] = []
+    secure_results: list[dict[str, Any]] = []
     for item in attachments:
         result = _base_file_result(item, "error")
         receipt["attempted_upload_count"] += 1
@@ -142,6 +161,16 @@ def run_final_attachment_upload(
                     "file_token_redacted": "REDACTED_FILE_TOKEN",
                     "file_token_hash": _hash_token(str(token)),
                     "error": None,
+                }
+            )
+            secure_results.append(
+                {
+                    "filename": item["filename"],
+                    "path": item["path"],
+                    "size_bytes": item["size_bytes"],
+                    "upload_status": "uploaded",
+                    "file_token": str(token),
+                    "file_token_hash": _hash_token(str(token)),
                 }
             )
         except Exception as exc:
@@ -166,7 +195,8 @@ def run_final_attachment_upload(
             "--chat-id \"$PRODUCT_INTEL_FEISHU_TEST_CHAT_ID\" "
             "--output-dir product_intel/output_feishu_llm_ops"
         )
-    return receipt
+    secure_receipt["uploaded_files"] = secure_results
+    return receipt, secure_receipt
 
 
 def build_summary(receipt: dict[str, Any]) -> dict[str, Any]:
@@ -185,7 +215,11 @@ def build_summary(receipt: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def write_outputs(receipt: dict[str, Any], output_dir: str | Path) -> dict[str, Path]:
+def write_outputs(
+    receipt: dict[str, Any],
+    output_dir: str | Path,
+    secure_receipt: dict[str, Any] | None = None,
+) -> dict[str, Path]:
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     summary = build_summary(receipt)
@@ -199,6 +233,15 @@ def write_outputs(receipt: dict[str, Any], output_dir: str | Path) -> dict[str, 
     paths["summary_json"].write_text(
         json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+    if secure_receipt is not None:
+        secure_dir = PRIVATE_RUNTIME_DIR
+        secure_dir.mkdir(parents=True, exist_ok=True)
+        secure_path = secure_dir / SECURE_RECEIPT_FILENAME
+        secure_path.write_text(
+            json.dumps(secure_receipt, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        paths["secure_receipt_json"] = secure_path
     return paths
 
 
@@ -211,8 +254,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    receipt = run_final_attachment_upload(load_upload_plan(args.upload_plan))
-    paths = write_outputs(receipt, args.output_dir)
+    receipt, secure_receipt = run_final_attachment_upload_with_secure(
+        load_upload_plan(args.upload_plan)
+    )
+    paths = write_outputs(receipt, args.output_dir, secure_receipt)
     print(json.dumps(build_summary(receipt), ensure_ascii=False, indent=2))
     for label, path in paths.items():
         print(f"{label}: {path}")
