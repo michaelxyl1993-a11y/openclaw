@@ -1,0 +1,88 @@
+{
+  "total_products": 8,
+  "final_ops_action_counts": {
+    "hold_for_evidence": 3,
+    "small_test": 5
+  },
+  "final_ops_priority_counts": {
+    "P1_small_test": 5,
+    "P2_hold": 3
+  },
+  "main_push_count": 0,
+  "small_test_count": 5,
+  "hold_count": 3,
+  "human_review_first_count": 0,
+  "challenge_products": [],
+  "recommended_today_plan": {
+    "today_executable_products": [
+      {
+        "product_id": "echo-1",
+        "product_name": "Echo Pet Brush",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "echo-2",
+        "product_name": "Echo Storage Bag",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "echo-3",
+        "product_name": "Echo Mini Fan",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "fm-1",
+        "product_name": "FastMoss Cat Bowl",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      },
+      {
+        "product_id": "fm-2",
+        "product_name": "FastMoss Desk Lamp",
+        "rule_decision": "small_test",
+        "final_ops_action": "small_test",
+        "final_ops_priority": "P1_small_test",
+        "reason": "规则建议小样本测试且 LLM Judge 同意"
+      }
+    ],
+    "human_review_first_products": [],
+    "hold_for_evidence_products": [
+      {
+        "product_id": "echo-4",
+        "product_name": "Echo Soda Drink",
+        "rule_decision": "hold",
+        "final_ops_action": "hold_for_evidence",
+        "final_ops_priority": "P2_hold",
+        "reason": "规则建议暂缓，保留观察并补充证据"
+      },
+      {
+        "product_id": "fm-4",
+        "product_name": "FastMoss Soda Drink",
+        "rule_decision": "hold",
+        "final_ops_action": "hold_for_evidence",
+        "final_ops_priority": "P2_hold",
+        "reason": "规则建议暂缓，保留观察并补充证据"
+      },
+      {
+        "product_id": "fm-3",
+        "product_name": "FastMoss Cable Set",
+        "rule_decision": "hold",
+        "final_ops_action": "hold_for_evidence",
+        "final_ops_priority": "P2_hold",
+        "reason": "规则建议暂缓，保留观察并补充证据"
+      }
+    ],
+    "challenge_notes": []
+  }
+}

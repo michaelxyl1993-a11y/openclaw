@@ -1,0 +1,19 @@
+{
+  "mode": "feishu_clean_message_pack_v1.18",
+  "message_ready": true,
+  "message_length": 631,
+  "contains_mock_terms": false,
+  "attachment_send_enabled": false,
+  "attachments_sent": 0,
+  "ready_for_real_text_send": true,
+  "source_files": [
+    "product_intel/output_next_round/feishu_ops_handoff_message.md",
+    "product_intel/output_feishu_llm_ops/final_ops_action_summary.json",
+    "product_intel/output_feishu_llm_ops/final_ops_decision_table.csv"
+  ],
+  "output_files": [
+    "product_intel/output_feishu_llm_ops/feishu_clean_message_preview.md",
+    "product_intel/output_feishu_llm_ops/feishu_clean_message_plan.json",
+    "product_intel/output_feishu_llm_ops/feishu_clean_message_checklist.md"
+  ]
+}

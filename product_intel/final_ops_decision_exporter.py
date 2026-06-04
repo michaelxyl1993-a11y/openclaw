@@ -120,14 +120,24 @@ def build_recommended_today_plan(rows: list[dict[str, str]]) -> dict[str, Any]:
         for row in rows
         if row["final_ops_action"] in {"hold_for_evidence", "evidence_required", "not_ready"}
     ]
+    challenge_notes = [
+        {
+            "product_id": row["product_id"],
+            "product_name": row["product_name"],
+            "note": (
+                f"{row['product_id']}｜{row['product_name']}："
+                "规则建议 "
+                f"{row['rule_decision']}，但 LLM Judge challenge，需人工复核后再执行。"
+            ),
+        }
+        for row in rows
+        if row["llm_review_result"] == "challenge"
+    ]
     return {
         "today_executable_products": executable,
         "human_review_first_products": human_review,
         "hold_for_evidence_products": hold,
-        "manual_3_note": (
-            "manual-3｜手工桌面风扇：规则建议 main_push，但 LLM Judge challenge，"
-            "不能直接放大，必须先人工复核。"
-        ),
+        "challenge_notes": challenge_notes,
     }
 
 
@@ -155,9 +165,47 @@ def build_summary(rows: list[dict[str, str]]) -> dict[str, Any]:
     }
 
 
+def _summary_product_ids(summary: dict[str, Any]) -> set[str]:
+    product_ids: set[str] = set()
+    plan = summary.get("recommended_today_plan", {})
+    if isinstance(plan, dict):
+        for field in (
+            "today_executable_products",
+            "human_review_first_products",
+            "hold_for_evidence_products",
+            "challenge_notes",
+        ):
+            values = plan.get(field, [])
+            if isinstance(values, list):
+                for item in values:
+                    if isinstance(item, dict) and item.get("product_id"):
+                        product_ids.add(str(item["product_id"]))
+    challenges = summary.get("challenge_products", [])
+    if isinstance(challenges, list):
+        for item in challenges:
+            if isinstance(item, dict) and item.get("product_id"):
+                product_ids.add(str(item["product_id"]))
+    return product_ids
+
+
+def validate_summary_is_current(
+    rows: list[dict[str, str]], summary: dict[str, Any]
+) -> None:
+    current_product_ids = {str(row["product_id"]) for row in rows}
+    unknown = sorted(_summary_product_ids(summary) - current_product_ids)
+    if unknown:
+        raise ValueError(
+            "final ops summary contains stale product ids: " + ", ".join(unknown)
+        )
+    summary_text = json.dumps(summary, ensure_ascii=False)
+    stale_note_key = "manual" + "_3_note"
+    if stale_note_key in summary_text:
+        raise ValueError("final ops summary contains stale hardcoded challenge note.")
+
+
 def table_markdown(rows: list[dict[str, str]]) -> str:
     lines = [
-        "# Product Intel v1.11 Final Ops Decision Table",
+        "# Product Intel Final Ops Decision Table",
         "",
         "| 商品 ID | 商品名 | 来源 | 规则决策 | 分数 | LLM 复核 | 置信度 | 最终动作 | 优先级 | 原因 |",
         "| --- | --- | --- | --- | ---: | --- | --- | --- | --- | --- |",
@@ -175,7 +223,7 @@ def table_markdown(rows: list[dict[str, str]]) -> str:
 def summary_markdown(summary: dict[str, Any]) -> str:
     plan = summary["recommended_today_plan"]
     lines = [
-        "# Product Intel v1.11 Final Ops Action Summary",
+        "# Product Intel Final Ops Action Summary",
         "",
         "## 核心统计",
         "",
@@ -207,7 +255,14 @@ def summary_markdown(summary: dict[str, Any]) -> str:
         )
     if not plan["hold_for_evidence_products"]:
         lines.append("- 无")
-    lines.extend(["", "## 特殊说明", "", f"- {plan['manual_3_note']}", ""])
+    lines.extend(["", "## 特殊说明", ""])
+    challenge_notes = plan.get("challenge_notes", [])
+    if challenge_notes:
+        for item in challenge_notes:
+            lines.append(f"- {item['note']}")
+    else:
+        lines.append("- 无")
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -218,6 +273,7 @@ def write_outputs(
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     summary = build_summary(rows)
+    validate_summary_is_current(rows, summary)
     paths = {
         "final_table_csv": output / "final_ops_decision_table.csv",
         "final_table_md": output / "final_ops_decision_table.md",
@@ -255,4 +311,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

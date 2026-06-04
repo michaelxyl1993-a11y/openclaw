@@ -12,6 +12,7 @@ from .final_ops_decision_exporter import (
     build_final_rows,
     build_summary,
     load_review_rows,
+    summary_markdown,
     write_outputs,
 )
 
@@ -70,7 +71,54 @@ class FinalOpsDecisionExporterTest(unittest.TestCase):
         summary = build_summary(self.final_rows)
         self.assertEqual(summary["human_review_first_count"], 1)
         self.assertEqual(summary["challenge_products"][0]["product_id"], "manual-3")
-        self.assertIn("不能直接放大", summary["recommended_today_plan"]["manual_3_note"])
+        notes = summary["recommended_today_plan"]["challenge_notes"]
+        self.assertEqual(notes[0]["product_id"], "manual-3")
+        self.assertIn("LLM Judge challenge", notes[0]["note"])
+        self.assertNotIn("manual_3_note", summary)
+        self.assertNotIn("manual_3_note", summary["recommended_today_plan"])
+
+    def test_no_challenge_has_no_stale_manual_3_note(self) -> None:
+        rows = [
+            row
+            for row in self.final_rows
+            if row["product_id"].startswith(("echo-", "fm-"))
+            and row["llm_review_result"] != "challenge"
+        ]
+        summary = build_summary(rows)
+        text = summary_markdown(summary)
+        self.assertNotIn("manual-3", text)
+        self.assertNotIn("手工桌面风扇", text)
+        self.assertNotIn("manual_3_note", text)
+        self.assertIn("## 特殊说明", text)
+        self.assertIn("- 无", text)
+
+    def test_old_output_dir_does_not_pollute_new_summary(self) -> None:
+        rows = [
+            row
+            for row in self.final_rows
+            if row["product_id"].startswith(("echo-", "fm-"))
+            and row["llm_review_result"] != "challenge"
+        ]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            stale_json = Path(temp_dir) / "final_ops_action_summary.json"
+            stale_md = Path(temp_dir) / "final_ops_action_summary.md"
+            stale_json.write_text('{"manual_3_note":"manual-3"}', encoding="utf-8")
+            stale_md.write_text("manual-3 手工桌面风扇", encoding="utf-8")
+            paths, summary = write_outputs(rows, temp_dir)
+            new_json = paths["action_summary_json"].read_text(encoding="utf-8")
+            new_md = paths["action_summary_md"].read_text(encoding="utf-8")
+        self.assertNotIn("manual-3", new_json)
+        self.assertNotIn("手工桌面风扇", new_json)
+        self.assertNotIn("manual_3_note", new_json)
+        self.assertNotIn("manual-3", new_md)
+        self.assertNotIn("手工桌面风扇", new_md)
+        self.assertEqual(summary["challenge_products"], [])
+
+    def test_markdown_title_is_not_stale_v1_11(self) -> None:
+        summary = build_summary(self.final_rows)
+        text = summary_markdown(summary)
+        self.assertIn("# Product Intel Final Ops Action Summary", text)
+        self.assertNotIn("v1.11 Final Ops Action Summary", text)
 
     def test_exporter_has_no_openai_dependency(self) -> None:
         module_text = (PACKAGE_DIR / "final_ops_decision_exporter.py").read_text(encoding="utf-8")
@@ -104,4 +152,3 @@ class FinalOpsDecisionExporterTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
