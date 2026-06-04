@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import shlex
+from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -30,6 +31,15 @@ CSV_FIELDS = [
     "exists",
     "error",
 ]
+DOWNLOAD_ENDPOINT_TEMPLATE = "/open-apis/im/v1/messages/{message_id}/resources/{file_token}"
+DOWNLOAD_REQUEST_METHOD = "GET"
+DOWNLOAD_RESOURCE_TYPE = "file"
+INVALID_OPEN_MESSAGE_ID_CODE = "99992354"
+INVALID_OPEN_MESSAGE_ID_ROOT_CAUSE = "invalid_open_message_id"
+INVALID_OPEN_MESSAGE_ID_HINT = (
+    "Check whether runtime source message_id came from "
+    "event.message.message_id/open_message_id, not top-level event id or synthetic id."
+)
 
 
 def is_real_download_enabled(environ: Mapping[str, str] | None = None) -> bool:
@@ -109,6 +119,33 @@ def _token_context_from_mapping(payload: dict[str, Any]) -> dict[str, str]:
     return tokens_by_hash
 
 
+def _download_context_from_mapping(payload: dict[str, Any]) -> dict[str, dict[str, str]]:
+    mapping = payload.get("download_context_by_file_hash")
+    contexts: dict[str, dict[str, str]] = {}
+    if not isinstance(mapping, dict):
+        return contexts
+    for token_hash, context in mapping.items():
+        if not isinstance(context, dict):
+            continue
+        file_token = str(context.get("file_token", "")).strip()
+        message_id = str(context.get("message_id", "")).strip()
+        if not token_hash or not file_token or not message_id:
+            continue
+        if not message_id.startswith("om_"):
+            raise ValueError(
+                "Feishu multi-download blocked: per-file runtime source message_id must be open_message_id starting with om_."
+            )
+        contexts[str(token_hash)] = {
+            "file_token": file_token,
+            "message_id": message_id,
+            "message_id_source_path": str(
+                context.get("message_id_source_path", "")
+            ).strip(),
+            "source_event_path": str(context.get("source_event_path", "")).strip(),
+        }
+    return contexts
+
+
 def load_runtime_token_context(path: str | Path) -> dict[str, Any]:
     """Load sensitive tokens into memory only; callers must never serialize this."""
     source_path = Path(path)
@@ -117,12 +154,21 @@ def load_runtime_token_context(path: str | Path) -> dict[str, Any]:
             f"Feishu multi-download blocked: token source does not exist: {source_path}"
         )
     payload = json.loads(source_path.read_text(encoding="utf-8"))
-    message_id = str(payload.get("message_id", "")).strip() if isinstance(payload, dict) else ""
-    if not message_id:
+    if not isinstance(payload, dict):
+        raise ValueError("Feishu multi-download blocked: token source must be an object.")
+    per_file_context = _download_context_from_mapping(payload)
+    message_id = str(payload.get("message_id", "")).strip()
+    if message_id and not message_id.startswith("om_"):
         raise ValueError(
-            "Feishu multi-download blocked: runtime source must contain top-level message_id and tokens_by_hash."
+            "Feishu multi-download blocked: runtime source message_id must be open_message_id starting with om_."
+        )
+    if not message_id and not per_file_context:
+        raise ValueError(
+            "Feishu multi-download blocked: runtime source must contain top-level message_id or download_context_by_file_hash."
         )
     tokens_by_hash = _token_context_from_mapping(payload) if isinstance(payload, dict) else {}
+    for token_hash, context in per_file_context.items():
+        tokens_by_hash[token_hash] = context["file_token"]
     if not tokens_by_hash:
         for attachment in _attachment_list(payload):
             token = str(_first_non_empty(attachment, ("file_token", "token"))).strip()
@@ -132,7 +178,14 @@ def load_runtime_token_context(path: str | Path) -> dict[str, Any]:
         raise ValueError(
             "Feishu multi-download blocked: token source has no attachment tokens."
         )
-    return {"message_id": message_id, "tokens_by_hash": tokens_by_hash}
+    return {
+        "message_id": message_id,
+        "message_id_source_path": str(payload.get("message_id_source_path", "")).strip()
+        if isinstance(payload, dict)
+        else "",
+        "tokens_by_hash": tokens_by_hash,
+        "download_context_by_file_hash": per_file_context,
+    }
 
 
 def sanitize_error(error: Exception | str, secrets: Sequence[str]) -> str:
@@ -141,6 +194,77 @@ def sanitize_error(error: Exception | str, secrets: Sequence[str]) -> str:
         if secret:
             text = text.replace(secret, "[REDACTED]")
     return text
+
+
+def redact_identifier(value: str, label: str) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    return f"REDACTED_{label}:{hashlib.sha256(text.encode('utf-8')).hexdigest()[:16]}"
+
+
+def identifier_hash_prefix(value: str) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+
+class FeishuDownloadHTTPError(RuntimeError):
+    """Structured non-2xx Feishu attachment download response."""
+
+    def __init__(
+        self,
+        *,
+        response_status_code: int,
+        response_body: str,
+        response_content_type: str,
+        sensitive_values: Sequence[str] | None = None,
+        request_method: str = DOWNLOAD_REQUEST_METHOD,
+        request_endpoint_template: str = DOWNLOAD_ENDPOINT_TEMPLATE,
+        resource_type: str = DOWNLOAD_RESOURCE_TYPE,
+    ) -> None:
+        super().__init__(f"Feishu attachment download failed: status={response_status_code}.")
+        self.response_status_code = response_status_code
+        self.response_body = response_body
+        self.response_content_type = response_content_type
+        self.sensitive_values = list(sensitive_values or [])
+        self.request_method = request_method
+        self.request_endpoint_template = request_endpoint_template
+        self.resource_type = resource_type
+
+
+def apply_http_diagnostics(
+    result: dict[str, Any],
+    exc: FeishuDownloadHTTPError,
+    *,
+    secrets: Sequence[str],
+    message_id: str,
+    message_id_source_path: str = "",
+) -> None:
+    result.update(
+        {
+            "response_status_code": exc.response_status_code,
+            "response_body_sanitized": sanitize_error(
+                exc.response_body,
+                [*secrets, *exc.sensitive_values],
+            )[:2000],
+            "response_content_type": exc.response_content_type,
+            "request_method": exc.request_method,
+            "request_endpoint_template": exc.request_endpoint_template,
+            "resource_type": exc.resource_type,
+            "download_type": exc.resource_type,
+            "message_id_redacted": redact_identifier(message_id, "MESSAGE_ID"),
+            "message_id_hash_prefix": identifier_hash_prefix(message_id),
+            "message_id_len": len(str(message_id or "")),
+        }
+    )
+    if message_id_source_path:
+        result["message_id_source_path"] = message_id_source_path
+
+
+def response_indicates_invalid_open_message_id(text: str) -> bool:
+    return INVALID_OPEN_MESSAGE_ID_CODE in str(text or "")
 
 
 def _supported_tasks(plan: dict[str, Any]) -> list[dict[str, Any]]:
@@ -169,10 +293,21 @@ def _base_result(task: dict[str, Any], status: str = "disabled") -> dict[str, An
         "size_bytes_downloaded": 0,
         "exists": False,
         "error": None,
+        "message_id_hash_prefix": str(task.get("message_id_hash_prefix", "")),
+        "message_id_len": task.get("message_id_len", 0),
+        "message_id_source_path": str(task.get("message_id_source_path", "")),
+        "source_event_path": str(task.get("source_event_path", "")),
+        "used_per_file_message_context": False,
     }
 
 
 def _base_receipt(tasks: list[dict[str, Any]], enabled: bool) -> dict[str, Any]:
+    hash_counts = Counter(
+        str(task.get("message_id_hash_prefix", ""))
+        for task in tasks
+        if str(task.get("message_id_hash_prefix", ""))
+    )
+    repeated_count = sum(count - 1 for count in hash_counts.values() if count > 1)
     return {
         "mode": MODE,
         "real_download_enabled": enabled,
@@ -187,6 +322,11 @@ def _base_receipt(tasks: list[dict[str, Any]], enabled: bool) -> dict[str, Any]:
         "downloaded_input_files": [],
         "download_results": [_base_result(task) for task in tasks],
         "error": None,
+        "probable_root_cause": "",
+        "next_debug_hint": "",
+        "repeated_message_id_warning": repeated_count > 0,
+        "repeated_message_id_count": repeated_count,
+        "message_id_hash_prefix_counts": dict(sorted(hash_counts.items())),
     }
 
 
@@ -234,8 +374,11 @@ class FeishuMultiAttachmentDownloadClient:
             timeout=(5, 60),
         )
         if not (200 <= response.status_code < 300):
-            raise RuntimeError(
-                f"Feishu attachment download failed: status={response.status_code}."
+            raise FeishuDownloadHTTPError(
+                response_status_code=response.status_code,
+                response_body=response.text[:2000],
+                response_content_type=str(response.headers.get("Content-Type", "")),
+                sensitive_values=[access_token],
             )
         target = Path(target_path)
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -290,22 +433,64 @@ def run_multi_download(
             "Feishu multi-download blocked: runtime token source is required for real download.",
         )
     message_id = str(token_context.get("message_id", "")).strip()
+    message_id_source_path = str(token_context.get("message_id_source_path", "")).strip()
     tokens_by_hash = token_context.get("tokens_by_hash")
-    if not message_id or not isinstance(tokens_by_hash, dict):
+    per_file_context = token_context.get("download_context_by_file_hash")
+    if not isinstance(per_file_context, dict):
+        per_file_context = {}
+    if (not message_id and not per_file_context) or not isinstance(tokens_by_hash, dict):
         return _blocked_receipt(
             receipt,
             "Feishu multi-download blocked: runtime token source is invalid.",
         )
+    if message_id and not message_id.startswith("om_"):
+        receipt = _blocked_receipt(
+            receipt,
+            "Feishu multi-download blocked: runtime source message_id must be open_message_id starting with om_.",
+        )
+        receipt["probable_root_cause"] = INVALID_OPEN_MESSAGE_ID_ROOT_CAUSE
+        receipt["next_debug_hint"] = INVALID_OPEN_MESSAGE_ID_HINT
+        return receipt
 
     downloader = client or FeishuMultiAttachmentDownloadClient()
     results: list[dict[str, Any]] = []
     for task in tasks:
         result = _base_result(task, status="error")
         token_hash = str(task.get("file_token_hash", ""))
-        file_token = str(tokens_by_hash.get(token_hash, ""))
-        secrets = [app_id, app_secret, message_id, file_token]
+        context = per_file_context.get(token_hash)
+        used_per_file_context = isinstance(context, dict)
+        task_message_id = message_id
+        task_message_source_path = message_id_source_path
+        source_event_path = str(task.get("source_event_path", ""))
+        if used_per_file_context:
+            file_token = str(context.get("file_token", "")).strip()
+            task_message_id = str(context.get("message_id", "")).strip()
+            task_message_source_path = str(
+                context.get("message_id_source_path", "")
+            ).strip()
+            source_event_path = str(
+                context.get("source_event_path", source_event_path)
+            ).strip()
+        else:
+            file_token = str(tokens_by_hash.get(token_hash, ""))
+        result.update(
+            {
+                "message_id_hash_prefix": identifier_hash_prefix(task_message_id),
+                "message_id_len": len(str(task_message_id or "")),
+                "message_id_source_path": task_message_source_path,
+                "source_event_path": source_event_path,
+                "used_per_file_message_context": used_per_file_context,
+            }
+        )
+        secrets = [app_id, app_secret, task_message_id, file_token]
         if not file_token:
             result["error"] = "Feishu attachment token is unavailable for this task."
+            results.append(result)
+            continue
+        if not task_message_id or not task_message_id.startswith("om_"):
+            result["error"] = (
+                "Feishu attachment message_id is unavailable or not open_message_id."
+            )
             results.append(result)
             continue
 
@@ -315,7 +500,7 @@ def run_multi_download(
             downloader.download_file(
                 app_id=app_id,
                 app_secret=app_secret,
-                message_id=message_id,
+                message_id=task_message_id,
                 file_token=file_token,
                 target_path=result["target_path"],
             )
@@ -338,6 +523,18 @@ def run_multi_download(
                 }
             )
             receipt["downloaded_input_files"].append(str(path))
+        except FeishuDownloadHTTPError as exc:
+            result["error"] = sanitize_error(exc, secrets)
+            apply_http_diagnostics(
+                result,
+                exc,
+                secrets=secrets,
+                message_id=task_message_id,
+                message_id_source_path=task_message_source_path,
+            )
+            if response_indicates_invalid_open_message_id(exc.response_body):
+                receipt["probable_root_cause"] = INVALID_OPEN_MESSAGE_ID_ROOT_CAUSE
+                receipt["next_debug_hint"] = INVALID_OPEN_MESSAGE_ID_HINT
         except Exception as exc:
             result["error"] = sanitize_error(exc, secrets)
         results.append(result)
@@ -351,6 +548,17 @@ def run_multi_download(
     )
     receipt["disabled_count"] = 0
     receipt["real_download_performed"] = receipt["success_count"] > 0
+    result_hash_counts = Counter(
+        str(result.get("message_id_hash_prefix", ""))
+        for result in results
+        if str(result.get("message_id_hash_prefix", ""))
+    )
+    repeated_count = sum(
+        count - 1 for count in result_hash_counts.values() if count > 1
+    )
+    receipt["repeated_message_id_warning"] = repeated_count > 0
+    receipt["repeated_message_id_count"] = repeated_count
+    receipt["message_id_hash_prefix_counts"] = dict(sorted(result_hash_counts.items()))
     if receipt["success_count"] == len(tasks):
         receipt["download_status"] = "downloaded"
     elif receipt["success_count"] > 0:
@@ -403,6 +611,8 @@ def build_summary(receipt: dict[str, Any]) -> dict[str, Any]:
         "downloaded_input_files": inputs["downloaded_input_files"],
         "next_command": inputs["next_command"],
         "error": receipt["error"],
+        "probable_root_cause": receipt.get("probable_root_cause", ""),
+        "next_debug_hint": receipt.get("next_debug_hint", ""),
     }
 
 
@@ -434,6 +644,16 @@ def summary_markdown(summary: dict[str, Any]) -> str:
         lines.extend(["", "## 下一步", "", f"`{summary['next_command']}`"])
     if summary["error"]:
         lines.extend(["", "## 阻断原因", "", f"- {summary['error']}"])
+    if summary.get("probable_root_cause"):
+        lines.extend(
+            [
+                "",
+                "## 诊断提示",
+                "",
+                f"- probable_root_cause：{summary['probable_root_cause']}",
+                f"- next_debug_hint：{summary.get('next_debug_hint', '')}",
+            ]
+        )
     lines.append("")
     return "\n".join(lines)
 

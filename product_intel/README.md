@@ -1252,6 +1252,289 @@ python3 -m product_intel.feishu_multi_attachment_download_real \
   --output-dir product_intel/output_feishu_multi_attachment_download_real
 ```
 
+## v1.21.4 Feishu Open Message ID Validation
+
+v1.21.4 requires runtime token sources to use the Feishu `open_message_id` format.
+
+- `message_id` in `feishu_runtime_token_source.json` must start with `om_`.
+- Short local IDs, event IDs, timestamps, or hashes are rejected.
+- Runtime sources include `message_id_source_path` so the chosen ID path is auditable.
+- CLI summaries show only message presence, length, source path, and token hashes. They do not print the full message ID or raw tokens.
+
+Rebuild the runtime token source after a new callback capture:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_event.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+```
+
+## v1.21.5 Runtime Open Message ID Extraction
+
+v1.21.5 strengthens open message ID extraction for real multi-attachment download.
+
+- Runtime token sources must contain a `message_id` that starts with `om_`.
+- Candidate priority is `event.message.message_id`, `event.message.open_message_id`, `event.message_id`, `message.message_id`, `message.open_message_id`, `open_message_id`, then `message_id`.
+- If none of those paths contains an `om_` value, the builder recursively searches `message_id` and `open_message_id` keys.
+- Non-`om_` IDs are rejected and cannot be used for real download.
+
+Safe runtime source diagnostic:
+
+```bash
+python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path("product_intel/private_runtime/feishu_runtime_token_source.json")
+data = json.loads(p.read_text(encoding="utf-8"))
+message_id = str(data.get("message_id") or "")
+print({
+    "message_id_present": bool(message_id),
+    "message_id_startswith_om": message_id.startswith("om_"),
+    "message_id_len": len(message_id),
+    "token_source_count": len(data.get("tokens_by_hash") or {}),
+})
+PY
+```
+
+## v1.21.6 Open Message ID Candidate Diagnostics
+
+v1.21.6 adds safe candidate diagnostics for Feishu `open_message_id` selection.
+
+- The builder collects all `message_id`, `open_message_id`, and `open_id` string candidates.
+- Only `om_` candidates can be selected for real multi-attachment download.
+- Candidate summaries show path, length, `startswith_om`, and hash prefix only.
+- If Feishu returns `99992354`, the real downloader marks `probable_root_cause=invalid_open_message_id`.
+- Receipts keep request templates and sanitized response bodies without raw message IDs, raw file tokens, app secrets, or tenant tokens.
+
+Inspect a captured event without printing raw tokens or full message IDs:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --inspect-event product_intel/private_runtime/feishu_latest_attachment_event.json
+```
+
+Rebuild the private runtime source:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_event.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+```
+
+Rerun real download:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --runtime-token-source product_intel/private_runtime/feishu_runtime_token_source.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
+## v1.21.7 Raw-enriched Callback Capture
+
+v1.21.7 changes the Product Intel Feishu callback capture so the latest private event preserves the raw Feishu callback shape.
+
+- `product_intel/private_runtime/feishu_latest_attachment_event.json` now stores a raw-enriched event, not only a compact normalized event.
+- Raw-enriched events preserve `header`, `event.sender`, `event.message`, `event.message.content`, and message fields available from Feishu.
+- The capture still adds `normalized_attachments` for builder/download use.
+- Compact event archives are still written as `<timestamp>_<hash>_compact_event.json`.
+- Raw event archives are written as `<timestamp>_<hash>_raw_event.json`.
+- The builder can read `normalized_attachments`, direct `attachments/files`, or file metadata parsed from `event.message.content`.
+- Callback stdout uses hashes for message/chat identifiers and does not print raw file tokens.
+
+After deploying this change, restart the Product Intel Feishu callback service, send a new message with attachments, and inspect the latest event:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --inspect-event product_intel/private_runtime/feishu_latest_attachment_event.json
+```
+
+Expected safe diagnostic fields:
+
+- `raw_event_detected=true`
+- `has_event_message=true`
+- `selected_message_id_source_path=event.message.message_id` or `event.message.open_message_id`
+- `normalized_attachment_count` greater than zero
+
+Then rebuild the private runtime source and run real download:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_event.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --runtime-token-source product_intel/private_runtime/feishu_runtime_token_source.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
+## v1.21.8 Multi-file Content Attachment Parsing
+
+v1.21.8 strengthens Feishu raw event attachment parsing for messages whose files are embedded inside `event.message.content`.
+
+- The builder and dry-run planner recursively scan content JSON for file objects.
+- A file object is any object with `file_key` / `file_token` / `token` plus `file_name` / `filename` / `name`.
+- Multiple file objects are preserved in original order.
+- Duplicate files are deduped by token hash first, then filename.
+- Missing size is allowed for supported `.csv` / `.xlsx` / `.xls` files.
+- Dry-run output includes `size_unknown` and `size_unknown_count`.
+- `ready_for_real_download` is not blocked by unknown size when the token and supported filename are present.
+
+Inspect latest raw event:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --inspect-event product_intel/private_runtime/feishu_latest_attachment_event.json
+```
+
+Run dry-run from the raw event:
+
+```bash
+python3 -m product_intel.feishu_multi_attachment_dry_run \
+  --attachments-json product_intel/private_runtime/feishu_latest_attachment_event.json \
+  --output-dir product_intel/output_feishu_multi_attachment_dry_run
+```
+
+Then rebuild runtime source and download:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_event.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --runtime-token-source product_intel/private_runtime/feishu_runtime_token_source.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
+## v1.21.9 Raw Capture Verifier
+
+v1.21.9 adds a raw-vs-compact capture diagnostic layer for Product Intel Feishu callbacks.
+
+- The callback archives the HTTP request JSON body before compact normalization.
+- HTTP raw archives are written as `<timestamp>_<hash>_http_raw_event.json`.
+- The latest event remains raw-enriched and is not overwritten by compact events.
+- Compact archives are still written as `<timestamp>_<hash>_compact_event.json`.
+- Inspect output reports raw shape fields such as `has_header`, `has_schema`, `has_event`, `has_event_message`, and key samples.
+- `feishu_callback_capture_verifier` determines whether the captured event can be used for real download.
+- The verifier never prints raw file tokens or full message IDs.
+
+Verify latest captured event:
+
+```bash
+python3 -m product_intel.feishu_callback_capture_verifier \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_event.json
+```
+
+The event is valid for real download only when:
+
+- selected message ID starts with `om_`
+- selected message ID length is at least 30
+- selected source path is `event.message.message_id` or `event.message.open_message_id`
+- normalized attachment count is at least 1
+
+If the selected message ID is too short, the verifier reports:
+
+```text
+required_next_action=callback_raw_capture_missing_real_open_message_id
+```
+
+## v1.21.10 Multi Raw Event Batch
+
+v1.21.10 handles the case where Feishu emits one valid raw event per uploaded file.
+
+- It builds a private attachment batch from multiple recent valid raw events.
+- Each attachment keeps its own `message_id` and `file_token` in `product_intel/private_runtime/`.
+- Dry-run plans carry only token hashes and message ID diagnostics.
+- Real download uses per-file message context when available.
+- Compact events with short message IDs are ignored for download batches.
+- No raw file token or full message ID is printed to stdout or written outside private runtime.
+
+v1.21.11 tightens batch selection:
+
+- Default strict mode only uses valid single-attachment raw events.
+- Multi-attachment raw events are counted for diagnostics but ignored unless explicitly allowed.
+- Compact events are ignored unless explicitly allowed and verifier-valid.
+- The batch reports `batch_selection_strategy`, single/multi event counts, selected source paths, and repeated message ID warnings.
+- If multiple attachments share one message ID, real download receipts report `repeated_message_id_warning`.
+
+v1.21.12 adds a real-download validation probe:
+
+- The probe tests candidate `file_token` + `message_id` pairs with the Feishu download API.
+- Validated pairs are written only to `product_intel/private_runtime/feishu_validated_download_pairs.json`.
+- Stdout reports only counts, filenames, and safe paths.
+- Batch builder can use `--validated-pairs` to avoid static token/message pairing guesses.
+
+Probe candidate pairs:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_attachment_download_probe \
+  --events-dir product_intel/private_runtime/feishu_events \
+  --lookback-seconds 300 \
+  --output product_intel/private_runtime/feishu_validated_download_pairs.json
+```
+
+Build batch from validated pairs:
+
+```bash
+python3 -m product_intel.feishu_attachment_event_batch_builder \
+  --events-dir product_intel/private_runtime/feishu_events \
+  --lookback-seconds 300 \
+  --validated-pairs product_intel/private_runtime/feishu_validated_download_pairs.json \
+  --output product_intel/private_runtime/feishu_latest_attachment_batch.json
+```
+
+Build the latest private batch:
+
+```bash
+python3 -m product_intel.feishu_attachment_event_batch_builder \
+  --events-dir product_intel/private_runtime/feishu_events \
+  --lookback-seconds 300 \
+  --output product_intel/private_runtime/feishu_latest_attachment_batch.json
+```
+
+Create dry-run plan from the batch:
+
+```bash
+python3 -m product_intel.feishu_multi_attachment_dry_run \
+  --attachments-json product_intel/private_runtime/feishu_latest_attachment_batch.json \
+  --output-dir product_intel/output_feishu_multi_attachment_dry_run
+```
+
+Build private runtime token source from the batch:
+
+```bash
+python3 -m product_intel.feishu_runtime_token_source_builder \
+  --event-json product_intel/private_runtime/feishu_latest_attachment_batch.json \
+  --output product_intel/private_runtime/feishu_runtime_token_source.json
+```
+
+Run real download after explicitly enabling it:
+
+```bash
+PRODUCT_INTEL_REAL_FEISHU_MULTI_DOWNLOAD_ENABLED=true \
+FEISHU_APP_ID="$FEISHU_APP_ID" \
+FEISHU_APP_SECRET="$FEISHU_APP_SECRET" \
+python3 -m product_intel.feishu_multi_attachment_download_real \
+  --download-plan product_intel/output_feishu_multi_attachment_dry_run/feishu_multi_attachment_download_plan.json \
+  --runtime-token-source product_intel/private_runtime/feishu_runtime_token_source.json \
+  --output-dir product_intel/output_feishu_multi_attachment_download_real
+```
+
 ## Run
 
 From `/Users/michaelchui/Desktop/openclaw_tools`:
